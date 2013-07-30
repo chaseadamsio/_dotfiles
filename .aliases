@@ -11,6 +11,7 @@ alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/Projects"
+alias ehosts='sudo vi /etc/hosts'
 alias g="git"
 alias h="history"
 alias j="jobs"
@@ -19,6 +20,23 @@ alias m="mate ."
 alias s="subl ."
 alias o="open"
 alias oo="open ."
+
+alias web="cd ~/web"
+alias sites="cd ~/web/sites"
+alias apps="cd ~/web/apps/"
+alias sandbox="cd ~/web/sandbox/"
+
+alias pp='python -mjson.tool'
+alias grep='grep --color=auto'
+alias ggrep='grep -r '
+
+# Git
+alias gs='git status'
+alias gd='git diff'
+alias gl='git log'
+alias gc='git commit'
+alias gitclean='git checkout -f --'
+alias gitdirty='git reset --hard'
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -61,3 +79,13 @@ alias spoton="sudo mdutil -a -i on"
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
+
+# Because it's more fun this way
+alias rtfm='man'
+
+alias rbash='. ~/.bash_profile'
+alias ebash='vi ~/.bash_profile'
+
+#`cat` with beautiful colors. requires Pygments installed.
+#                  sudo easy_install Pygments
+alias c='pygmentize -O style=monokai -f console256 -g

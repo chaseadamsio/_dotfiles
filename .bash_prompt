@@ -1,0 +1,12 @@
+# Make that Command Prompt look good
+export GIT_PS1_SHOWDIRTYSTATE=true
+export GIT_PS1_SHOWSTASHSTATE=true
+export GIT_PS1_SHOWUNTRACKEDFILES=true
+usrcolor='\e[0;31m'
+dircolor='\e[m:\e[1;34m'
+gitcolor='\e[1;32m'
+closer='\e[m'
+gitstatus='$(__git_ps1 " %s")'
+
+PS1="[\[$usrcolor\]\u\[$dircolor\]\w\[$closer\]]\[$gitcolor\]\[$gitstatus\]\[$closer\]\n> "
+

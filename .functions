@@ -58,6 +58,10 @@ if [ $? -eq 0 ]; then
   }
 fi
 
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+    . `brew --prefix`/etc/bash_completion
+fi
+
 # Create a git.io short URL
 function gitio() {
   if [ -z "${1}" -o -z "${2}" ]; then
