@@ -1,6 +1,10 @@
 # Add `~/bin` and `/usr/local/bin` to the `$PATH`
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
 
+if [ -f $HOME/bin/profile.bashrc ]; then
+  source "$HOME/bin/profile.bashrc"
+fi
+
 source ~/.git-prompt.sh
 
 [[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh" # This loads NVM
