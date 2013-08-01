@@ -1,4 +1,3 @@
-source ~/.git-prompt.sh
 # Make that Command Prompt look good
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWSTASHSTATE=true
