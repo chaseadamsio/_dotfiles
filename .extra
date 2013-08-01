@@ -2,3 +2,9 @@ alias sandbox="cd $HOME/web/sandbox/"
 alias apps="cd $HOME/web/apps/"
 alias sites="cd $HOME/web/sites/"
 alias rca="cd $HOME/web/sites/realchaseadams/"
+
+function rcabootstrap() {
+  rca;
+  subl rca.sublime-project;
+  jekyll server --watch --config _config.yml,_config_dev.yml --drafts
+}

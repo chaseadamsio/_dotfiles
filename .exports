@@ -21,3 +21,7 @@ export GREP_OPTIONS="--color=auto"
 
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# ZOMG Colors!
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagacad
