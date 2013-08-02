@@ -58,7 +58,8 @@ if [ $? -eq 0 ]; then
   }
 fi
 
-if [ -f `brew --prefix`/etc/bash_completion ]; then
+
+if [ `uname` == 'Darwin' ] && [ -f `brew --prefix`/etc/bash_completion ]; then
     . `brew --prefix`/etc/bash_completion
 fi
 
