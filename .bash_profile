@@ -5,7 +5,9 @@ if [ -f $HOME/bin/profile.bashrc ]; then
   source "$HOME/bin/profile.bashrc"
 fi
 
-source ~/.git-prompt.sh
+if [ -f $HOME/bin/.git-prompt.sh ]; then
+  source $HOME/bin/.git-prompt.sh
+fi
 
 [[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh" # This loads NVM
 
