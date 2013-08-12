@@ -11,6 +11,8 @@ alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias p="cd ~/Projects"
+alias embark="cd ~/Projects/embark"
+alias dotfiles="cd ~/Projects/embark/configs/dotfiles"
 alias ehosts='sudo vi /etc/hosts'
 alias g="git"
 alias h="history"
@@ -20,6 +22,7 @@ alias m="mate ."
 alias s="subl ."
 alias o="open"
 alias oo="open ."
+alias cl="clear"
 
 alias web="cd ~/web"
 alias sites="cd ~/web/sites"
@@ -84,7 +87,8 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 alias rtfm='man'
 
 alias rbash='. ~/.bash_profile'
-alias ebash='vi ~/.bash_profile'
+alias ebash='s ~/.bash_profile'
+alias pbash='s ~/bin/profile.bashrc'
 
 #`cat` with beautiful colors. requires Pygments installed.
 #                  sudo easy_install Pygments

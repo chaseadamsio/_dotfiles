@@ -1,11 +1,12 @@
 # Add `~/bin` and `/usr/local/bin` to the `$PATH`
-export PATH="$HOME/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/bin:/usr/local/bin:/usr/local:$PATH"
 
 if [ -f $HOME/bin/profile.bashrc ]; then
   source "$HOME/bin/profile.bashrc"
 fi
 
 source ~/.git-prompt.sh
+source ~/bin/git-completion.bash
 
 [[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh" # This loads NVM
 
@@ -21,7 +22,7 @@ source ~/.git-prompt.sh
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/Projects/dotfiles/.{path,bash_prompt,exports,aliases,functions,extra}; do
+for file in ~/Projects/embark/configs/dotfiles/.{path,bash_prompt,exports,aliases,functions,extra}; do
   [ -r "$file" ] && source "$file"
 done
 unset file
