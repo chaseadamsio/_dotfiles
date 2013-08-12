@@ -5,12 +5,14 @@ if [ -f $HOME/bin/profile.bashrc ]; then
   source "$HOME/bin/profile.bashrc"
 fi
 
-source ~/.git-prompt.sh
-source ~/bin/git-completion.bash
+for file in ~/bin/{.git-prompt.sh,git-completion.bash}; do
+  [ -r "$file" ] && source "$file"
+done
+unset file
 
 [[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh" # This loads NVM
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
+[[ -r "$HOME/.rvm/scripts/rvm" ]] && [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm" # Load RVM function
 
 # Attribute codes:
 # 00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
