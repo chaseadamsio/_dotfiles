@@ -1,3 +1,4 @@
+#!/bin/bash
 # Create a new directory and enter it
 function md() {
   mkdir -p "$@" && cd "$@"
@@ -105,4 +106,14 @@ function json() {
 function gi() {
   local IFS=,
   eval npm install --save-dev grunt-{"$*"}
+}
+
+function finderHideTogg() {
+  if [ `defaults read com.apple.finder AppleShowAllFiles` == true ]; then
+    `defaults write com.apple.finder AppleShowAllFiles false`;
+  else
+    `defaults write com.apple.finder AppleShowAllFiles true`;
+  fi
+
+  `killall Finder`;
 }
