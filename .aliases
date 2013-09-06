@@ -14,9 +14,7 @@ alias p="cd ~/Projects"
 alias ehosts='sudo vi /etc/hosts'
 alias g="git"
 alias h="history"
-alias j="jobs"
 alias v="vim"
-alias m="mate ."
 alias s="subl ."
 alias o="open"
 alias oo="open ."
@@ -28,7 +26,6 @@ alias sandbox="cd ~/web/sandbox/"
 
 alias pp='python -mjson.tool'
 alias grep='grep --color=auto'
-alias ggrep='grep -r '
 
 # Git
 alias gs='git status'
