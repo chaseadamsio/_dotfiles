@@ -1,13 +1,14 @@
 # Add `~/bin` and `/usr/local/bin` to the `$PATH`
-export PATH="$HOME/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/bin:/usr/local/bin:/usr/local:$PATH"
 
 if [ -f $HOME/bin/profile.bashrc ]; then
   source "$HOME/bin/profile.bashrc"
 fi
 
-if [ -f $HOME/bin/.git-prompt.sh ]; then
-  source $HOME/bin/.git-prompt.sh
-fi
+for file in ~/bin/{.git-prompt.sh,git-completion.bash}; do
+  [ -r "$file" ] && source "$file"
+done
+unset file
 
 [[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh" # This loads NVM
 
