@@ -1,5 +1,9 @@
 # Add `~/bin` and `/usr/local/bin` to the `$PATH`
-export PATH="$HOME/bin:/usr/local/bin:/usr/local:$PATH"
+export PATH="$HOME/bin:/usr/local/bin:/usr/local:/usr/local/lode:$PATH"
+
+# For lode
+export ANT_OPTS='-Dhappytrails.platform.override=RHEL5 -Dhappytrails.root=/usr/local/lode/ZapposEaseOfDevelopment/happytrails -Xmx500M'
+launchctl setenv ANT_OPTS "$ANT_OPTS"
 
 if [ -f $HOME/bin/profile.bashrc ]; then
   source "$HOME/bin/profile.bashrc"
@@ -47,3 +51,6 @@ complete -W "NSGlobalDomain" defaults
 
 # Add `killall` tab completion for common apps
 complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall
+
+alias startnginx="sudo /usr/local/nginx/sbin/nginx"
+alias stopnginx="sudo /usr/local/nginx/sbin/nginx -s stop"

@@ -13,7 +13,11 @@ alias dt="cd ~/Desktop"
 alias p="cd ~/Projects"
 alias embark="cd ~/Projects/embark"
 alias dotfiles="cd ~/Projects/embark/configs/dotfiles"
+<<<<<<< Updated upstream
 alias sdots="subl ~/Projects/embark/configs/dotfiles"
+=======
+alias ealias="subl ~/Projects/embark/configs/dotfiles/.aliases"
+>>>>>>> Stashed changes
 alias ehosts='sudo vi /etc/hosts'
 alias g="git"
 alias h="history"
@@ -27,6 +31,7 @@ alias web="cd ~/web"
 alias sites="cd ~/web/sites"
 alias apps="cd ~/web/apps/"
 alias sandbox="cd ~/web/sandbox/"
+alias temp="cd ~/web/sandbox/temp/; subl ."
 
 alias pp='python -mjson.tool'
 alias grep='grep --color=auto'
