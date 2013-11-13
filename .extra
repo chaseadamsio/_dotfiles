@@ -3,6 +3,7 @@ alias sandbox="cd $HOME/web/sandbox/"
 alias apps="cd $HOME/web/apps/"
 alias sites="cd $HOME/web/sites/"
 alias rca="cd $HOME/web/sites/realchaseadams/"
+alias srca="subl $HOME/web/sites/realchaseadams/rca.sublime-workspace"
 
 function rcabootstrap() {
   rca;

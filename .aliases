@@ -13,6 +13,7 @@ alias dt="cd ~/Desktop"
 alias p="cd ~/Projects"
 alias embark="cd ~/Projects/embark"
 alias dotfiles="cd ~/Projects/embark/configs/dotfiles"
+alias sdots="subl ~/Projects/embark/configs/dotfiles"
 alias ehosts='sudo vi /etc/hosts'
 alias g="git"
 alias h="history"
@@ -39,6 +40,8 @@ alias gc='git commit'
 alias gp='git push'
 alias gitclean='git checkout -f --'
 alias gitdirty='git reset --hard'
+
+alias gr='grunt'
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
