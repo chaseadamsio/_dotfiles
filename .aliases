@@ -13,11 +13,8 @@ alias dt="cd ~/Desktop"
 alias p="cd ~/Projects"
 alias embark="cd ~/Projects/embark"
 alias dotfiles="cd ~/Projects/embark/configs/dotfiles"
-<<<<<<< Updated upstream
 alias sdots="subl ~/Projects/embark/configs/dotfiles"
-=======
 alias ealias="subl ~/Projects/embark/configs/dotfiles/.aliases"
->>>>>>> Stashed changes
 alias ehosts='sudo vi /etc/hosts'
 alias g="git"
 alias h="history"
