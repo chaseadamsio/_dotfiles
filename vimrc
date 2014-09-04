@@ -110,7 +110,10 @@ endif
 " == INSERT MODE ========================================== 
 " Delete the current line
 :imap <c-d> <esc>ddi
+" UPPERCASE entire word
 :imap <c-u> <esc>veUi
+" paste below current line and focus at the end of paste
+:imap <c-p> <esc>o<esc>p}i
 
 " == NORMAL MODE ========================================== 
 " UPPERCASE entire word
