@@ -101,3 +101,17 @@ if has("autocmd")
 	" Treat .md files as Markdown
 	autocmd BufNewFile,BufRead *.md setlocal filetype=markdown
 endif
+
+" delete a line with -
+:map - dd
+" copy a line with the space bar
+:map <space> yy
+
+" == INSERT MODE ========================================== 
+" Delete the current line
+:imap <c-d> <esc>ddi
+:imap <c-u> <esc>veUi
+
+" == NORMAL MODE ========================================== 
+" UPPERCASE entire word
+:nmap <c-u> <esc>veU<esc>
