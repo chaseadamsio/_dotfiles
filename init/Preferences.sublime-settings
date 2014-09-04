@@ -1,0 +1,29 @@
+{
+	"animation_enabled": false,
+	"color_scheme": "Packages/Theme - Flatland/Flatland Monokai.tmTheme",
+	"detect_indentation": false,
+	"flatland_square_tabs": true,
+	"folder_exclude_patterns":
+	[
+		"node_modules",
+		"public"
+	],
+	"font_size": 10,
+	"ignored_packages":
+	[
+	],
+	"line_padding_bottom": 1.5,
+	"line_padding_top": 1.5,
+	"rulers":
+	[
+		80
+	],
+	"show_full_path": true,
+	"tab_size": 2,
+	"theme": "Flatland Dark.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true,
+	"vintage_start_in_command_mode": true,
+	"word_wrap": false
+}
+
