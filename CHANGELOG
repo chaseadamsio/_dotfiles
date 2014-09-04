@@ -1,16 +1,20 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## 1.0.0 - 2014-09-05
+## Unreleased
 
 ### Added
-- CHANGELOG (From [Keep A CHANGELOG](http://keepachangelog.com/) recommendation)
+- Created a CHANGELOG (From [Keep A CHANGELOG](http://keepachangelog.com/) recommendation)
+- vimrc contents for better vim setup
 
 ### Deprecated
-= Nothing.
+- Nothing.
 
 ### Removed
-= Nothing.
+- Nothing.
 
 ### Fixed
-= Nothing.
+- Changed all file names from `.*` to `*`
+
+### Security
+- Nothing.
