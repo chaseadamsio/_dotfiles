@@ -1,12 +1,14 @@
 #!/bin/bash
-alias sandbox="cd $HOME/web/sandbox/"
-alias apps="cd $HOME/web/apps/"
-alias sites="cd $HOME/web/sites/"
-alias rca="cd $HOME/web/sites/realchaseadams/"
-alias srca="subl $HOME/web/sites/realchaseadams/rca.sublime-workspace"
+shopt -s nocaseglob # Case-insensitive globbing (used in pathname expansion)
+shopt -s histappend # Append to the Bash history file, rather than overwriting it
+shopt -s cdspell    # Autocorrect typos in path names when using `cd`
 
-function rcabootstrap() {
-  rca;
-  subl rca.sublime-project;
-  jekyll server --watch --config _config.yml,_config_dev.yml --drafts
-}
+# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
+[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2 | tr ' ' '\n')" scp sftp ssh
+
+# Add tab completion for `defaults read|write NSGlobalDomain`
+# You could just use `-g` instead, but I like being explicit
+complete -W "NSGlobalDomain" defaults
+
+# Add `killall` tab completion for common apps
+complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes SystemUIServer Terminal Twitter" killall

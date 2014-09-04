@@ -1,12 +1,7 @@
 #!/bin/bash
-# Create a new directory and enter it
+# Create a new directory and change to it
 function md() {
   mkdir -p "$@" && cd "$@"
-}
-
-# Change working directory to the top-most Finder window location
-function cdf() { # short for `cdfinder`
-  cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
 }
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
@@ -59,19 +54,9 @@ if [ $? -eq 0 ]; then
   }
 fi
 
-
 if [ `uname` == 'Darwin' ] && [ -f `brew --prefix`/etc/bash_completion ]; then
     . `brew --prefix`/etc/bash_completion
 fi
-
-# Create a git.io short URL
-function gitio() {
-  if [ -z "${1}" -o -z "${2}" ]; then
-    echo "Usage: \`gitio slug url\`"
-    return 1
-  fi
-  curl -i http://git.io/ -F "url=${2}" -F "code=${1}"
-}
 
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
@@ -99,21 +84,4 @@ function json() {
   else # pipe
     python -mjson.tool | pygmentize -l javascript
   fi
-}
-
-# Install Grunt plugins and add them as `devDependencies` to `package.json`
-# Usage: `gi contrib-watch contrib-uglify zopfli`
-function gi() {
-  local IFS=,
-  eval npm install --save-dev grunt-{"$*"}
-}
-
-function finderHideTogg() {
-  if [ `defaults read com.apple.finder AppleShowAllFiles` == true ]; then
-    `defaults write com.apple.finder AppleShowAllFiles false`;
-  else
-    `defaults write com.apple.finder AppleShowAllFiles true`;
-  fi
-
-  `killall Finder`;
 }
