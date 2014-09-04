@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# ~/.osx — http://mths.be/osx
-
 # Ask for the administrator password upfront
 sudo -v
 
@@ -13,10 +11,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-sudo scutil --set ComputerName "MathBook Pro"
-sudo scutil --set HostName "MathBook Pro"
-sudo scutil --set LocalHostName "MathBook-Pro"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "MathBook-Pro"
+sudo scutil --set ComputerName "Macbook Pro"
+sudo scutil --set HostName "Macbook Pro"
+sudo scutil --set LocalHostName "Macbook-Pro"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "Macbook-Pro"
 
 # Set standby delay to 24 hours (default is 1 hour)
 sudo pmset -a standbydelay 86400
@@ -428,25 +426,6 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
 ###############################################################################
-# iTunes (pre-iTunes 11 only)                                                 #
-###############################################################################
-
-# Disable the iTunes store link arrows
-defaults write com.apple.iTunes show-store-link-arrows -bool false
-
-# Disable the Genius sidebar in iTunes
-defaults write com.apple.iTunes disableGeniusSidebar -bool true
-
-# Disable radio stations in iTunes
-defaults write com.apple.iTunes disableRadio -bool true
-
-# Make ⌘ + F focus the search input in iTunes
-# To use these commands in another language, browse iTunes’s package contents,
-# open `Contents/Resources/your-language.lproj/Localizable.strings`, and look
-# for `kHiddenMenuItemTargetSearch`.
-defaults write com.apple.iTunes NSUserKeyEquivalents -dict-add "Target Search Field" "@F"
-
-###############################################################################
 # Mail                                                                        #
 ###############################################################################
 
@@ -501,12 +480,6 @@ sudo mdutil -E /
 
 # Only use UTF-8 in Terminal.app
 defaults write com.apple.terminal StringEncodings -array 4
-
-# Use a modified version of the Pro theme by default in Terminal.app
-open "$HOME/init/Mathias.terminal"
-sleep 1 # Wait a bit to make sure the theme is loaded
-defaults write com.apple.terminal "Default Window Settings" -string "Mathias"
-defaults write com.apple.terminal "Startup Window Settings" -string "Mathias"
 
 # Enable “focus follows mouse” for Terminal.app and all X11 apps
 # i.e. hover over a window and start typing in it without clicking first
