@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Created a CHANGELOG (From [Keep A CHANGELOG](http://keepachangelog.com/) recommendation)
 - vimrc contents for better vim setup
+- go exports for src and bin
+- go aliases for changing directories
 
 ### Deprecated
 - Nothing.
