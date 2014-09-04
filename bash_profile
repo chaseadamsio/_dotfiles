@@ -6,8 +6,8 @@
 # This file is a thin bootstrap to source all the other dotfiles
 
 # For shell scripting unique to each particular box
-if [ -f $HOME/bin/.local ]; then
-  source "$HOME/bin/.local"
+if [ -f $HOME/bin/.localrc ]; then
+  source "$HOME/bin/.localrc"
 fi
 
 # Load the shell dotfiles, and then some
