@@ -26,3 +26,8 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 # ZOMG Colors!
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagacad
+
+# Necessary for go
+export GOROOT=$HOME/go
+export PATH=$PATH:$GOROOT/bin
+

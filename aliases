@@ -11,6 +11,13 @@ alias dl="cd $HOME/Downloads"
 alias dt="cd $HOME/Desktop"
 alias ws="cd $HOME/ws"
 
+# Convenience helpers for go paths
+alias goroot="cd $GOROOT"
+alias gort="goroot"
+alias gosrc="cd $GOROOT/src"
+alias gogit="cd $GOROOT/src/github.com"
+alias gorca="cd $GOROOT/src/github.com/realchaseadams"
+
 # Editors
 alias v="vim"
 alias s="subl ."
