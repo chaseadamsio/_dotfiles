@@ -9,7 +9,16 @@ alias .....="cd ../../../.."
 alias d="cd $HOME/Documents/Dropbox"
 alias dl="cd $HOME/Downloads"
 alias dt="cd $HOME/Desktop"
-alias ws="cd $HOME/ws"
+alias tmp="cd $HOME/tmp"
+
+# Workspace
+export WSPATH="$HOME/workspace"
+alias workspace="cd $WSPATH"
+alias ws="workspace"
+
+# realchaseadams workspace aliases
+alias rcaspace="cd $WSPATH/hugo.realchaseadams"
+alias rcacontent="cd $WSPATH/hugo.realchaseadams/content"
 
 # Convenience helpers for go paths
 alias goroot="cd $GOROOT"
@@ -79,6 +88,8 @@ alias spoton="sudo mdutil -a -i on"
 alias rbash='. $HOME/.bash_profile'       # Source the bash profile
 alias ebash='$EDITOR $HOME/.bash_profile' # Open bash profile with default editor
 alias lbash='$EDITOR $HOME/bin/.local'    # Open local profile with default editor
+alias abash='$EDITOR $HOME/bin/dotfiles/aliases' # Open aliases
+alias vbash='$EDITOR $HOME/.vimrc'
 
 # nginx
 alias startnginx="sudo /usr/local/nginx/sbin/nginx"
