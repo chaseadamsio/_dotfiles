@@ -3,8 +3,9 @@ filetype plugin indent on
 
 " Basic Settings ---------------------------------------------------------- {{{
 " Use the Solarized Dark theme
-set background=dark
+colorscheme monokai
 set nowrap
+highlight ColorColumn ctermbg=magenta
 set colorcolumn=80
 " Enable line numbers
 set number
@@ -42,8 +43,6 @@ set exrc
 set secure
 " Make tabs as wide as two spaces
 set tabstop=2
-" Show “invisible” characters
-set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
 " Highlight searches
 set hlsearch
@@ -104,6 +103,9 @@ set backupskip=/tmp/*,/private/tmp/*
 :inoremap <c-u> <esc>veUi
 " paste below current line and focus at the end of paste
 :inoremap <c-p> <esc>o<esc>p}i
+" map jk to esc
+:inoremap jk <esc>
+" }}}
 
 " Normal Remaps ----------------------------------------------------------- {{{
 " Go to the beginning of the word and UPPERCASE entire word
@@ -169,8 +171,12 @@ endif
 
 " Markdown file settings -------------------------------------------------- {{{
 :augroup filetype_md
+:autocmd FileType markdown set background=light
+:autocmd FileType markdown colorscheme pencil
 :autocmd BufWritePre,BufRead *.md setlocal wrap
-:autocmd BufWritePre,BufRead *.md setlocal background=light
+" Word wraps hard at 80 characters
+:autocmd BufWritePre,BufRead *.md setlocal formatoptions+=w
+:autocmd BufWritePre,BufRead *.md setlocal tw=80
 :autocmd FileType markdown :iabbrev <buffer> --- &mdash;
 :augroup END
 " }}}
