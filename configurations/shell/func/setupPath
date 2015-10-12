@@ -1,0 +1,12 @@
+#!/bin/bash
+
+setupPath() {
+  source $CONFIG_ROOT/paths
+
+  for p in ${PATHS_TO_ADD[@]}
+  do
+    if [[ ":$PATH:" != *$p* ]]; then
+      export PATH=$p:$PATH
+    fi
+  done
+}

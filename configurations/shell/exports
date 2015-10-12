@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# roots
+export DOTFILES_ROOT="$HOME/Projects/dotfiles"
+export CONFIG_ROOT="$DOTFILES_ROOT/configurations/shell"
+
+# Setup PATH
+source $CONFIG_ROOT/func/setupPath
+setupPath
+
+# Setup NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+# Larger bash history & fine tuning results
+export HISTSIZE=32768
+export HISTFILESIZE=$HISTSIZE
+export HISTCONTROL=ignoredups
+export HISTIGNORE="-:pwd:exit:date:* --help"
+
+# Prefer US English & use UTF-8
+export LANG="en_US"
+export LC_ALL="en_US.UTF-8"
+
+# Always enable colored `grep` output
+export GREP_OPTIONS="--color=auto"
+
+# CLI colors
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagacad

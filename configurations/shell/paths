@@ -1,0 +1,14 @@
+#!/bin/bash
+
+PATHS_TO_ADD=(
+"/usr/local/go/bin"
+"$HOME/.npm-packages/bin"
+"$HOME/bin"
+"sbin"
+"/usr/sbin"
+"/bin"
+"/usr/bin"
+"/usr/local"
+"/usr/local/bin"
+"$HOME/bin"
+)

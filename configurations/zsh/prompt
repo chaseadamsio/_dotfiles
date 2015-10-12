@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+source $HOME/dotfiles/configurations/zsh/git_prompt
+autoload -U colors && colors # Enable colors in prompt
+
+POWERLEVEL9K_MODE='awesome-patched'
+
+SEGMENT_SEPARATOR=$'\ue0b0'
+
+PROMPT="%{$FG[075]%}%~%  \$(git_prompt_string)
+%{$BG[236]%}  %{$reset_color%}%{$FG[236]%}$SEGMENT_SEPARATOR%{$reset_color%} "
+
