@@ -22,13 +22,10 @@ endif
 
 syntax enable
 set background=dark
-colorscheme wombat
+colorscheme adio
 
 " no wrap
 set nowrap
-" Highlight column at 80 character
-highlight ColorColumn ctermbg=magenta
-set colorcolumn=80
 " Highlight current line
 set cursorline
 
@@ -102,4 +99,8 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
 
+set fillchars=vert:\│
+set cursorline
+
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
