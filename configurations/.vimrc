@@ -7,6 +7,7 @@ source ~/Projects/dotfiles/configurations/vim/nerdtree.vim
 " ctrlp ignore
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules,coverage,lib
+let ctrlp_show_hidden = 1
 
 " Relative Line Numbers
 set relativenumber
@@ -41,3 +42,6 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr> <c-w>r
 
 " Quickly source your vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
+
+set backupdir=~/.vim/backup
+set directory=~/.vim/swap
