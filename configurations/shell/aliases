@@ -1,6 +1,6 @@
 #!/bin/bash
 
-alias vi="vim"
+alias vi="nvim"
 
 alias ..="cd .."
 alias ...="cd ../.."
