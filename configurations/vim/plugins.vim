@@ -7,12 +7,15 @@ Plugin 'VundleVim/Vundle.vim'
 
 " *** Begin Plugins ***
 
+Bundle 'adrianolaru/vim-adio'
 Bundle 'sheerun/vim-wombat-scheme'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/syntastic'
 Plugin 'editorconfig/editorconfig-vim'
+
+Plugin 'mxw/vim-jsx'
 
 Plugin 'scrooloose/nerdcommenter'
 
