@@ -46,18 +46,9 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 set backupdir=~/.vim/backup
 set directory=~/.vim/swap
 
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
 " air-line
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#syntastic#enabled=1
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -85,3 +76,30 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+
+" syntastic
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_signs=1
+
+let g:syntastic_javascript_eslint_exec = 'eslint_d'
+let g:syntastic_javascript_checkers=['eslint', 'flow']
+
+set ofu=syntaxcomplete#Complete
+let g:syntastic_mode_map={ 'mode': 'active',
+      \ 'active_filetypes': [],
+      \ 'passive_filetypes': ['html', 'cpp'] }
+let g:syntastic_check_on_open=1
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_warning_symbol = "⚠"
+
+
