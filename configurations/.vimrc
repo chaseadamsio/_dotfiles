@@ -22,7 +22,7 @@ endif
 
 syntax enable
 set background=dark
-colorscheme monokai
+colorscheme wombat
 
 " no wrap
 set nowrap
@@ -45,3 +45,4 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 set backupdir=~/.vim/backup
 set directory=~/.vim/swap
+
