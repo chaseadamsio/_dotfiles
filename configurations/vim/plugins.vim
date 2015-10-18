@@ -14,9 +14,12 @@ Plugin 'bling/vim-airline'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/syntastic'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'xolox/vim-notes'
+Plugin 'xolox/vim-misc'
 
 Plugin 'mxw/vim-jsx'
 
+Plugin 'scrooloose/NERDTree'
 Plugin 'scrooloose/nerdcommenter'
 
 " *** End Plugins ***

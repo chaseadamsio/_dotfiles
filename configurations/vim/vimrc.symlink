@@ -19,7 +19,6 @@ if exists("&relativenumber")
   autocmd InsertLeave * :set relativenumber
 endif
 
-
 syntax enable
 set background=dark
 colorscheme adio
@@ -104,3 +103,4 @@ set cursorline
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
+let g:notes_directories = ['~/Documents/Notes', '~/Dropbox/Shared Notes']

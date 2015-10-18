@@ -4,10 +4,6 @@
 export DOTFILES_ROOT="$HOME/Projects/dotfiles"
 export CONFIG_ROOT="$DOTFILES_ROOT/configurations/shell"
 
-# Setup PATH
-source $CONFIG_ROOT/func/setupPath
-setupPath
-
 # Setup NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

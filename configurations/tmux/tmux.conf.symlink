@@ -56,7 +56,7 @@ set-option -g pane-active-border-fg colour75
 
 # message text
 set-option -g message-fg colour232
-set-option -g message-bg colour32
+set-option -g message-bg colour154
 
 # default statusbar colors
 set-option -g status-fg colour250
@@ -75,20 +75,16 @@ set-option -g status-right-attr default
 
 # default window title colors
 set-window-option -g window-status-fg colour240
-set-window-option -g window-status-bg default
+set-window-option -g window-status-bg colour234
 
 # active window title colors
-set-window-option -g window-status-current-fg colour252
-set-window-option -g window-status-current-bg default
-set-window-option -g window-status-current-attr default
+set-window-option -g window-status-current-fg colour75
+set-window-option -g window-status-current-bg colour234
 
 # pane number display
-# set-option -g display-panes-active-colour colour32
-# set-option -g display-panes-colour colour166
+set-option -g display-panes-active-colour colour32
+set-option -g display-panes-colour colour166
 
 set-option -g mode-fg colour232
 set-option -g mode-bg colour32
 
-set-window-option -g window-status-current-bg colour75
-set-window-option -g window-status-current-fg black
-set-window-option -g window-status-fg white
