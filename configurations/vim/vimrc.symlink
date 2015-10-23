@@ -1,5 +1,6 @@
 set nocompatible
 filetype off
+set omnifunc=syntaxcomplete#Complete
 
 source ~/Projects/dotfiles/configurations/vim/plugins.vim
 source ~/Projects/dotfiles/configurations/vim/nerdtree.vim
@@ -9,47 +10,83 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules,coverage,lib
 let ctrlp_show_hidden = 1
 
-" Relative Line Numbers
-set relativenumber
-set number
+set number " Line Numbers
+set relativenumber " Relative Line Numbers
 
-" Use relative line numbers
-if exists("&relativenumber")
-  autocmd InsertEnter * :set number
-  autocmd InsertLeave * :set relativenumber
-endif
+set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
+
+set nofoldenable " Say no to code folding...
 
 syntax enable
 set background=dark
 colorscheme adio
 
-" no wrap
-set nowrap
-" Highlight current line
-set cursorline
+set nowrap " no wrap
+set cursorline " Highlight current line
 
 " Change mapleader
-let mapleader = "\<Space>"
+let mapleader = ","
 " Set local map leader: http://learnvimscriptthehardway.stevelosh.com/chapters/06.html
 let maplocalleader="\\"
 
 " Open .vimrc while in another file and focus on vimrc quickly adding a command
-nnoremap <leader>ev :vsplit $MYVIMRC<cr> <c-w>r
+nmap <leader>ev :split $MYVIMRC<cr> <c-w>r
 
 " Quickly source your vimrc
-nnoremap <leader>sv :source $MYVIMRC<cr>
+nmap <leader>sv :source $MYVIMRC<cr>
 
-set backupdir=~/.vim/backup
-set directory=~/.vim/swap
+" Open vim-cheat-sheet
+nnoremap <leader>cs :tabedit ~/Documents/Notes/vim-cheat-sheet.md<cr> <c-w>r
+
+" Map 0 to go to beginning of test
+nmap 0 ^
+
+" Sane default for moving over lines that are wrapped
+nmap k gk
+nmap j gj
+
+" Sane home row escape
+imap jk <esc>
+
+set backupdir=~/.tmp
+set directory=~/.tmp
+
+" tabs and stuff----------------------------------------------------------- {{{
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
+set expandtab
+"}}}
+
+" Disable escape and arrow keys
+inoremap <Left>  <NOP>
+inoremap <Right> <NOP>
+inoremap <Up>    <NOP>
+inoremap <Down>  <NOP>
+nnoremap <Left>  <NOP>
+nnoremap <Right> <NOP>
+nnoremap <Up>    <NOP>
+nnoremap <Down>  <NOP>
+" }}}
+
+" Markdown --- {{{
+:au BufNewFile,BufRead *.md set wrap
+
+" By default, vim thinks .md is Modula-2.
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
+" Without this, vim breaks in the middle of words when wrapping
+autocmd FileType markdown setlocal nolist wrap lbr
+"  }}}
+
+nmap <leader>pj :split package.json<CR>
 
 " air-line
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#syntastic#enabled=1
-
 if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+  let g:airline_symbols = {}
 endif
-
 " unicode symbols
 let g:airline_left_sep = '»'
 let g:airline_left_sep = '▶'
@@ -62,9 +99,7 @@ let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
-
-" airline symbols
+let g:airline_symbols.whitespace = 'Ξ' " airline symbols
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
@@ -77,7 +112,6 @@ let g:airline_symbols.linenr = ''
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
 
-let g:syntastic_javascript_eslint_exec = 'eslint_d'
 let g:syntastic_javascript_checkers=['eslint', 'flow']
 
 set ofu=syntaxcomplete#Complete
@@ -104,3 +138,5 @@ set cursorline
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 let g:notes_directories = ['~/Documents/Notes', '~/Dropbox/Shared Notes']
+
+let g:flow#enable=1
