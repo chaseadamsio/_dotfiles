@@ -2,20 +2,41 @@ set nocompatible
 filetype off
 set omnifunc=syntaxcomplete#Complete
 
-source ~/Projects/dotfiles/configurations/vim/plugins.vim
-source ~/Projects/dotfiles/configurations/vim/nerdtree.vim
+" Source Configuration files, ripped from
+" https://github.com/christoomey/dotfiles/blob/master/vim/vimrc
+function! s:SourceConfigFilesIn(file)
+  let directory_splat = '~/Projects/dotfiles/configurations/vim/' . a:file
+  for config_file in split(glob(directory_splat), '\n')
+    if filereadable(config_file)
+        execute 'source' config_file
+    endif
+  endfor
+endfunction
+
+" Plugins are each listed in their own file. Loop and source ftw
+"----------------------------------------------------------------
+call s:SourceConfigFilesIn('plugins.vim')
+call s:SourceConfigFilesIn('nerdtree.vim')
 
 " ctrlp ignore
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules,coverage,lib
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,node_modules,coverage
 let ctrlp_show_hidden = 1
 
 set number " Line Numbers
 set relativenumber " Relative Line Numbers
 
+set winwidth=84
+set winheight=5
+set winminheight=5
+set winheight=999
+
 set shiftround " When at 3 spaces and I hit >>, go to 4, not 5.
 
 set nofoldenable " Say no to code folding...
+
+" Clear highlinghting on incsearch results
+nmap <leader>hh :noh<cr>
 
 syntax enable
 set background=dark
@@ -36,7 +57,7 @@ nmap <leader>ev :split $MYVIMRC<cr> <c-w>r
 nmap <leader>sv :source $MYVIMRC<cr>
 
 " Open vim-cheat-sheet
-nnoremap <leader>cs :tabedit ~/Documents/Notes/vim-cheat-sheet.md<cr> <c-w>r
+nnoremap <leader>cht :tabedit ~/Documents/Notes/vim-cheat-sheet.md<cr> <c-w>r
 
 " Map 0 to go to beginning of test
 nmap 0 ^
@@ -47,6 +68,11 @@ nmap j gj
 
 " Sane home row escape
 imap jk <esc>
+
+" hack for two things:
+" a clean new line if in comment block
+" the ability to be inside of a line and start a new line below
+imap <c-c> <esc>$o<esc>^c$
 
 set backupdir=~/.tmp
 set directory=~/.tmp
@@ -112,7 +138,8 @@ let g:airline_symbols.linenr = ''
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
 
-let g:syntastic_javascript_checkers=['eslint', 'flow']
+" " for javacript
+let g:syntastic_javascript_checkers = ['eslint', 'flow']
 
 set ofu=syntaxcomplete#Complete
 let g:syntastic_mode_map={ 'mode': 'active',
@@ -139,4 +166,52 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 let g:notes_directories = ['~/Documents/Notes', '~/Dropbox/Shared Notes']
 
-let g:flow#enable=1
+" From http://vim.wikia.com/wiki/Automatically_quit_Vim_if_quickfix_window_is_the_last
+" This is a "fix" for when flow quickfix window opens to close it
+" automatically
+" ----------------------------------------------------------------------------
+au BufEnter * call MyLastWindow()
+function! MyLastWindow()
+  " if the window is quickfix go on
+  if &buftype=="quickfix"
+    " if this window is last on screen quit without warning
+    if winbufnr(2) == -1
+      quit!
+    endif
+  endif
+endfunction
+
+" From http://stackoverflow.com/questions/8663829/vim-ctrlp-vim-plugin-how-to-rescan-files
+" CtrlP auto cache clearing.
+" ----------------------------------------------------------------------------
+function! SetupCtrlP()
+  if exists("g:loaded_ctrlp") && g:loaded_ctrlp
+    augroup CtrlPExtension
+      autocmd!
+      autocmd FocusGained  * CtrlPClearCache
+      autocmd BufWritePost * CtrlPClearCache
+    augroup END
+  endif
+endfunction
+if has("autocmd")
+  autocmd VimEnter * :call SetupCtrlP()
+endif
+
+" for vim-tmux-runner integration with syntastic: https://github.com/christoomey/vim-tmux-runner
+let g:VtrStripLeadingWhitespace = 0
+let g:VtrClearEmptyLines = 0
+let g:VtrAppendNewline = 1
+
+" UltiSnips settings
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" format with goimports instead of gofmt
+let g:go_fmt_command = "goimports"
+
+" EXPERIMENTAL...THIS stuff may not work
+inoremap <C-CR> <C-O>o

@@ -14,15 +14,26 @@ Plugin 'bling/vim-airline'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/syntastic'
 Plugin 'editorconfig/editorconfig-vim'
-"Plugin 'xolox/vim-notes'
 Plugin 'xolox/vim-misc'
 
 Plugin 'mxw/vim-jsx'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'christoomey/vim-tmux-runner'
+
+Plugin 'jiangmiao/auto-pairs'
 
 Plugin 'scrooloose/NERDTree'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'othree/yajs.vim'
 
-Bundle 'facebook/vim-flow'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+" Plugin 'Valloric/YouCompleteMe'
+
+" causing LOTS of CPU performance issues
+" Bundle 'facebook/vim-flow'
+
+Plugin 'fatih/vim-go'
 
 " *** End Plugins ***
 

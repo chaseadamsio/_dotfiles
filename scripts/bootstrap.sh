@@ -1,3 +1,5 @@
+source ./brewinstall.sh;
+
 create_dotfiles_symlink() {
   echo "Creating symlink for dotfiles"
   [[ -r $HOME/dotfiles ]] || ln -s $HOME/Projects/dotfiles $HOME/dotfiles
@@ -32,3 +34,9 @@ function link {
 }
 
 link
+
+function ln_bin {
+  ln -s $HOME/Projects/dotfiles/bin/tat $HOME/bin/tat
+}
+
+ln_bin

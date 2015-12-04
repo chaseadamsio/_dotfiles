@@ -51,6 +51,7 @@ alias showdt="defaults write com.apple.finder CreateDesktop -bool true && killal
 alias countfiles="find . -type f -print | wc -l"
 
 alias rbash='. $HOME/.bash_profile'       # Source the bash profile
+alias rzsh='. $HOME/.zshrc'       # Source the bash profile
 alias vimrc='$EDITOR $HOME/.vimrc'
 
 # nginx
@@ -59,3 +60,13 @@ alias stopnginx="sudo /usr/local/nginx/sbin/nginx -s stop"
 
 # tmux
 alias tmux="TERM=screen-256color-bce tmux"
+
+# fasd
+alias a='fasd -a'        # any
+alias s='fasd -si'       # show / search / select
+alias d='fasd -d'        # directory
+alias f='fasd -f'        # file
+alias sd='fasd -sid'     # interactive directory selection
+alias sf='fasd -sif'     # interactive file selection
+alias z='fasd_cd -d'     # cd, same functionality as j in autojump
+alias zz='fasd_cd -d -i' # cd with interactive selection

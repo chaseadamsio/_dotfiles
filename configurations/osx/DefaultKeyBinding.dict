@@ -1,0 +1,17 @@
+{
+  // lowercase current word (option + -)
+  "~-" = lowercaseWord:;
+  // uppercase current word (option + =)
+  "~=" = uppercaseWord:;
+  // capitalize current word (option + .)
+  "~." = capitalizeWord:;
+  // insert line below (cmd + enter)
+  "@\U000D" = (moveToEndOfParagraph:, insertNewline:);
+  // insert line above (cmd + option + enter)
+  "@~\U000D" = (moveToBeginningOfParagraph:, moveLeft:, insertNewline:, moveUp:);
+  // titlecase paragraph (ctrl + option + t)
+  "^~t" = (setMark:, selectParagraph:, capitalizeWord:, swapWithMark:);
+  // remove one tab (or character) from start of line (outdent) ()
+  "~\U0009" = (setMark:, moveToBeginningOfParagraph:, moveRight:, deleteBackward:, swapWithMark:, moveLeft:);
+}
+
