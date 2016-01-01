@@ -91,6 +91,10 @@ set-window-option -g automatic-rename on
 # fix window name to not change
 set-option -g allow-rename off
 
+# tmuxinator
+set -g base-index 1
+set -g pane-base-index 1
+
 #
 # COLOURS
 #
