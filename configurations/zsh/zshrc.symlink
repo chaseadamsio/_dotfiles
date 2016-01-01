@@ -10,4 +10,5 @@ source $HOME/dotfiles/configurations/zsh/prompt
 eval "$(docker-machine env default)"
 [[ -s "$HOME/.avn/bin/avn.sh" ]] && source "$HOME/.avn/bin/avn.sh" # load avn
 
-export EDITOR=vi
+export EDITOR=nvim
+
