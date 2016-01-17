@@ -1,4 +1,6 @@
-source ./brewinstall.sh;
+#!/bin/sh
+
+./brewinstall.sh;
 
 create_dotfiles_symlink() {
   echo "Creating symlink for dotfiles"
