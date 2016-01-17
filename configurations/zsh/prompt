@@ -1,12 +1,11 @@
 #!/bin/zsh
 
-source $HOME/dotfiles/configurations/zsh/git_prompt
-autoload -U colors && colors # Enable colors in prompt
+#source $HOME/dotfiles/configurations/zsh/git_prompt
+#autoload -U colors && colors # Enable colors in prompt
 
-POWERLEVEL9K_MODE='awesome-patched'
+#POWERLEVEL9K_MODE='awesome-patched'
 
-SEGMENT_SEPARATOR=$'⚒ »'
+SEG_SEPARATOR="$"
+PROMPT="%{$FG[069]%}${SEG_SEPARATOR} %{$reset_color%}"
 
-PROMPT="%{$FG[075]%}%~%  \$(git_prompt_string) %{$reset_color%}node@\$(node -v) npm@\$(npm -v)
-%{$FG[201]%} $SEGMENT_SEPARATOR%{$reset_color%} "
 
