@@ -3,7 +3,7 @@ source $ZSH/oh-my-zsh.sh
 
 export ZSH=$HOME/.dotfiles
 
-export PROJECTS=~/Code
+export PROJECTS=~/Projects
 
 if [[ -a ~/.localrc ]] 
 then

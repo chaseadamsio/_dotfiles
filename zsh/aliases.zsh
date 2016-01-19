@@ -1,1 +1,1 @@
-alias rzsh='. $HOME/.zshrc'       # Source the bash profile
+alias re!='. $HOME/.zshrc'       # Source the bash profile
