@@ -1,9 +1,0 @@
-#!/bin/bash
-
-local conf_path=$HOME/dotfiles/configurations/shell
-
-for file in $conf_path/{path,aliases,exports,functions}; do
-  [ -r "$file" ] && source "$file"
-done
-unset file
-
