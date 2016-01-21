@@ -26,10 +26,6 @@ Plugin 'scrooloose/NERDTree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'othree/yajs.vim'
 
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-" Plugin 'Valloric/YouCompleteMe'
-
 " causing LOTS of CPU performance issues
 " Bundle 'facebook/vim-flow'
 
