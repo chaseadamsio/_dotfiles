@@ -5,7 +5,7 @@ set omnifunc=syntaxcomplete#Complete
 " Source Configuration files, ripped from
 " https://github.com/christoomey/dotfiles/blob/master/vim/vimrc
 function! s:SourceConfigFilesIn(file)
-  let directory_splat = '~/.dotfiles/configurations/nvim/' . a:file
+  let directory_splat = '~/.dotfiles/nvim/' . a:file
   for config_file in split(glob(directory_splat), '\n')
     if filereadable(config_file)
         execute 'source' config_file
