@@ -8,9 +8,12 @@ Plugin 'VundleVim/Vundle.vim'
 " *** Begin Plugins ***
 
 Bundle 'adrianolaru/vim-adio'
+Plugin 'chriskempson/base16-vim'
+
 Bundle 'sheerun/vim-wombat-scheme'
 Plugin 'kien/ctrlp.vim'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/syntastic'
 Plugin 'editorconfig/editorconfig-vim'
@@ -26,10 +29,13 @@ Plugin 'scrooloose/NERDTree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'othree/yajs.vim'
 
+Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+
 " causing LOTS of CPU performance issues
 " Bundle 'facebook/vim-flow'
 
 Plugin 'fatih/vim-go'
+Plugin 'shougo/neocomplete'
 
 " *** End Plugins ***
 

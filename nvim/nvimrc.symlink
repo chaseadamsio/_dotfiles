@@ -5,7 +5,7 @@ set omnifunc=syntaxcomplete#Complete
 " Source Configuration files, ripped from
 " https://github.com/christoomey/dotfiles/blob/master/vim/vimrc
 function! s:SourceConfigFilesIn(file)
-  let directory_splat = '~/.dotfiles/nvim/' . a:file
+  let directory_splat = '~/workspace/src/gitlab.com/chaseadamsio/dotfiles/nvim/' . a:file
   for config_file in split(glob(directory_splat), '\n')
     if filereadable(config_file)
         execute 'source' config_file
@@ -37,9 +37,10 @@ set nofoldenable " Say no to code folding...
 " Clear highlinghting on incsearch results
 nmap <leader>hh :noh<cr>
 
+let base16colorspace=256
 syntax enable
 set background=dark
-colorscheme adio
+colorscheme base16-ocean
 
 set nowrap " no wrap
 set cursorline " Highlight current line
@@ -132,6 +133,8 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
+let g:airline_theme='base16'
+set laststatus=2
 
 " syntastic
 let g:syntastic_check_on_open=1
@@ -211,6 +214,33 @@ let g:UltiSnipsEditSplit="vertical"
 
 " format with goimports instead of gofmt
 let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
+let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go']  }
+let g:go_list_type = "quickfix"
+
+" enable neocomplete 
+let g:neocomplete#enable_at_startup = 1
+
+"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"function! s:my_cr_function()
+  "return neocomplete#close_popup() . "\<CR>"
+"endfunction
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><C-y>  neocomplete#close_popup()
+"inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
 
 " EXPERIMENTAL...THIS stuff may not work
 inoremap <C-CR> <C-O>o
