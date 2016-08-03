@@ -11,5 +11,3 @@ In the text input, add:
 ```
 tmux -2 new-session -A -s main
 ```
-
-

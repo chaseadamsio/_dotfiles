@@ -1,0 +1,11 @@
+[
+	{ "keys": ["shift+ctrl+m"], "command": "goto_definition" },
+		{
+			"button": "button1", 
+			"count": 1, 
+			"modifiers": ["ctrl"],
+			"press_command": "drag_select",
+			"command": "goto_definition"
+		},
+		{ "keys": ["=+="], "command": "reindent"}	
+]

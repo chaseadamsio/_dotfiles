@@ -226,21 +226,17 @@ let g:go_list_type = "quickfix"
 
 " enable neocomplete 
 let g:neocomplete#enable_at_startup = 1
-
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-  "return neocomplete#close_popup() . "\<CR>"
-"endfunction
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><C-y>  neocomplete#close_popup()
-"inoremap <expr><C-e>  neocomplete#cancel_popup()
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
 
+
+map <C-n> :cnext<CR>
+map <C-m> :cprevious<CR>
+nnoremap <leader>a :cclose<CR>
 " EXPERIMENTAL...THIS stuff may not work
 inoremap <C-CR> <C-O>o
