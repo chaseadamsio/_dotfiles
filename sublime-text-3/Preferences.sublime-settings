@@ -7,5 +7,7 @@
 	"translate_tabs_to_spaces": true,
 	"vintage_start_in_command_mode": true,
   "theme": "Spacegray.sublime-theme",
-  "color_scheme": "Packages/Theme - Spacegray/base16-ocean.dark.tmTheme"
+  "color_scheme": "Packages/Theme - Spacegray/base16-ocean.dark.tmTheme",
+  "fmt_cmd": ["goimports"]
+  
 }
