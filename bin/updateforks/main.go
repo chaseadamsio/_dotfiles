@@ -162,15 +162,6 @@ func updateForks(repos []*Repo) error {
 	return nil
 }
 
-func rmTempDir() error {
-	err := os.Remove("tmp")
-	if err != nil {
-		return err
-	}
-	log.Println("Removed temporary directory named tmp")
-	return nil
-}
-
 func main() {
 	log.Println("Updating forks.")
 	gh := &Github{
