@@ -60,5 +60,5 @@ LC_ALL=en_US.UTF-8
 
 [[ -s "/usr/local/bin/nvim" ]] && alias vi="/usr/local/bin/nvim"
 
-export GOPATH=$home/workspace
+export GOPATH=$HOME/workspace
 export WORKSPACE=$GOPATH/src
