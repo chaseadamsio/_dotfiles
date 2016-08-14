@@ -50,7 +50,7 @@
   font pango:Fira Sans 10
   floating_modifier $mod
   new_window normal
-  exec_always --no-startup-id feh --bg-scale $HOME/Pictures/wallpaper_latest.jpg
+  exec_always --no-startup-id feh --bg-scale $HOME/Pictures/desktops/minimal-earth.jpg
 
 ### window management
   bindsym $mod+Shift+q kill
@@ -124,7 +124,7 @@
 
 ### applications
   # start simple terminal
-  bindsym $mod+Return exec st
+  bindsym $mod+Return exec termite
   # start dmenu (a program launcher)
   bindsym $mod+d exec rofi -show run -lines 5 -bc "$base01" -bw 1 -bg "$base00" -fg "$base04" -fg-urgent "$base0E" -hlbg "$base01" -hlfg "$base0D" -font "Fira Sans 20"
 
@@ -164,8 +164,7 @@
 
 ### volume / media
   # Sane F* / Acer C720 Media Key
-  # F5 / "Switch Workspace"
-  bindsym 0xffc2 exec xbacklight -dec 20 && killall -SI GUSR1 i3status # decrease screen brightness
+  bindsym $mod+p exec scrot $HOME/Pictures/screenshots/`date +%Y-%m-%d_%H:%M:%S`.png
   # F6 / "Brightness Down"
   bindsym 0xffc3 exec xbacklight -dec 20 && killall -SI GUSR1 i3status # decrease screen brightness
   # F7 / "Brightness Up"
