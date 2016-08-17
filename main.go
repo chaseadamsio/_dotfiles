@@ -30,6 +30,8 @@ type Repo struct {
 	} `json:"parent"`
 }
 
+type Repos []*Repo
+
 func (gh *Github) get(path string) ([]byte, error) {
 	client := http.Client{}
 	req, err := http.NewRequest("GET", gh.URI+path, nil)
@@ -53,7 +55,7 @@ func (gh *Github) GetRepos(user string) ([]*Repo, error) {
 		return nil, err
 	}
 
-	var repos []*Repo
+	repos := Repos{}
 
 	json.Unmarshal(body, &repos)
 
@@ -181,6 +183,8 @@ func main() {
 		URI:        *uri,
 		APIVersion: *apiVersion,
 	}
+
+	repos := Repos{}
 
 	repos, err := gh.GetRepos(*user)
 
