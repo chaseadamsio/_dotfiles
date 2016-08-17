@@ -164,26 +164,25 @@ func updateForks(repos []*Repo) error {
 }
 
 func main() {
-	var uri string
-	var apiVersion string
-	var user string
-	flag.StringVar(&uri, "uri", "https://api.github.com", "The Github URI to update forks on")
-	flag.StringVar(&apiVersion, "api-version", "v3", "The API version for the Github uri to update forks on")
-	flag.StringVar(&user, "user", "", "The GIthub user to update forks on")
+	var (
+		uri        = flag.String("uri", "https://api.github.com", "The Github URI to update forks on")
+		apiVersion = flag.String("api-version", "v3", "The API version for the Github uri to update forks on")
+		user       = flag.String("user", "", "The GIthub user to update forks on")
+	)
 
 	flag.Parse()
 
-	if user == "" {
+	if *user == "" {
 		log.Println("You must provide a user with the --user flag to use updateforks")
 		return
 	}
 
 	gh := &Github{
-		URI:        uri,
-		APIVersion: apiVersion,
+		URI:        *uri,
+		APIVersion: *apiVersion,
 	}
 
-	repos, err := gh.GetRepos(user)
+	repos, err := gh.GetRepos(*user)
 
 	if err != nil {
 		log.Println(err)
