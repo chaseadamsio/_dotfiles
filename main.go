@@ -53,6 +53,7 @@ func (gh *Github) get(path string) ([]byte, error) {
 }
 
 func (gh *Github) GetRepos(user string) ([]*Repo, error) {
+	log.Printf("Retrieving information about %s repos", user)
 	path := filepath.Join("/users", user, "repos")
 	body, err := gh.get(path)
 	if err != nil {
