@@ -35,9 +35,10 @@ type Repo struct {
 type Repos []*Repo
 
 func (gh *Github) get(path string) ([]byte, error) {
+	requestURL := gh.URI + path
 	HTTPClient := new(http.Client)
 	*HTTPClient = *http.DefaultClient
-	req, err := http.NewRequest("GET", gh.URI+path, nil)
+	req, err := http.NewRequest("GET", requestURL, nil)
 	if err != nil {
 		return nil, err
 	}
