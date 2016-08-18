@@ -33,13 +33,14 @@ type Repo struct {
 type Repos []*Repo
 
 func (gh *Github) get(path string) ([]byte, error) {
-	client := http.Client{}
+	HTTPClient := new(http.Client)
+	*HTTPClient = *http.DefaultClient
 	req, err := http.NewRequest("GET", gh.URI+path, nil)
 	if err != nil {
 		return nil, err
 	}
 	req.SetBasicAuth(os.Getenv("GITHUB_TOKEN"), "")
-	resp, err := client.Do(req)
+	resp, err := HTTPClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
