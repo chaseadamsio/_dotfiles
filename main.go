@@ -171,12 +171,6 @@ func (gh *Github) updateFork(repo *Repo) error {
 	}
 	log.Printf("Updated remote for upstream %s", repo.UpstreamName)
 
-	err = gitExec([]string{"remote", "-v", "update", "-p"})
-	if err != nil {
-		return err
-	}
-	log.Printf("Updated remote for upstream %s", repo.UpstreamName)
-
 	upstream := fmt.Sprintf("upstream/%s", repo.DefaultBranch)
 	err = gitExec([]string{"rebase", upstream})
 	if err != nil {
@@ -200,18 +194,18 @@ func gitExec(args []string) error {
 		return err
 	}
 	if len(output) > 0 {
-		log.Println("[git]", "[", args[0], "]", string(output))
+		log.Println(string(output))
 	}
 	return nil
 }
 
-func updateForks(repos []*Repo) error {
+func (gh *Github) updateForks(repos []*Repo) error {
 	for _, repo := range repos {
 		if !repo.IsFork {
 			continue
 		}
 
-		updateFork(repo)
+		gh.updateFork(repo)
 	}
 
 	return nil
