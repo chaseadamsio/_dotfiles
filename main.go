@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -177,8 +178,8 @@ func main() {
 	flag.Parse()
 
 	if *user == "" {
-		log.Println("You must provide a user with the --user flag to use updateforks")
-		return
+		log.Println(errors.New("You must provide a user with the --user flag to use updateforks"))
+		os.Exit(1)
 	}
 
 	gh := &Github{
@@ -191,14 +192,14 @@ func main() {
 	repos, err := gh.GetRepos(*user)
 
 	if err != nil {
-		log.Println(err)
-		return
+		fmt.Println(os.Stderr, err)
+		os.Exit(1)
 	}
 
-	err = updateForks(repos)
+	err = gh.updateForks(repos)
 	if err != nil {
-		log.Println(err)
-		return
+		fmt.Println(os.Stderr, err)
+		os.Exit(1)
 	}
 
 	log.Println("All forks have been updated.")
