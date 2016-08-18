@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"path/filepath"
 )
 
 type Github struct {
@@ -50,7 +51,7 @@ func (gh *Github) get(path string) ([]byte, error) {
 }
 
 func (gh *Github) GetRepos(user string) ([]*Repo, error) {
-	path := fmt.Sprintf("/users/%s/repos", user)
+	path := filepath.Join("/users", user, "repos")
 	body, err := gh.get(path)
 	if err != nil {
 		return nil, err
@@ -73,7 +74,7 @@ func (gh *Github) GetRepos(user string) ([]*Repo, error) {
 }
 
 func (gh *Github) GetForkUpstream(repo *Repo) (*Repo, error) {
-	path := fmt.Sprintf("/repos/%s", repo.FullName)
+	path := filepath.Join("/repos", repo.FullName)
 	body, err := gh.get(path)
 	if err != nil {
 		return nil, err
