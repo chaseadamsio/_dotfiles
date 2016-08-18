@@ -89,13 +89,60 @@ func (gh *Github) GetForkUpstream(repo *Repo) (*Repo, error) {
 	return repo, nil
 }
 
-func updateFork(repo *Repo) error {
+type branch struct {
+	Commit struct {
+		SHA string `json:"sha"`
+	} `json:"commit"`
+}
+
+func (gh *Github) GetBranchLatestCommit(repoFullName string, branchName string) (branch, error) {
+	path := filepath.Join("/repos", repoFullName, "branches", branchName)
+	body, err := gh.get(path)
+	if err != nil {
+		return branch{}, err
+	}
+
+	newBranch := new(branch)
+
+	json.Unmarshal(body, &newBranch)
+	return *newBranch, nil
+}
+
+func (gh *Github) isCommitSynced(repo *Repo) (bool, error) {
+	fork, err := gh.GetBranchLatestCommit(repo.FullName, repo.DefaultBranch)
+	if err != nil {
+		return false, err
+	}
+
+	upstream, err := gh.GetBranchLatestCommit(repo.UpstreamName, repo.DefaultBranch)
+	if err != nil {
+		return false, err
+	}
+
+	if fork.Commit == upstream.Commit {
+		return true, nil
+	}
+
+	return false, nil
+}
+
+func (gh *Github) updateFork(repo *Repo) error {
+	isSynced, err := gh.isCommitSynced(repo)
+	if err != nil {
+		return err
+	}
+
+	if isSynced {
+		log.Printf("%s is already synced with upstream", repo.FullName)
+		return nil
+	}
 	// Create a temporary directory
 	dir, err := ioutil.TempDir("", "tmp")
 	if err != nil {
 		return err
 	}
-	defer os.RemoveAll(dir)
+	defer os.Remove(dir)
+	log.Printf("Beginning the process of updating %s in %s", repo.FullName, dir)
 
 	// Clone the git repo into the temporary directory
 	forkURL := fmt.Sprintf("git@github.com:%s.git", repo.FullName)
