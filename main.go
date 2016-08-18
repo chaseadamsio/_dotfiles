@@ -87,7 +87,7 @@ func (gh *Github) GetForkUpstream(repo *Repo) (*Repo, error) {
 
 func updateFork(repo *Repo) error {
 	// Create a temporary directory
-	dir, err := ioutil.TempDir("./", "tmp")
+	dir, err := ioutil.TempDir("", "tmp")
 	if err != nil {
 		return err
 	}
