@@ -16,6 +16,8 @@ import (
 type Github struct {
 	URI        string
 	APIVersion string
+	user       string
+	token      string
 }
 
 type Repo struct {
@@ -42,7 +44,7 @@ func (gh *Github) get(path string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	req.SetBasicAuth(os.Getenv("GITHUB_TOKEN"), "")
+	req.SetBasicAuth(gh.token, "")
 	resp, err := HTTPClient.Do(req)
 	if err != nil {
 		return nil, err
@@ -52,9 +54,9 @@ func (gh *Github) get(path string) ([]byte, error) {
 	return ioutil.ReadAll(resp.Body)
 }
 
-func (gh *Github) GetRepos(user string) ([]*Repo, error) {
-	log.Printf("Retrieving information about %s repos", user)
-	path := filepath.Join("/users", user, "repos")
+func (gh *Github) GetRepos() ([]*Repo, error) {
+	log.Printf("Retrieving information about %s repos", gh.user)
+	path := filepath.Join("/users", gh.user, "repos")
 	body, err := gh.get(path)
 	if err != nil {
 		return nil, err
@@ -216,6 +218,7 @@ func main() {
 		uri        = flag.String("uri", "https://api.github.com", "The Github URI to update forks on")
 		apiVersion = flag.String("api-version", "v3", "The API version for the Github uri to update forks on")
 		user       = flag.String("user", "", "The GIthub user to update forks on")
+		token      = flag.String("token", "", "The github user token to update fork on")
 	)
 
 	flag.Parse()
@@ -225,14 +228,25 @@ func main() {
 		os.Exit(1)
 	}
 
+	if *token == "" {
+		if os.Getenv("GITHUB_TOKEN") == "" {
+			log.Println(errors.New("You must provide a token with the --token flag or set a GITHUB_TOKEN environment variable to use updateforks"))
+			os.Exit(1)
+		}
+
+		*token = os.Getenv("GITHUB_TOKEN")
+	}
+
 	gh := &Github{
 		URI:        *uri,
 		APIVersion: *apiVersion,
+		user:       *user,
+		token:      *token,
 	}
 
 	repos := Repos{}
 
-	repos, err := gh.GetRepos(*user)
+	repos, err := gh.GetRepos()
 
 	if err != nil {
 		fmt.Println(os.Stderr, err)
