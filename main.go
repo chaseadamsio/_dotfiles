@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -9,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"path/filepath"
 )
 
 type Github struct {
@@ -33,13 +35,15 @@ type Repo struct {
 type Repos []*Repo
 
 func (gh *Github) get(path string) ([]byte, error) {
-	client := http.Client{}
-	req, err := http.NewRequest("GET", gh.URI+path, nil)
+	requestURL := gh.URI + path
+	HTTPClient := new(http.Client)
+	*HTTPClient = *http.DefaultClient
+	req, err := http.NewRequest("GET", requestURL, nil)
 	if err != nil {
 		return nil, err
 	}
 	req.SetBasicAuth(os.Getenv("GITHUB_TOKEN"), "")
-	resp, err := client.Do(req)
+	resp, err := HTTPClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +53,8 @@ func (gh *Github) get(path string) ([]byte, error) {
 }
 
 func (gh *Github) GetRepos(user string) ([]*Repo, error) {
-	path := fmt.Sprintf("/users/%s/repos", user)
+	log.Printf("Retrieving information about %s repos", user)
+	path := filepath.Join("/users", user, "repos")
 	body, err := gh.get(path)
 	if err != nil {
 		return nil, err
@@ -72,7 +77,7 @@ func (gh *Github) GetRepos(user string) ([]*Repo, error) {
 }
 
 func (gh *Github) GetForkUpstream(repo *Repo) (*Repo, error) {
-	path := fmt.Sprintf("/repos/%s", repo.FullName)
+	path := filepath.Join("/repos", repo.FullName)
 	body, err := gh.get(path)
 	if err != nil {
 		return nil, err
@@ -84,13 +89,60 @@ func (gh *Github) GetForkUpstream(repo *Repo) (*Repo, error) {
 	return repo, nil
 }
 
-func updateFork(repo *Repo) error {
-	// Create a temporary directory
-	dir, err := ioutil.TempDir("./", "tmp")
+type branch struct {
+	Commit struct {
+		SHA string `json:"sha"`
+	} `json:"commit"`
+}
+
+func (gh *Github) GetBranchLatestCommit(repoFullName string, branchName string) (branch, error) {
+	path := filepath.Join("/repos", repoFullName, "branches", branchName)
+	body, err := gh.get(path)
+	if err != nil {
+		return branch{}, err
+	}
+
+	newBranch := new(branch)
+
+	json.Unmarshal(body, &newBranch)
+	return *newBranch, nil
+}
+
+func (gh *Github) isCommitSynced(repo *Repo) (bool, error) {
+	fork, err := gh.GetBranchLatestCommit(repo.FullName, repo.DefaultBranch)
+	if err != nil {
+		return false, err
+	}
+
+	upstream, err := gh.GetBranchLatestCommit(repo.UpstreamName, repo.DefaultBranch)
+	if err != nil {
+		return false, err
+	}
+
+	if fork.Commit == upstream.Commit {
+		return true, nil
+	}
+
+	return false, nil
+}
+
+func (gh *Github) updateFork(repo *Repo) error {
+	isSynced, err := gh.isCommitSynced(repo)
 	if err != nil {
 		return err
 	}
-	defer os.RemoveAll(dir)
+
+	if isSynced {
+		log.Printf("%s is already synced with upstream", repo.FullName)
+		return nil
+	}
+	// Create a temporary directory
+	dir, err := ioutil.TempDir("", "tmp")
+	if err != nil {
+		return err
+	}
+	defer os.Remove(dir)
+	log.Printf("Beginning the process of updating %s in %s", repo.FullName, dir)
 
 	// Clone the git repo into the temporary directory
 	forkURL := fmt.Sprintf("git@github.com:%s.git", repo.FullName)
@@ -112,12 +164,6 @@ func updateFork(repo *Repo) error {
 		return err
 	}
 	log.Printf("Added upstream remote for %s", repo.UpstreamName)
-
-	err = gitExec([]string{"remote", "-v", "update", "-p"})
-	if err != nil {
-		return err
-	}
-	log.Printf("Updated remote for upstream %s", repo.UpstreamName)
 
 	err = gitExec([]string{"remote", "-v", "update", "-p"})
 	if err != nil {
@@ -148,18 +194,18 @@ func gitExec(args []string) error {
 		return err
 	}
 	if len(output) > 0 {
-		log.Println("[git]", "[", args[0], "]", string(output))
+		log.Println(string(output))
 	}
 	return nil
 }
 
-func updateForks(repos []*Repo) error {
+func (gh *Github) updateForks(repos []*Repo) error {
 	for _, repo := range repos {
 		if !repo.IsFork {
 			continue
 		}
 
-		updateFork(repo)
+		gh.updateFork(repo)
 	}
 
 	return nil
@@ -175,8 +221,8 @@ func main() {
 	flag.Parse()
 
 	if *user == "" {
-		log.Println("You must provide a user with the --user flag to use updateforks")
-		return
+		log.Println(errors.New("You must provide a user with the --user flag to use updateforks"))
+		os.Exit(1)
 	}
 
 	gh := &Github{
@@ -184,17 +230,19 @@ func main() {
 		APIVersion: *apiVersion,
 	}
 
+	repos := Repos{}
+
 	repos, err := gh.GetRepos(*user)
 
 	if err != nil {
-		log.Println(err)
-		return
+		fmt.Println(os.Stderr, err)
+		os.Exit(1)
 	}
 
-	err = updateForks(repos)
+	err = gh.updateForks(repos)
 	if err != nil {
-		log.Println(err)
-		return
+		fmt.Println(os.Stderr, err)
+		os.Exit(1)
 	}
 
 	log.Println("All forks have been updated.")
