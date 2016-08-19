@@ -27,11 +27,12 @@ type Repo struct {
 	FullName      string `json:"full_name"`
 	DefaultBranch string `json:"default_branch"`
 	UpstreamName  string
-	Parent        struct {
-		Owner struct {
-			Login string `json:"login"`
-		} `json:"owner"`
-	} `json:"parent"`
+}
+
+type branch struct {
+	Commit struct {
+		SHA string `json:"sha"`
+	} `json:"commit"`
 }
 
 type Repos []*Repo
@@ -68,7 +69,7 @@ func (gh *Github) GetRepos() ([]*Repo, error) {
 
 	for _, repo := range repos {
 		if repo.IsFork {
-			repo, err = gh.GetForkUpstream(repo)
+			err = gh.GetForkUpstream(repo)
 			if err != nil {
 				return nil, err
 			}
@@ -78,36 +79,37 @@ func (gh *Github) GetRepos() ([]*Repo, error) {
 	return repos, nil
 }
 
-func (gh *Github) GetForkUpstream(repo *Repo) (*Repo, error) {
+func (gh *Github) GetForkUpstream(repo *Repo) error {
 	path := filepath.Join("/repos", repo.FullName)
+	body, err := gh.get(path)
+	if err != nil {
+		return err
+	}
+
+	var repoResp struct {
+		Parent struct {
+			Owner struct {
+				Login string `json:"login"`
+			} `json:"owner"`
+		} `json:"parent"`
+	}
+
+	json.Unmarshal(body, &repoResp)
+	repo.UpstreamName = repoResp.Parent.Owner.Login + "/" + repo.Repo
+	return nil
+}
+
+func (gh *Github) GetBranchLatestCommit(repoFullName string, branchName string) (*branch, error) {
+	path := filepath.Join("/repos", repoFullName, "branches", branchName)
 	body, err := gh.get(path)
 	if err != nil {
 		return nil, err
 	}
 
-	var repoResp Repo
-	json.Unmarshal(body, &repoResp)
-	repo.UpstreamName = repoResp.Parent.Owner.Login + "/" + repo.Repo
-	return repo, nil
-}
-
-type branch struct {
-	Commit struct {
-		SHA string `json:"sha"`
-	} `json:"commit"`
-}
-
-func (gh *Github) GetBranchLatestCommit(repoFullName string, branchName string) (branch, error) {
-	path := filepath.Join("/repos", repoFullName, "branches", branchName)
-	body, err := gh.get(path)
-	if err != nil {
-		return branch{}, err
-	}
-
 	newBranch := new(branch)
 
 	json.Unmarshal(body, &newBranch)
-	return *newBranch, nil
+	return newBranch, nil
 }
 
 func (gh *Github) isCommitSynced(repo *Repo) (bool, error) {
@@ -121,7 +123,7 @@ func (gh *Github) isCommitSynced(repo *Repo) (bool, error) {
 		return false, err
 	}
 
-	if fork.Commit == upstream.Commit {
+	if &fork.Commit == &upstream.Commit {
 		return true, nil
 	}
 
