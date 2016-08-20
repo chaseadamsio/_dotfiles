@@ -6,7 +6,6 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 	"os/exec"
@@ -18,6 +17,7 @@ type Github struct {
 	APIVersion string
 	user       string
 	token      string
+	Repos      Repos
 }
 
 type Repo struct {
@@ -35,7 +35,7 @@ type branch struct {
 	} `json:"commit"`
 }
 
-type Repos []*Repo
+type Repos []Repo
 
 func (gh *Github) get(path string) ([]byte, error) {
 	requestURL := gh.URI + path
@@ -55,28 +55,26 @@ func (gh *Github) get(path string) ([]byte, error) {
 	return ioutil.ReadAll(resp.Body)
 }
 
-func (gh *Github) GetRepos() ([]*Repo, error) {
-	log.Printf("Retrieving information about %s repos", gh.user)
+func (gh *Github) GetRepos() error {
+	fmt.Printf("Retrieving information about %s repos", gh.user)
 	path := filepath.Join("/users", gh.user, "repos")
 	body, err := gh.get(path)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	repos := Repos{}
+	json.Unmarshal(body, &gh.Repos)
 
-	json.Unmarshal(body, &repos)
-
-	for _, repo := range repos {
+	for idx, repo := range gh.Repos {
 		if repo.IsFork {
-			err = gh.GetForkUpstream(repo)
+			err = gh.GetForkUpstream(&gh.Repos[idx])
 			if err != nil {
-				return nil, err
+				return err
 			}
 		}
 	}
 
-	return repos, nil
+	return nil
 }
 
 func (gh *Github) GetForkUpstream(repo *Repo) error {
@@ -137,7 +135,7 @@ func (gh *Github) updateFork(repo *Repo) error {
 	}
 
 	if isSynced {
-		log.Printf("%s is already synced with upstream", repo.FullName)
+		fmt.Printf("%s is already synced with upstream", repo.FullName)
 		return nil
 	}
 	// Create a temporary directory
@@ -146,7 +144,7 @@ func (gh *Github) updateFork(repo *Repo) error {
 		return err
 	}
 	defer os.Remove(dir)
-	log.Printf("Beginning the process of updating %s in %s", repo.FullName, dir)
+	fmt.Printf("Beginning the process of updating %s in %s", repo.FullName, dir)
 
 	// Clone the git repo into the temporary directory
 	forkURL := fmt.Sprintf("git@github.com:%s.git", repo.FullName)
@@ -154,7 +152,7 @@ func (gh *Github) updateFork(repo *Repo) error {
 	if err != nil {
 		return err
 	}
-	log.Printf("Cloned %s into %s", repo.FullName, dir)
+	fmt.Printf("Cloned %s into %s", repo.FullName, dir)
 
 	// Change into the temporary directcory
 	err = os.Chdir(dir)
@@ -167,26 +165,41 @@ func (gh *Github) updateFork(repo *Repo) error {
 	if err != nil {
 		return err
 	}
-	log.Printf("Added upstream remote for %s", repo.UpstreamName)
+	fmt.Printf("Added upstream remote for %s", repo.UpstreamName)
 
 	err = gitExec([]string{"remote", "-v", "update", "-p"})
 	if err != nil {
 		return err
 	}
-	log.Printf("Updated remote for upstream %s", repo.UpstreamName)
+	fmt.Printf("Updated remote for upstream %s", repo.UpstreamName)
 
 	upstream := fmt.Sprintf("upstream/%s", repo.DefaultBranch)
 	err = gitExec([]string{"rebase", upstream})
 	if err != nil {
 		return err
 	}
-	log.Printf("Rebased off of upstream %s", repo.UpstreamName)
+	fmt.Printf("Rebased off of upstream %s", repo.UpstreamName)
 
 	err = gitExec([]string{"push", "origin", repo.DefaultBranch})
 	if err != nil {
 		return err
 	}
-	log.Printf("Pushed %s origin/%s", repo.FullName, repo.DefaultBranch)
+	fmt.Printf("Pushed %s origin/%s", repo.FullName, repo.DefaultBranch)
+	return nil
+}
+
+func (gh *Github) updateForks() error {
+	for idx, repo := range gh.Repos {
+		if !repo.IsFork {
+			continue
+		}
+
+		err := gh.updateFork(&gh.Repos[idx])
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
@@ -194,24 +207,11 @@ func gitExec(args []string) error {
 	cmd := exec.Command("git", args...)
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Println(err)
 		return err
 	}
 	if len(output) > 0 {
-		log.Println(string(output))
+		fmt.Println(string(output))
 	}
-	return nil
-}
-
-func (gh *Github) updateForks(repos []*Repo) error {
-	for _, repo := range repos {
-		if !repo.IsFork {
-			continue
-		}
-
-		gh.updateFork(repo)
-	}
-
 	return nil
 }
 
@@ -226,13 +226,13 @@ func main() {
 	flag.Parse()
 
 	if *user == "" {
-		log.Println(errors.New("You must provide a user with the --user flag to use updateforks"))
+		fmt.Println(errors.New("You must provide a user with the --user flag to use updateforks"))
 		os.Exit(1)
 	}
 
 	if *token == "" {
 		if os.Getenv("GITHUB_TOKEN") == "" {
-			log.Println(errors.New("You must provide a token with the --token flag or set a GITHUB_TOKEN environment variable to use updateforks"))
+			fmt.Println(errors.New("You must provide a token with the --token flag or set a GITHUB_TOKEN environment variable to use updateforks"))
 			os.Exit(1)
 		}
 
@@ -246,20 +246,17 @@ func main() {
 		token:      *token,
 	}
 
-	repos := Repos{}
-
-	repos, err := gh.GetRepos()
-
+	err := gh.GetRepos()
 	if err != nil {
 		fmt.Println(os.Stderr, err)
 		os.Exit(1)
 	}
 
-	err = gh.updateForks(repos)
+	err = gh.updateForks()
 	if err != nil {
 		fmt.Println(os.Stderr, err)
 		os.Exit(1)
 	}
 
-	log.Println("All forks have been updated.")
+	fmt.Println("All forks have been updated.")
 }
