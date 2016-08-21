@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -18,38 +17,12 @@ const (
 	version = "1.0.0"
 )
 
-var client *github.Client
-
 type Fork struct {
 	Name          string
 	FullName      string
 	Owner         string
 	DefaultBranch string
 	UpstreamOwner string
-}
-
-func init() {
-	var (
-		token = flag.String("token", "", "The github user token to update fork on")
-	)
-
-	flag.Parse()
-
-	if *token == "" {
-		if os.Getenv("GITHUB_TOKEN") == "" {
-			fmt.Println(errors.New("You must provide a token with the --token flag or set a GITHUB_TOKEN environment variable to use updateforks"))
-			os.Exit(1)
-		}
-
-		*token = os.Getenv("GITHUB_TOKEN")
-	}
-
-	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: *token},
-	)
-	tc := oauth2.NewClient(oauth2.NoContext, ts)
-
-	client = github.NewClient(tc)
 }
 
 type Repositories interface {
@@ -175,12 +148,11 @@ func updateFork(fork Fork, dir string) error {
 	return nil
 
 }
-func main() {
 
-	repos, err := getAllRepositories(client.Repositories)
+func getForks(r Repositories) (*[]Fork, error) {
+	repos, err := getAllRepositories(r)
 	if err != nil {
-		fmt.Errorf("could not get all repositories: %s", err)
-		os.Exit(1)
+		return nil, fmt.Errorf("could not get all repositories: %s", err)
 	}
 
 	forks := new([]Fork)
@@ -196,7 +168,7 @@ func main() {
 			DefaultBranch: *repo.DefaultBranch,
 		}
 
-		updateForkUpstream(client.Repositories, fork)
+		updateForkUpstream(r, fork)
 		if err != nil {
 			log.Printf("could not get fork upstream for %s: %v", fork.Name, err)
 			continue
@@ -205,8 +177,12 @@ func main() {
 		*forks = append(*forks, *fork)
 	}
 
+	return forks, nil
+}
+
+func updateForks(r Repositories, forks *[]Fork) error {
 	for _, fork := range *forks {
-		upToDate, err := isForkUpToDateWithUpstream(client.Repositories, fork)
+		upToDate, err := isForkUpToDateWithUpstream(r, fork)
 
 		if upToDate {
 			continue
@@ -216,16 +192,51 @@ func main() {
 
 		dir, err := ioutil.TempDir("", "tmp")
 		if err != nil {
-			fmt.Errorf("could not create a temporary directory: %s", err)
-			os.Exit(1)
+			return fmt.Errorf("could not create a temporary directory: %s", err)
 		}
 		defer os.RemoveAll(dir)
 
 		err = updateFork(fork, dir)
 		if err != nil {
-			fmt.Println("could not update fork %s: %v", fork.Name, err)
+			return fmt.Errorf("could not update fork %s: %v", fork.Name, err)
+		}
+	}
+	return nil
+}
+
+func main() {
+	var (
+		err   error
+		token = flag.String("token", "", "The github user token to update fork on")
+	)
+
+	flag.Parse()
+
+	if *token == "" {
+		if os.Getenv("GITHUB_TOKEN") == "" {
+			fmt.Fprintf(os.Stderr, "You must provide a token with the --token flag or set a GITHUB_TOKEN environment variable to use updateforks")
 			os.Exit(1)
 		}
 
+		*token = os.Getenv("GITHUB_TOKEN")
+	}
+
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: *token},
+	)
+	tc := oauth2.NewClient(oauth2.NoContext, ts)
+
+	client := github.NewClient(tc)
+	forks, err := getForks(client.Repositories)
+
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Could not get forks: %v", err)
+		os.Exit(1)
+	}
+
+	err = updateForks(client.Repositories, forks)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Could not update forks: %v", err)
+		os.Exit(1)
 	}
 }
