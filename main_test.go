@@ -211,7 +211,7 @@ func TestIsForkUpToDateWithUpstream(t *testing.T) {
 		expectedUpToDate    bool
 		expectedErrContains string
 	}{
-		{NewFakeRepositories("getBranchError"), *fork, false, "could not get fork branc SHA"},
+		{NewFakeRepositories("getBranchError"), *fork, false, "could not get fork branch SHA"},
 		{NewFakeRepositories("getUpstreamBranchError"), *fork, false, "could not get upstream branch SHA"},
 		{NewFakeRepositories("successUpToDate"), *fork, true, ""},
 		{NewFakeRepositories("successNotUpToDate"), *fork, false, ""},
@@ -228,5 +228,13 @@ func TestIsForkUpToDateWithUpstream(t *testing.T) {
 				t.Errorf("err getAllRepositories() expected: %s actual: %s", tc.expectedErrContains, actualErr)
 			}
 		}
+	}
+}
+
+func TestGenerateSSHURL(t *testing.T) {
+	expected := "git@github.com:chaseadamsio/updateforks.git"
+	actual := generateSSHURL("chaseadamsio", "updateforks")
+	if actual != expected {
+		t.Errorf("err generateSSHURL() expected: %s actual: %s", expected, actual)
 	}
 }
