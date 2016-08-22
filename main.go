@@ -42,7 +42,7 @@ func getAllRepositories(r Repositories) ([]*github.Repository, error) {
 func updateForkUpstream(r Repositories, f *Fork) error {
 	found, _, err := r.Get(f.Owner, f.Name)
 	if err != nil {
-		return fmt.Errorf("error getting repository: %s", err)
+		return fmt.Errorf("could not get repository: %s", err)
 	}
 	f.UpstreamOwner = *found.Parent.Owner.Login
 	return nil
@@ -51,7 +51,7 @@ func updateForkUpstream(r Repositories, f *Fork) error {
 func getBranchSHA(r Repositories, owner, name, branch string) (string, error) {
 	found, _, err := r.GetBranch(owner, name, branch)
 	if err != nil {
-		return "", fmt.Errorf("error getting fork branch: %s", err)
+		return "", fmt.Errorf("could not get fork branch: %s", err)
 	}
 	return *found.Commit.SHA, nil
 }
@@ -59,12 +59,12 @@ func getBranchSHA(r Repositories, owner, name, branch string) (string, error) {
 func isForkUpToDateWithUpstream(r Repositories, f Fork) (bool, error) {
 	forkSHA, err := getBranchSHA(r, f.Owner, f.Name, f.DefaultBranch)
 	if err != nil {
-		return false, fmt.Errorf("error getting fork branch: %s", err)
+		return false, fmt.Errorf("could not get fork branch SHA: %s", err)
 	}
 
 	upstreamSHA, err := getBranchSHA(r, f.UpstreamOwner, f.Name, f.DefaultBranch)
 	if err != nil {
-		return false, fmt.Errorf("error getting upstream branch: %s", err)
+		return false, fmt.Errorf("could not get upstream branch SHA: %s", err)
 	}
 
 	if forkSHA == upstreamSHA {
