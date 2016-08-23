@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"os/exec"
 
 	"golang.org/x/oauth2"
 
@@ -74,79 +73,24 @@ func isForkUpToDateWithUpstream(r Repositories, f Fork) (bool, error) {
 	return false, nil
 }
 
-func gitexec(args []string) error {
-	cmd := exec.Command("git", args...)
-	output, err := cmd.CombinedOutput()
-	if err != nil {
-		return err
-	}
-
-	if len(output) > 0 {
-		fmt.Println(string(output))
-	}
-
-	return nil
-}
-
-func generateSSHURL(owner, name string) string {
-	return "git@github.com:" + owner + "/" + name + ".git"
-}
-
-func Clone(f Fork, dir string) error {
-	cloneSSHURL := generateSSHURL(f.Owner, f.Name)
-	return gitexec([]string{"clone", "--depth", "1", cloneSSHURL, dir})
-}
-
-func AddUpstream(f Fork) error {
-	upstreamSSHURL := generateSSHURL(f.UpstreamOwner, f.Name)
-	return gitexec([]string{"remote", "add", "upstream", upstreamSSHURL})
-}
-
-func UpdateRemotes() error {
-	return gitexec([]string{"remote", "-v", "update", "-p"})
-}
-func RebaseForkFromUpstream(f Fork) error {
-	return gitexec([]string{"rebase", "upstream/" + f.DefaultBranch})
-}
-
-func PushFork(f Fork) error {
-	return gitexec([]string{"push", "origin", f.DefaultBranch})
-}
-
 func updateFork(fork Fork, dir string) error {
-	var err error
-	err = Clone(fork, dir)
-	if err != nil {
-		return fmt.Errorf("could not clone fork %s: %v", fork.FullName, err)
-	}
+	g := NewGit(fork)
 
-	err = os.Chdir(dir)
-	if err != nil {
-		return fmt.Errorf("could not change dir: %s", err)
-	}
-
-	err = AddUpstream(fork)
-	if err != nil {
-		return fmt.Errorf("could not add upstream url for %s: %v", fork.FullName, err)
-	}
-
-	err = UpdateRemotes()
-	if err != nil {
-		return fmt.Errorf("could not update remote: %s", err)
-	}
-
-	err = RebaseForkFromUpstream(fork)
-	if err != nil {
-		return fmt.Errorf("could not rebase fork from upstream: %s", err)
-	}
-
-	err = PushFork(fork)
-	if err != nil {
-		return fmt.Errorf("could not push to remote: %s", err)
+	if err := g.UpdateFork(dir); err != nil {
+		return fmt.Errorf("could not update fork: %v", err)
 	}
 
 	return nil
 
+}
+
+func newFork(r github.Repository) *Fork {
+	return &Fork{
+		Name:          *r.Name,
+		FullName:      *r.FullName,
+		Owner:         *r.Owner.Login,
+		DefaultBranch: *r.DefaultBranch,
+	}
 }
 
 func getForks(r Repositories) (*[]Fork, error) {
@@ -161,12 +105,7 @@ func getForks(r Repositories) (*[]Fork, error) {
 		if !*repo.Fork {
 			continue
 		}
-		fork := &Fork{
-			Name:          *repo.Name,
-			FullName:      *repo.FullName,
-			Owner:         *repo.Owner.Login,
-			DefaultBranch: *repo.DefaultBranch,
-		}
+		fork := newFork(*repo)
 
 		updateForkUpstream(r, fork)
 		if err != nil {

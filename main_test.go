@@ -230,11 +230,3 @@ func TestIsForkUpToDateWithUpstream(t *testing.T) {
 		}
 	}
 }
-
-func TestGenerateSSHURL(t *testing.T) {
-	expected := "git@github.com:chaseadamsio/updateforks.git"
-	actual := generateSSHURL("chaseadamsio", "updateforks")
-	if actual != expected {
-		t.Errorf("err generateSSHURL() expected: %s actual: %s", expected, actual)
-	}
-}
