@@ -3,3 +3,6 @@ default:
 
 test:
 	go test -v ./...
+
+install:
+	go get -t ./...
