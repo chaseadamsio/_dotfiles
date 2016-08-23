@@ -1,4 +1,4 @@
-# updateforks
+# updateforks [![Build Status](https://travis-ci.org/chaseadamsio/updateforks.svg?branch=master)](https://travis-ci.org/chaseadamsio/updateforks) [![Coverage Status](https://coveralls.io/repos/github/chaseadamsio/updateforks/badge.svg?branch=master)](https://coveralls.io/github/chaseadamsio/updateforks?branch=master)
 
 This is based off of [@jfrazelle's](https://github.com/jfrazelle) awesome [updateforks](https://github.com/jfrazelle/dotfiles/blob/master/bin/updateforks) from her Dotfiles. I wanted to practice my Golang, so I took inspiration from her bash script and wrote it with stdlib go.
 
