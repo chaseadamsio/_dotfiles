@@ -1,6 +1,6 @@
-export ZSH=$HOME/workspace/src/gitlab.com/chaseadamsio/dotfiles
+export ZSH=$HOME/workspace/src/github.com/chaseadamsio/dotfiles
 
-export PROJECTS=$HOME/workspace/src/gitlab.com/chaseadamsio
+export PROJECTS=$HOME/workspace/src/github.com/chaseadamsio
 
 if [[ -a ~/.localrc ]] 
 then
