@@ -43,6 +43,8 @@
   set $workspace1 "1 " 
   # chrome
   set $workspace2 "2 "
+  # vs code
+  set $workspace3 "3 "
   # spotify
   set $workspace10 "10 "
 
@@ -131,7 +133,7 @@
 ### workspaces
   bindsym $mod+1 workspace $workspace1
   bindsym $mod+2 workspace $workspace2
-  bindsym $mod+3 workspace 3
+  bindsym $mod+3 workspace $workspace3
   bindsym $mod+4 workspace 4
   bindsym $mod+5 workspace 5
   bindsym $mod+6 workspace 6
@@ -142,7 +144,7 @@
 
   bindsym $mod+Shift+1 move container to workspace $workspace1
   bindsym $mod+Shift+2 move container to workspace $workspace2
-  bindsym $mod+Shift+3 move container to workspace 3
+  bindsym $mod+Shift+3 move container to workspace $workspace3
   bindsym $mod+Shift+4 move container to workspace 4
   bindsym $mod+Shift+5 move container to workspace 5
   bindsym $mod+Shift+6 move container to workspace 6
@@ -153,7 +155,8 @@
   
   ### applications
     assign [class="xterm"] $workspace1
-    assign [class="chromium-browser"] $workspace2
+    assign [class="google-chrome"] $workspace2
+    assign [class="Code"] $workspace3
     assign [class="Spotify"] $workspace10
 
 ### restart
