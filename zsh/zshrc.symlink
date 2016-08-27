@@ -1,6 +1,7 @@
-export ZSH=$HOME/workspace/src/github.com/chaseadamsio/dotfiles
-
-export PROJECTS=$HOME/workspace/src/github.com/chaseadamsio
+export WORKSPACE=$HOME/workspace/src
+export PROJECTS=$WORKSPACE/github.com/chaseadamsio
+export ZSH=$PROJECTS/dotfiles
+export DOTFILES=$ZSH
 
 if [[ -a ~/.localrc ]] 
 then
