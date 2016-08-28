@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# make a new directory and change into it
+mkd() {
+  mkdir -p "$@" && cd "$@"
+}
