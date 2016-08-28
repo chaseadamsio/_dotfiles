@@ -8,33 +8,13 @@ then
   source ~/.localrc
 fi
 
-# all of our zsh files
-typeset -U config_files
-config_files=($ZSH/**/*.zsh)
-
-# load the path files
-for file in ${(M)config_files:#*/path.zsh}
+for file in $DOTFILES/configs/{aliases,functions,config,path,prompt}
 do
-  source $file
+	source $file
 done
-
-# load everything but the path and completion files
-for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
-do
-  source $file
-done
-
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit
-
-# load every completion after autocomplete loads
-for file in ${(M)config_files:#*/completion.zsh}
-do
-  source $file
-done
-
-unset config_files
 
 if [ -n "$TMUX" ]; then
   export TERM=screen-256color

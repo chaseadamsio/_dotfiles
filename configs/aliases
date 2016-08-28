@@ -1,3 +1,15 @@
+# Uses git's autocompletion for inner commands. Assumes an install of git's
+# bash `git-completion` script at $completion below (this is where Homebrew
+# tosses it, at least).
+completion='$(brew --prefix)/share/zsh/site-functions/_git'
+
+if test -f $completion
+then
+  source $completion
+fi
+
+alias g="git"
+
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -21,3 +33,4 @@ alias cdgl="cd $WORKSPACE/gitlab.com"
 alias cdca="cd $WORKSPACE/gitlab.com/chaseadamsio"
 alias cdghca="cd $WORKSPACE/github.com/chaseadamsio"
 alias dotfiles="cd $WORKSPACE/github.com/chaseadamsio/dotfiles"
+alias re!='. $HOME/.zshrc'       # Source the bash profile
