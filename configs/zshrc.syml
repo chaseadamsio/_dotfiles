@@ -1,5 +1,5 @@
 export WORKSPACE=$HOME/workspace/src
-export PROJECTS=$WORKSPACE/github.com/chaseadamsio
+export PROJECTS=$WORKSPACE/gitlab.com/chaseadamsio
 export ZSH=$PROJECTS/dotfiles
 export DOTFILES=$ZSH
 

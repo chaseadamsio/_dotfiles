@@ -7,7 +7,7 @@ set omnifunc=syntaxcomplete#Complete
 
 " Source Configuration files, ripped from
 function! s:SourceConfigFilesIn(file)
-  let directory_splat = '~/workspace/src/github.com/chaseadamsio/dotfiles/configs/nvim/' . a:file
+  let directory_splat = '~/workspace/src/gitlab.com/chaseadamsio/dotfiles/configs/nvim/' . a:file
   for config_file in split(glob(directory_splat), '\n')
     if filereadable(config_file)
         execute 'source' config_file
