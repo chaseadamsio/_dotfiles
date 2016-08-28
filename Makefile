@@ -1,30 +1,15 @@
 .PHONY: all
 
+CONFIG_PATH=$(CURDIR)/configs
+
 all:
 	echo "hello"
 
-dotfiles: dotfiles-syml dotfiles-alias
+dotfiles-bootstrap:
+	./scripts/symlinks ln $(CONFIG_PATH)
 
-dotfiles-syml:
-	@for file in $(shell find $(CURDIR)/configs -name "*.syml" -not -name "*.alias.syml"); do \
-		link=$$(echo ".$$(basename $$file)" | sed 's/.syml//g'); \
-		sudo ln -sf $$file $(HOME)/$$link; \
-	done; \
-
-dotfiles-alias:
-	@for file in $(shell find $(CURDIR)/configs -name "*.alias.syml"); do \
-		link=$$(echo ".$$(basename $$file)" | sed 's/.syml//g'); \
-		alias=$$(cat "$$file" | grep -Po "alias: (.*)" | sed 's/alias: //g'); \
-		dir=$$(dirname $$alias); \
-		mkdir -p $(HOME)/$$dir; \
-		sudo ln -sf $$file $(HOME)/$$alias; \
-	done; \
-
-clean-dotfiles:
-	@for file in $(shell find $(CURDIR)/configs -name "*.syml"); do \
-		link=$$(echo ".$$(basename $$file)" | sed 's/.syml//g'); \
-		sudo rm $(HOME)/$$link; \
-	done; \
+dotfiles-clean:
+	./scripts/symlinks rm $(CONFIG_PATH)
 
 docker-build:
 	docker build -t chaseadamsio/dotfiles:latest .
