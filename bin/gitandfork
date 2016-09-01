@@ -1,0 +1,106 @@
+#!/bin/sh
+# Perform a git clone of an upstream git project,
+# fork for a user and setup a remote for your fork
+# 
+# Requirements:
+#   GITHUB_TOKEN    API token for github remote.
+#   USERNAME        Github username for your remote.
+#   WORKSPACE       root path to clone to. For Go users, it should be $GOPATH/src.
+#
+# Example:
+#   gitandfork github.com/chaseadamsio/dotfiles
+#
+#   - clones to $GOPATH/src/github.com/chaseadamsio/dotfiles
+#     with chaseadamsio as `upstream` remote
+#   - sets up a remote for <USERNAME> as `origin`
+
+main() {
+  regex="git@(.+):(.+)/(.+).git"
+  fork_owner="chaseadamsio"
+  ssh_url=$1
+
+  if [[ $ssh_url =~ $regex ]]; then
+    remote_root=${BASH_REMATCH[1]}
+    upstream_owner=${BASH_REMATCH[2]}
+    repository=${BASH_REMATCH[3]}
+    clone_path=$WORKSPACE/${remote_root}/${upstream_owner}
+
+    clone_upstream $ssh_url $clone_path $repository
+    check_fork $remote_root $fork_owner $repository
+
+    if [[ $? == 0 ]]; then
+      create_fork $remote_root $upstream_owner $repository
+    else
+      log "fork already exists"
+    fi
+
+    add_fork_as_origin_remote $clone_path $remote_root $fork_owner $repository
+  fi
+}
+
+log() {
+  echo "[gitandfork] ${1}"
+}
+
+clone_upstream() {
+  ssh_url=$1
+  clone_path=$2
+  repository=$3
+
+  log "cloning ${repository} into ${clone_path}"
+  mkdir -p ${clone_path}
+  cd ${clone_path}
+  git clone ${ssh_url} --origin=upstream
+}
+
+check_fork() {
+  remote_root=$1
+  fork_owner=$2
+  repository=$3
+  api_endpoint="https://api.${remote_root}/repos/${fork_owner}/${repository}"
+  log "checking for existence of fork for ${fork_owner}/${repository}"
+
+  status_code=$(curl -s \
+    -H "Authorization: token $GITHUB_TOKEN" \
+    -o /dev/null -w "%{http_code}" \
+    $api_endpoint)
+
+  if [ 300 -gt $status_code ]; then
+    return 1 # fork already exists
+  else
+    return 0 # fork doesn't exist
+  fi
+}
+
+create_fork() {
+  remote_root=$1
+  upstream_owner=$2
+  repository=$3
+  api_endpoint="https://api.${remote_root}/repos/${upstream_owner}/${repository}/forks"
+
+  status_code=$(curl -s \
+    -X POST \
+    -H "Authorization: token $GITHUB_TOKEN" \
+    -o /dev/null -w "%{http_code}" \
+    $api_endpoint) 
+
+  if [ 202 -eq $status_code ]; then
+    echo "successfully forked ${upstream_owner}/${repository}"
+  else
+    echo "${status_code} unable to fork ${upstream_owner}/${repository}"
+  fi
+}
+
+add_fork_as_origin_remote() {
+  log "adding ${fork_owner} remote as ${repository}"
+  clone_path=$1
+  remote_root=$2
+  fork_owner=$3
+  repository=$4
+  
+  cd ${clone_path}/${repository}
+  git remote add origin git@${remote_root}:${fork_owner}/${repository}
+
+}
+
+main "$@"
