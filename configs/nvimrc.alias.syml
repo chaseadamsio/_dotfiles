@@ -1,11 +1,13 @@
+"""
+" alias: .config/nvim/init.vim
+"""
 set nocompatible
 filetype off
 set omnifunc=syntaxcomplete#Complete
 
 " Source Configuration files, ripped from
-" https://github.com/christoomey/dotfiles/blob/master/vim/vimrc
 function! s:SourceConfigFilesIn(file)
-  let directory_splat = '~/workspace/src/github.com/chaseadamsio/dotfiles/nvim/' . a:file
+  let directory_splat = '~/workspace/src/gitlab.com/chaseadamsio/dotfiles/configs/nvim/' . a:file
   for config_file in split(glob(directory_splat), '\n')
     if filereadable(config_file)
         execute 'source' config_file
@@ -41,7 +43,6 @@ let base16colorspace=256
 syntax enable
 set background=dark
 colorscheme base16-ocean
-
 set nowrap " no wrap
 set cursorline " Highlight current line
 
