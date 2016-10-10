@@ -128,7 +128,7 @@
   # start simple terminal
   bindsym $mod+Return exec termite
   # start dmenu (a program launcher)
-  bindsym $mod+d exec rofi -show run -lines 5 -bc "$base01" -bw 1 -bg "$base00" -fg "$base04" -fg-urgent "$base0E" -hlbg "$base01" -hlfg "$base0D" -font "Fira Sans 20"
+  bindsym $mod+d exec rofi -show run -lines 5 -bc "$base01" -bw 1 -bg "$base00" -fg "$base04" -fg-urgent "$base0E" -hlbg "$base01" -hlfg "$base0D" -font "Soure Code Pro 11"
 
 ### workspaces
   bindsym $mod+1 workspace $workspace1
@@ -183,11 +183,10 @@
 
   bindsym 0xffc8 exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the power button. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-
 bar {
   status_command i3status
   tray_output none
-  font pango:Fira Sans 11
+  font pango:Source Code Pro 10
   position top
 
   colors {
