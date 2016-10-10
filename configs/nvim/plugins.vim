@@ -18,6 +18,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/syntastic'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'xolox/vim-misc'
+Plugin 'tomasr/molokai'
 
 Plugin 'mxw/vim-jsx'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -36,6 +37,8 @@ Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 
 Plugin 'fatih/vim-go'
 Plugin 'shougo/neocomplete'
+
+Plugin 'lambdatoast/elm.vim'
 
 " *** End Plugins ***
 
