@@ -42,7 +42,7 @@ nmap <leader>hh :noh<cr>
 let base16colorspace=256
 syntax enable
 set background=dark
-colorscheme base16-ocean
+colorscheme molokai
 set nowrap " no wrap
 set cursorline " Highlight current line
 
@@ -234,7 +234,6 @@ au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
 au FileType go nmap <leader>c <Plug>(go-coverage)
-
 
 map <C-n> :cnext<CR>
 map <C-m> :cprevious<CR>
