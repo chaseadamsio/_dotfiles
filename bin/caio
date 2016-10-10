@@ -1,0 +1,33 @@
+#!/bin/sh
+
+SITE_DIR=$WORKSPACE/chaseadamsio/chaseadamsio.gitlab.io
+CONTENT_DIR=$SITE_DIR/content
+
+function NEWCONTENT() {
+  echo "$CONTENT_DIR/$1.md"
+  echo "$2"
+}
+
+SLUGIFIED="$(echo -n "$2" | sed -e 's/[^[:alnum:]]/-/g' | tr -s "-" | tr A-Z a-z)"
+DATE=$(date +"%Y/%m/%d")
+
+case "$1" in
+  post|article)
+    NEWCONTENT "$1/$DATE/$SLUGIFIED" "$2"
+    ;;
+  page)
+    NEWCONTENT "$1/$SLUGIFIED" "$2"
+    ;;
+  *)
+cat <<USAGE
+NAME
+        caio - content generator for hugo posts
+SYNOPSIS
+        caio <type> "title of content"
+
+Use one of the following:
+    post:     site/content/post/%Y/%m/%d/post-title.md
+    page:     site/content/post-title.md
+    article:  site/content/article/%Y/%m/%d/post-title.md
+USAGE
+esac
