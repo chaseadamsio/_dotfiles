@@ -40,6 +40,8 @@ Plugin 'shougo/neocomplete'
 
 Plugin 'lambdatoast/elm.vim'
 
+Plugin 'maralla/completor.vim'
+
 " *** End Plugins ***
 
 " All of your Plugins must be added before the following line
