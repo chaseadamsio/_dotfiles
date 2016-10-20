@@ -1,0 +1,42 @@
+#!/bin/sh
+# gogit does go get on a package, forks it into your remote 
+# and adds a remote for you for origin
+
+regex="git@([a-zA-Z0-9.]+):(.*)/(.*).git"
+api_version="api/v3"
+user=cadam20
+user_token=$GECGITHUB_TOKEN
+
+main() {
+  upstream_remote=$1
+  if [[ $upstream_remote =~ $regex ]]; then
+    remote_root=${BASH_REMATCH[1]} 
+    upstream_owner=${BASH_REMATCH[2]} 
+    repo=${BASH_REMATCH[3]}
+
+    project_path=$GOPATH/src/$remote_root/$upstream_owner
+    user_remote="git@${remote_root}:${user}/$repo"
+
+    mkdir -p $project_path
+
+    git clone $1 --origin upstream
+
+    fork_upstream $remote_root $repo $upstream_owner
+
+    cd $project_path/$repo
+
+    git remote add origin $user_remote
+  fi
+}
+
+fork_upstream() {
+  remote_root=$1
+  repo=$2
+  upstream_owner=$3
+  api_endpoint=$remote_root/$api_version/repos/$upstream_owner/$repo/forks
+
+  curl -X POST -I -H "Authorization: token $user_token" \
+    --location $api_endpoint
+}
+
+main "$@"
