@@ -1,5 +1,5 @@
 export WORKSPACE=$HOME/workspace/src
-export PROJECTS=$WORKSPACE/gitlab.com/chaseadamsio
+export PROJECTS=$WORKSPACE/github.com/chaseadamsio
 export ZSH=$PROJECTS/dotfiles
 export DOTFILES=$ZSH
 
@@ -39,7 +39,8 @@ export PATH=$NIX_LINK/bin:$NIX_LINK/sbin:$PATH
 LC_CTYPE=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 
-[[ -s "/usr/local/bin/nvim" ]] && alias vi="/usr/local/bin/nvim"
+alias vi="/usr/local/bin/vim"
 
 export GOPATH=$HOME/workspace
 export WORKSPACE=$GOPATH/src
+export PATH=$PATH:$GOPATH/bin
