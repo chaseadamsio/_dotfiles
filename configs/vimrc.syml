@@ -7,7 +7,7 @@ set omnifunc=syntaxcomplete#Complete
 
 " Source Configuration files, ripped from
 function! s:SourceConfigFilesIn(file)
-  let directory_splat = '~/workspace/src/gitlab.com/chaseadamsio/dotfiles/configs/nvim/' . a:file
+  let directory_splat = '~/workspace/src/github.com/chaseadamsio/dotfiles/configs/vim/' . a:file
   for config_file in split(glob(directory_splat), '\n')
     if filereadable(config_file)
         execute 'source' config_file
@@ -134,7 +134,7 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
-let g:airline_theme='base16'
+let g:airline_theme='base16color'
 set laststatus=2
 
 " syntastic
@@ -224,6 +224,9 @@ let g:go_highlight_build_constraints = 1
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go']  }
 let g:go_list_type = "quickfix"
+
+let g:completor_go_omni_trigger = '(?:\b[^\W\d]\w*|[\]\)])\.(?:[^\W\d]\w*)?'
+
 
 " enable neocomplete 
 let g:neocomplete#enable_at_startup = 1
