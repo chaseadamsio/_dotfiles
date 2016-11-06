@@ -4,6 +4,7 @@
 doAllConfigs() {
   for file in $(find -H "$2" -name '*.syml'); do 
     SYMLINK=$(echo "$(basename $file)" | sed 's/.syml//g'); 
+    echo "found $SYMLINK";
 
     # if the symlink contains .alias, it will find alias: in the file and 
     # determine where to lnk the file to
@@ -11,6 +12,7 @@ doAllConfigs() {
       SYMLINK=$(cat "$file" | grep -Po "alias: (.*)" | sed 's/alias: //g'); 
       if [[ -d "$SYMLINK" ]]; then
         dir=$(dirname $SYMLINK); 
+        echo "creating $HOME/$dir";
         mkdir -p $HOME/$dir; 
       fi
     else

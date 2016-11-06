@@ -47,7 +47,7 @@
   # terminal
   set $workspace1 "1 " 
   # chrome
-  set $workspace2 "2 "
+  set $workspace2 "2 "
   # vs code
   set $workspace3 "3 "
   # spotify
@@ -168,7 +168,7 @@
   
   ### applications
     assign [class="xterm"] $workspace1
-    assign [class="google-chrome"] $workspace2
+    assign [class="Firefox"] $workspace2
     assign [class="Code"] $workspace3
     assign [class="Spotify"] $workspace10
 

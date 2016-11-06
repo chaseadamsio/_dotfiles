@@ -55,3 +55,4 @@ fi
 export GOPATH=$HOME/workspace
 export WORKSPACE=$GOPATH/src
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:/sbin:/usr/sbin
