@@ -7,7 +7,7 @@ general {
   interval = 2
 }
 
-order += "wireless wlan0"
+order += "wireless wlp1s0"
 order += "battery 0"
 order += "volume master"
 order += "disk /"
@@ -31,7 +31,7 @@ battery 0 {
   low_threshold = 20
 }
 
-wireless wlan0 {
+wireless wlp1s0 {
   format_up = " (%essid) %ip "
   format_down = "!WiFi"
 }
