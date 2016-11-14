@@ -1,0 +1,7 @@
+# this will set sensible osx defaults
+mkdir -p ~/screenshots
+
+defaults write com.apple.screencapture location ~/screenshots;
+defaults write com.apple.screencapture disable-shadow -bool TRUE;
+killall SystemUIServer
+
