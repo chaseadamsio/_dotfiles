@@ -9,8 +9,9 @@ sudo zypper install \
 
 mkdir -p $HOME/src $HOME/bin $HOME/pkg $HOME/tmp
 
-cd $HOME/tmp && \
-  curl https://storage.googleapis.com/golang/go1.7.3.src.tar.gz | tar xvz
-  
+export GO_VERSION=1.7.3
 
+cd $HOME/tmp && \
+  curl -sSL "https://storage.googleapis.com/golang/go${GO_VERSION}.linux-amd64.tar.gz" | sudo tar -v -C /usr/local -xz
+  
 git clone git@github.com:chaseadamsio/dotfiles.git
