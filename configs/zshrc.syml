@@ -1,5 +1,5 @@
 export WORKSPACE=$HOME/src
-export PROJECTS=$WORKSPACE/github.com/chaseadamsio
+export PROJECTS=$WORKSPACE/gitlab.com/chaseadamsio
 export ZSH=$PROJECTS/dotfiles
 export DOTFILES=$ZSH
 
@@ -52,7 +52,7 @@ then
   alias vi="/usr/local/bin/vim"
 fi
 
-export GOPATH=$HOME/workspace
+export GOPATH=$HOME
 export WORKSPACE=$GOPATH/src
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/sbin:/usr/sbin
