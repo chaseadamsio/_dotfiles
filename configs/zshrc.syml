@@ -1,3 +1,7 @@
+# Local Variables:
+# mode: shell-script
+# End:
+
 export WORKSPACE=$HOME/src
 export PROJECTS=$WORKSPACE/gitlab.com/chaseadamsio
 export ZSH=$PROJECTS/dotfiles
@@ -16,9 +20,9 @@ done
 autoload -U compinit
 compinit
 
-if [ -n "$TMUX" ]; then
+if [ -n "$TMUX" ] || [ "$(uname)" = 'Linux' ]; then
   export TERM=screen-256color
-else
+else 
   export TERM=xterm-256color
 fi
 
@@ -52,7 +56,15 @@ then
   alias vi="/usr/local/bin/vim"
 fi
 
+# alias emacs="emacs -nw"
+
+export PATH=$PATH:/usr/local/go/bin
+
 export GOPATH=$HOME
 export WORKSPACE=$GOPATH/src
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:/sbin:/usr/sbin
+
+export PATH="/home/chaseadamsio/.cask/bin:$PATH"
+
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources

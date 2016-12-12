@@ -44,6 +44,13 @@
   set $base05 #35b9ab
   set $base08 #35b9ab
 
+
+  set $one-grey-darkest		#27272E
+  set $one-grey-darker		#2E2E37
+  set $one-cobalt 		#C7C9FF
+  set $one-cobalt-muted 	#757694
+  set $one-green 		#79BB73
+
   # terminal
   set $workspace1 "1 " 
   # chrome
@@ -67,17 +74,10 @@
   ### colors
 
   # class                   border  backgr. text    indicator child_border
-  client.background         $base00 $base00 $base0D $base00   $base00
-  client.focused            $base01 $base01 $base0D $base00   $base08
-  client.focused_inactive   $base01 $base02 $base03 $base00   $base00
-  client.unfocused          $base00 $base00 $base02 $base00   $base00
-  client.urgent             $base05 $base05 $base08 $base00   $base08
-
-  # class                   border  backgr. text    indicator child_border
-  client.background         $base00 $base00 $base0D $base00   $base00
-  client.focused            #131616 #131616 $base0D #131616   #131616
-  client.focused_inactive   $base01 $base02 $base03 $base00   $base00
-  client.unfocused          #1f2526 #1f2526 $base02 #1f2526   #1f2526
+  client.background         $one-grey-darkest $one-grey-darkest $base0D $base00   $base00
+  client.focused            $one-grey-darkest $one-grey-darkest  $one-cobalt   #131616
+  client.focused_inactive   $one-grey-darker $one-grey-darker $one-cobalt-muted $base00
+  client.unfocused          $one-grey-darker $one-grey-darker $one-cobalt-muted
   client.urgent             $base05 $base05 $base08 $base00   $base08
 
   ### focus
@@ -141,7 +141,8 @@
   # start simple terminal
   bindsym $mod+Return exec termite
   # start dmenu (a program launcher)
-  bindsym $mod+d exec rofi -show run -lines 5 -font "Soure Code Pro 11"
+  bindsym $mod+d exec rofi -show run -lines 5 -font "Fira Sans Regular 20" -padding 10
+
 
 ### workspaces
   bindsym $mod+1 workspace $workspace1
@@ -199,17 +200,17 @@
 bar {
   status_command i3status
   tray_output none
-  font pango:Source Code Pro 10
+  font pango:Fira Sans Regular 10
   position top
 
-  colors {
-    background #131616
-    statusline $base03
-    separator #131616
+colors {
+    background #27272E
+    statusline #C7C9FF
+    separator #27272E
     #  colorclass       border  backg.  text
-    focused_workspace   #131616 #131616 #73ba25
-    urgent_workspace    $base08 $base08 $base00
-    inactive_workspace  #131616 #131616 $base02
+    focused_workspace   #2E2E37 #2E2E37 #C7C9FF
+    urgent_workspace    #79BB73 #79BB73 #27272E
+    inactive_workspace  #27272E #27272E #757694
   }
 }
 
