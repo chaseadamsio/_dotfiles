@@ -68,3 +68,5 @@ export PATH=$PATH:/sbin:/usr/sbin
 export PATH="/home/chaseadamsio/.cask/bin:$PATH"
 
 [[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+
+export PATH="$HOME/.yarn/bin:$PATH"
