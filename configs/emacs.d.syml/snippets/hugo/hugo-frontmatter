@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: hugo-frontmatter
+# key: fm
+# --
++++
+title="$0"
++++
