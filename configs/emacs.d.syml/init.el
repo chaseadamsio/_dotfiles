@@ -33,5 +33,3 @@
       (let ((l (match-end 0)))
         (search-forward "\n#+END_SRC")
         (eval-region l (match-beginning 0)))))))
-
-;;; init.el ends here

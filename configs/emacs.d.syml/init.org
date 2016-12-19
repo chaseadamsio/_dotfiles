@@ -91,6 +91,17 @@ One of the things I dislike about emacs is when you select some text and want to
 (delete-selection-mode 1)
 #+END_SRC
 
+Enable all potential languages that would be used for org-babel
+#+name: resets
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((js . t)
+     (sass . t)
+     (css . t)
+     (sh . t)
+     ))
+#+END_SRC
 ** Essentials
 
 Automatically insert the closing character for pair-type characters.
