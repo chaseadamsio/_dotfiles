@@ -1,9 +1,11 @@
-#+TITLE: chaseadamsio dotfiles
+#+TITLE: chaseadamsio/dotfiles
 
-This is a repository of all of my =dotfiles=. Everything you'll find here is an [[http://orgmode.org/][org-mode file]] that is either executed (such as my =.emacs.d/init.org=) or tangled with [[http://orgmode.org/worg/org-contrib/babel/intro.html][babel]] source code blocks.
+This is a repository of all of my =dotfiles=. Everything you'll find here is an [[http://orgmode.org/][org-mode file]] that is either executed (such as my =emacs.org=) or tangled with [[http://orgmode.org/worg/org-contrib/babel/intro.html][babel]] source code blocks.
 
 Most of this is done through the [[file:bootstrap.org][bootstrap.org]] file.
 
-This is the screenshot of my current config:
+#+CAPTION: screenshot of my current config in OpenSUSE on my Acer C720 Chromebook
+[[file:screenshot-opensuse.png]]
 
-[[file:screenshot.png]]
+#+CAPTION: screenshot of my current config in OSX
+[[file:screenshot-osx.png]]
