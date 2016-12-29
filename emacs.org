@@ -96,6 +96,14 @@ Override default emacs find-file with helm's find-file...
 (global-set-key (kbd "C-p") 'helm-projectile-find-files)
 #+END_SRC
 
+Save backups and auto-saves to system temporary directory rather than in the source directory (version control becomes a nightmare otherwise)
+#+BEGIN_SRC emacs-lisp
+ (setq backup-directory-alist
+          `((".*" . ,temporary-file-directory)))
+    (setq auto-save-file-name-transforms
+          `((".*" ,temporary-file-directory t)))
+#+END_SRC
+
 ** Sensible Resets
 
 Don't wrap lines for code, but do wrap lines for text...
@@ -277,14 +285,6 @@ This defines the order of how the separate code blocks are loaded.
 <<appearance>>
 <<funcs-and-macros>>
 <<languages>>
-#+END_SRC
-
-Save backups and auto-saves to system temporary directory rather than in the source directory (version control becomes a nightmare otherwise)
-#+BEGIN_SRC emacs-lisp
- (setq backup-directory-alist
-          `((".*" . ,temporary-file-directory)))
-    (setq auto-save-file-name-transforms
-          `((".*" ,temporary-file-directory t)))
 #+END_SRC
 
 ** Registers, Utility Functions & Macros
