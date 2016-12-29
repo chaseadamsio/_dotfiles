@@ -4,6 +4,8 @@ This is a repository of all of my =dotfiles=. Everything you'll find here is an 
 
 Most of this is done through the [[file:bootstrap.org][bootstrap.org]] file.
 
+** Screenshots
+
 #+CAPTION: screenshot of my current config in OpenSUSE on my Acer C720 Chromebook
 [[file:screenshot-opensuse.png]]
 
