@@ -1,0 +1,5 @@
+#+TITLE: Bootstrap The Machines
+
+#+BEGIN_SRC sh :results none
+echo "Hello world"
+#+END_SRC
