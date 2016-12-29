@@ -3,3 +3,7 @@
 This is a repository of all of my =dotfiles=. Everything you'll find here is an [[http://orgmode.org/][org-mode file]] that is either executed (such as my =.emacs.d/init.org=) or tangled with [[http://orgmode.org/worg/org-contrib/babel/intro.html][babel]] source code blocks.
 
 Most of this is done through the [[file:bootstrap.org][bootstrap.org]] file.
+
+This is the screenshot of my current config:
+
+[[file:screenshot.png]]
