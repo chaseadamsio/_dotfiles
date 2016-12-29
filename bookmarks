@@ -1,0 +1,10 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("init.org"
+ (filename . "~/src/gitlab.com/chaseadamsio/chaseadamsio.gitlab.io/dotfiles/configs/emacs.d.syml/init.org")
+ (front-context-string . "\n** Sensible Res")
+ (rear-context-string . "arks)\n#+END_SRC\n")
+ (position . 2442))
+)

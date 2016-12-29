@@ -1,4 +1,4 @@
-#+TITLE: My Shell
+#+TITLE: My Shell Configuration
 
 * .bash_profile
 :PROPERTIES:
@@ -71,13 +71,93 @@ Make it easy to reload my =.bash_profile= from the command line:
 ** Functions
 
 =mkdir= recursively /and/ change into it when done:
-
 #+BEGIN_SRC sh
   mkd() {
     mkdir -p "$@" && cd "$@"
   }
 #+END_SRC
 
+=gogithub= runs =go get= for the argument passed in, forks it to your Github remote, and adds the remote for your fork as =origin= and updates the =go get= remote to =upstream=.
+
+Usage:
+#+BEGIN_EXAMPLE
+  gogithub git@github.com/golang/go chaseadamsio $MY_GITHUB_TOKEN
+#+END_EXAMPLE
+
+#+BEGIN_SRC sh
+  gogithub() {
+      regex="git@([a-zA-Z0-9.]+):(.*)/(.*).git"
+      upstream_remote=$1
+      user=$2
+      user_token=$3
+
+      if [[ $upstream_remote =~ $regex ]]; then
+          remote_root=${BASH_REMATCH[1]} 
+          if [[ $remote_root == "github.com" ]]; then
+              api_root="https://api.github.com"
+          else
+              api_root="https://${remote_root}/api/v3"
+          fi
+          
+          upstream_owner=${BASH_REMATCH[2]} 
+          repo=${BASH_REMATCH[3]}
+
+          project_path=$GOPATH/src/$remote_root/$upstream_owner
+          user_remote="git@${remote_root}:${user}/$repo"
+
+          mkdir -p $project_path 
+
+          git clone $1 --origin upstream $project_path/terraform
+
+          api_endpoint=$api_root/repos/$user/$repo
+
+          status_code=$(curl -s \
+                             -H "Authorization: token $user_token" \
+                             -o /dev/null -w "%{http_code}" \
+                             $api_endpoint)
+
+          if [ 300 -gt $status_code ]; then
+              echo "fork already exists"
+              return 1 
+          else
+              api_endpoint=$api_root/repos/$upstream_owner/$repo/forks
+              echo $api_endpoint
+              status_code=$(curl -s \
+                                 -X POST \
+                                 -H "Authorization: token $user_token" \
+                                 -o /dev/null -w "%{http_code}" \
+                                 $api_endpoint) 
+
+              if [ 202 -eq $status_code ]; then
+                  echo "successfully forked ${upstream_owner}/${repo}"
+              else
+                  echo "${status_code} unable to fork ${upstream_owner}/${repo}"
+              fi
+          fi
+
+          cd $project_path/$repo
+
+          git remote add origin $user_remote
+      else
+          echo "unable to determine the URL for the Github project you're trying to get."
+          exit 1
+      fi
+  }
+#+END_SRC
+
+An alias for using =gogithub= for public github:
+#+BEGIN_SRC sh
+  ggh() {
+      gogithub $1 $GH_USER $GH_TOKEN
+  }
+#+END_SRC
+
+An alias for using =gogithub= for enterprise github:
+#+BEGIN_SRC sh
+  gghe() {
+      gogithub $1 $GHE_USER $GHE_TOKEN
+  }
+#+END_SRC
 ** Exports
 
 Setup the =$GOPATH=, =$WRK= and add =go= things to the =$PATH=:

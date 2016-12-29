@@ -4,24 +4,20 @@
 
 * There & Back Again
 
-On 2016-12-9, I started my journey into Emacs. There was no way of knowing that this 6 year running champion for vim would fall deeply into the blackhole that is Emacs, but now that I'm here, there's no turning back...Emacs is simply the tool I've been looking for my entire career as a software engineer.
+On 2016-12-09, I started my journey into Emacs. There was no way of knowing that this 6 year running champion for vim would fall deeply into the blackhole that is Emacs, but now that I'm here, there's no turning back...Emacs is simply the tool I've been looking for my entire career as a software engineer.
 
 This document is a living, breathing self-documented configuration. What you see in this file is /exactly/ what my configuration looks like, the ~init.el~ will always contain the code found in this document because /Emacs org-mode/ is doing the generation for me.
 
-This is the screenshot of my current config:
-
-[[/screenshot.png]]
 
 * How It Works
 
-Package Management is really important to me, so I did my research and found that Cask meets my requirements:
+** TODO Package Management & Package Defaults
 
-** Package Management & Package Defaults
+Package Management is really important to me, so I did my research and found that Cask meets my requirements:
 
 - a single file with individually declared dependencies
 - pallet keeps it up to date from running ~package-install~
 - both of these make it easy to reproduce environments across machines 
-
 #+name: package-management
 #+BEGIN_SRC emacs-lisp
 (require 'cask "~/.cask/cask.el")
@@ -48,11 +44,13 @@ Use company
                                   
 #+END_SRC
 
-Use helm...
+Use multicursor...
 #+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "M-x") #'helm-M-x)
-(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 #+END_SRC
 
 Initialize exec-path-from-shell for getting GOPATH later...
@@ -61,7 +59,55 @@ Initialize exec-path-from-shell for getting GOPATH later...
   (exec-path-from-shell-initialize))
 #+END_SRC
 
+use helm-projectile...
+#+BEGIN_SRC emacs-lisp
+(require 'helm-projectile)
+(helm-projectile-on)
+#+END_SRC
+
+Override default emacs buffer display with helm's buffer list...
+#+BEGIN_SRC emacs-lisp 
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
+#+END_SRC
+
+Override default emacs bookmarks with helm's bookmarks...
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x r b") 'helm-bookmarks)
+(global-set-key (kbd "M-x") 'helm-M-x)
+#+END_SRC
+
+Override default emacs M-x with helm's M-x...
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-x") 'helm-M-x)
+#+END_SRC
+
+Show kill ring with helm...
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+#+END_SRC
+
+Override default emacs find-file with helm's find-file...
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+#+END_SRC
+
+Override default emacs find-file with helm's find-file...
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-p") 'helm-projectile-find-files)
+#+END_SRC
+
 ** Sensible Resets
+
+Don't wrap lines for code, but do wrap lines for text...
+#+BEGIN_SRC emacs-lisp
+(add-hook 'prog-mode-hook '(lambda ()
+    (setq truncate-lines t
+          word-wrap nil)))
+
+(add-hook 'text-mode-hook '(lambda ()
+    (setq truncate-lines nil
+          word-wrap t)))
+#+END_SRC
 
 Disable the audible bell (I'm smart, I can figure out when I've done something wrong) and disable all the chrome for the emacs external application.
 #+name: resets
@@ -72,11 +118,11 @@ Disable the audible bell (I'm smart, I can figure out when I've done something w
 (tool-bar-mode -1) ;; for a "thin" emacs app
 #+END_SRC
 
-Use Fira Mono and shrink the font to 9pt.
-
+Use Fira Mono, set the line height and shrink the font to 9pt.
 #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil :family "Fira Mono")
-(set-face-attribute 'default nil :height 90)
+(setq-default line-spacing 3)
+(set-face-attribute 'default nil :height 100)
 #+END_SRC
 
 I like my cursor to be a thin line rather than a chunky block. I've always found the chunky block to be distracting.
@@ -102,12 +148,36 @@ Enable all potential languages that would be used for org-babel
      (sh . t)
      ))
 #+END_SRC
+
+make it /evil/. Enable vim mode and enable evil mode for org mode.
+#+BEGIN_SRC emacs-lisp
+(require 'evil)
+(evil-mode 1)
+(require 'evil-org)
+#+END_SRC
+
+Reset (C,M)-v to only move half pages forwards and backwards respectively...
+#+BEGIN_SRC emacs-lisp
+(defun scroll-half-page-backward ()
+  "scroll down half the page"
+  (interactive)
+  (scroll-down (/ (window-body-height) 2)))
+
+(defun scroll-half-page-forward ()
+  "scroll up half the page"
+  (interactive)
+  (scroll-up (/ (window-body-height) 2)))
+
+(global-set-key (kbd "C-v") 'scroll-half-page-forward)
+(global-set-key (kbd "M-v") 'scroll-half-page-backward)
+#+END_SRC
+
 ** Essentials
 
 Automatically insert the closing character for pair-type characters.
 #+name: essentials
 #+BEGIN_SRC emacs-lisp
-(electric-pair-mode 1)
+(add-hook 'prog-mode-hook 'electric-pair-local-mode)
 #+END_SRC
 
 ** Appearance
@@ -128,15 +198,13 @@ Set the doom-buffers to be "brighter".
 Set some variables for the doom ui.
 #+name: appearance
 #+BEGIN_SRC emacs-lisp
-(defvar doom-ui-fringe-size '3
-  "Default fringe width")
 (defvar doom-ui-theme 'doom-one
   "The color theme currently in use.")
 (defvar doom-ui-font
-  (font-spec :family "Fira Mono" :size 12)
+  (font-spec :family "Fira Mono" :size 9)
   "The font currently in use.")
 (defvar doom-ui-variable-pitch-font
-  (font-spec :family "Fira Sans" :size 12)
+  (font-spec :family "Fira Sans" :size 9)
   "The font currently in use.")
 (setq org-fontify-whole-heading-line t
       org-fontify-done-headline t
@@ -234,11 +302,82 @@ a function for RFC 3339 format (Hugo blog frontmatter)
     (insert (shell-command-to-string "echo -n $(date +%Y-%m-%dT%H:%M:%SZ)")))
 #+END_SRC
 
+** Keybindings
+
+Quickly open my main org file
+
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c o")
+                  (lambda () (interactive) (find-file "~/org/organizer.org")))
+#+END_SRC
+
+** Org Mode
+
+
+
+This is required for markdown exporting to work.
+
+#+BEGIN_SRC emacs-lisp
+(eval-after-load "org"
+  '(require 'ox-md nil t))
+#+END_SRC
+
+log todos and notes with the time that they were completed:
+#+BEGIN_SRC emacs-lisp
+(setq org-log-done 'time)
+(setq org-closed-keep-when-no-todo t)
+#+END_SRC
+
+set files for the org-agenda to use...
+
+#+BEGIN_SRC emacs-lisp
+(setq org-agenda-files
+      (delq nil
+            (mapcar (lambda (x) (and (file-exists-p x) x))
+                    '("~/notes/work.org"
+                      "~/Dropbox/org/organize.org"))))t
+(add-to-list 'auto-mode-alist '("\\.txt$" . org-mode))
+#+END_SRC
+
+This matches the todo keywords that I use on a daily basis...
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-todo-keywords
+        '((sequence "NEXT(n)" "TODO(t)" "IN PROGRESS(p)" "WAITING(w)" "SOMEDAY(s)" "PROJECT(p)" "|" "DONE(d)" "DELEGATED(l)" "CANCELLED(c)")))
+#+END_SRC
+
+an easy way to get to the org-agenda with a globally set key for "C-c a"...
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key "\C-ca" 'org-agenda)
+#+END_SRC
+
+a fix for an issue I'm experiencing with doom themes where [[https://github.com/hlissner/emacs-doom-theme/issues/30][org-level-1 font has unexpected behavior when moving cursor through characters]]:
+
+#+BEGIN_SRC emacs-lisp
+(custom-set-faces
+  '(org-level-1 ((t (:line-width 1))))
+)
+#+END_SRC
+
+Make org-level-1 the same height as other lines (the doom themes sizing makes the headlines do wonky things with my font)
+
+** Ido Mode
+
+enable ido mode with flexible matching in both buffer and file search...
+#+BEGIN_SRC emacs-lisp
+  (setq ido-enable-flex-matching t)
+  (setq ido-everywhere t)
+  (ido-mode 1)
+#+END_SRC
+
+#+RESULTS:
+
 ** Languages: Go
 
-#+name: languages
 
 Import =GOPATH= from the shell.
+#+name: languages
 #+BEGIN_SRC emacs-lisp
 (exec-path-from-shell-copy-env "GOPATH")
 #+END_SRC
@@ -251,30 +390,30 @@ Import =GOPATH= from the shell.
 
 #+name: languages
 #+BEGIN_SRC emacs-lisp
-(defun caio-go-mode-hook ()
-  (setq gofmt-command "goimports")
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  (if (not (string-match "go" compile-command))
-      (set (make-local-variable 'compile-command)
-           "go build -v && go test -v && go vet"))
-  (local-set-key (kbd "M-.") 'godef-jump)
-  (local-set-key (kbd "M-*") 'pop-tag-mark)
-)
-(add-hook 'go-mode-hook 'caio-go-mode-hook)
+ (defun caio-go-mode-hook ()
+   (setq gofmt-command "goimports")
+   (add-hook 'before-save-hook 'gofmt-before-save)
+;   (if (not (string-match "go" compile-command))
+;       (set (make-local-variable 'compile-command)
+;            "go build -v && go test -v && go vet"))
+   (global-set-key (kbd "M-.") 'godef-describe)
+   (global-set-key (kbd "M-*") 'pop-tag-mark)
+ )
+ (add-hook 'go-mode-hook 'caio-go-mode-hook)
 #+END_SRC
 
 Use go-eldoc
 #+name: languages
 #+BEGIN_SRC emacs-lisp
-(add-hook 'go-mode-hook 'go-eldoc-setup)
+; (add-hook 'go-mode-hook 'go-eldoc-setup)
 #+END_SRC
 
 Use company-go
 #+name: languages
 #+BEGIN_SRC emacs-lisp
-(require 'company-go)
-(add-hook 'go-mode-hook
-      (lambda ()
-        (set (make-local-variable 'company-backends) '(company-go))
-        (company-mode)))
+ (require 'company-go)
+; (add-hook 'go-mode-hook
+;       (lambda ()
+;         (set (make-local-variable 'company-backends) '(company-go))
+;         (company-mode)))
 #+END_SRC
