@@ -4,10 +4,9 @@
 echo "Hello world"
 #+END_SRC
 
+* ~/.emacs.d/init.el
 
-** Emacs
-
-Evaluate emacs-lisp code blocks in dotfiles/emacs.org.
+Generate the file for =~/.emacs.d/init.el= so Emacs can have acess to the =emacs.org= configuration file that lives in the dotfiles. Evaluate emacs-lisp code blocks in dotfiles/emacs.org.
 
 Copied from https://github.com/john2x/emacs.d/blob/master/init.el
 which was copied from http://endlessparentheses.com/init-org-Without-org-mode.html
@@ -37,3 +36,39 @@ See the blog post on why this is used instead of `org-babel-load-file'
         (search-forward "\n#+END_SRC")
         (eval-region l (match-beginning 0)))))))
 #+END_SRC
+
+* Finally, Bootstrap.
+
+Run i3wm file creation...
+#+NAME: bootstrap-linux
+#+BEGIN_SRC emacs-lisp :results none
+  (message "bootstrapping linux!")
+  (org-babel-tangle-file "i3wm.org")
+#+END_SRC
+
+Run OSX defaults setup...
+*** TODO figure out how to evaluate the buffer for =osx-defaults.org= programmatically.
+#+NAME: bootstrap-osx
+#+BEGIN_SRC emacs-lisp :results none
+  (message "noop")
+#+END_SRC
+
+Generate files for =.gitconfig= and =bash_profile=...
+#+NAME: bootstrap-all
+#+BEGIN_SRC emacs-lisp :results none
+  (message "bootstrapping everything else!")
+  (org-babel-tangle-file "git.org")
+  (org-babel-tangle-file "shell.org")
+#+END_SRC
+
+#+NAME: bootstrap
+#+BEGIN_SRC emacs-lisp :tangle yes :noweb yes :results none
+  (cond
+   ((eq system-type 'darwin)
+    (progn (message "bootstrapping OSX") <<bootstrap-osx>>))
+   ((eq system-type 'gnu/linux)
+    (progn <<bootstrap-linux>>)))
+  <<bootstrap-all>>
+#+END_SRC
+
+

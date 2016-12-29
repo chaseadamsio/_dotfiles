@@ -7,6 +7,14 @@ Before we can tangle our =i3= config, we need to make sure there's a directory f
   mkdir -p ~/.i3
 #+END_SRC
 
+** TODO add shell script for installing the following dependencies for OpenSUSE (with zypper)
+*** font-awesome
+*** feh
+*** rofi
+*** termite
+*** Fira Mono Font
+
+
 * .i3/config
 :PROPERTIES:
 :tangle: ~/.i3/config

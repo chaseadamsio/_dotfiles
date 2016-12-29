@@ -8,8 +8,7 @@ On 2016-12-09, I started my journey into Emacs. There was no way of knowing that
 
 This document is a living, breathing self-documented configuration. What you see in this file is /exactly/ what my configuration looks like, the ~init.el~ will always contain the code found in this document because /Emacs org-mode/ is doing the generation for me.
 
-
-* How It Works
+* emacs.org
 
 ** TODO Package Management & Package Defaults
 
@@ -187,6 +186,11 @@ Automatically insert the closing character for pair-type characters.
 #+BEGIN_SRC emacs-lisp
 (add-hook 'prog-mode-hook 'electric-pair-local-mode)
 #+END_SRC
+
+In some languages (looking at you lisp family!) it can be really hard to tell which pair of parens goes together, enable parens highlighting:
+#+BEGIN_SRC emacs-lisp
+(show-parens-mode 1)
+#+END_SRC 
 
 ** Appearance
 
