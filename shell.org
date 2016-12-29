@@ -107,7 +107,7 @@ Usage:
 
           mkdir -p $project_path 
 
-          git clone $1 --origin upstream $project_path/terraform
+          git clone $1 --origin upstream $project_path/$repo
 
           api_endpoint=$api_root/repos/$user/$repo
 
@@ -158,6 +158,15 @@ An alias for using =gogithub= for enterprise github:
       gogithub $1 $GHE_USER $GHE_TOKEN
   }
 #+END_SRC
+
+=git-branch-nuke= deletes a branch locally and in the origin remote:
+#+BEGIN_SRC sh
+  git-branch-nuke() {
+      git branch -D $1
+      git push origin :$1    
+  }
+#+END_SRC
+
 ** Exports
 
 Setup the =$GOPATH=, =$WRK= and add =go= things to the =$PATH=:
