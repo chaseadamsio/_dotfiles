@@ -10,7 +10,7 @@ This document is a living, breathing self-documented configuration. What you see
 
 * emacs.org
 
-** TODO Package Management & Package Defaults
+** Package Management & Package Defaults
 
 Package Management is really important to me, so I did my research and found that Cask meets my requirements:
 
@@ -19,10 +19,10 @@ Package Management is really important to me, so I did my research and found tha
 - both of these make it easy to reproduce environments across machines 
 #+name: package-management
 #+BEGIN_SRC emacs-lisp
-(require 'cask "~/.cask/cask.el")
-(cask-initialize)
-(require 'pallet)
-(pallet-mode t)
+  (require 'cask "~/.cask/cask.el")
+  (cask-initialize)
+  (require 'pallet)
+  (pallet-mode t)
 #+END_SRC
 
 Use go-eldoc
@@ -72,7 +72,6 @@ Override default emacs buffer display with helm's buffer list...
 Override default emacs bookmarks with helm's bookmarks...
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-x r b") 'helm-bookmarks)
-(global-set-key (kbd "M-x") 'helm-M-x)
 #+END_SRC
 
 Override default emacs M-x with helm's M-x...
@@ -90,11 +89,6 @@ Override default emacs find-file with helm's find-file...
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 #+END_SRC
 
-Override default emacs find-file with helm's find-file...
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-p") 'helm-projectile-find-files)
-#+END_SRC
-
 Save backups and auto-saves to system temporary directory rather than in the source directory (version control becomes a nightmare otherwise)
 #+BEGIN_SRC emacs-lisp
  (setq backup-directory-alist
@@ -104,6 +98,11 @@ Save backups and auto-saves to system temporary directory rather than in the sou
 #+END_SRC
 
 ** Sensible Resets
+
+Reset yes-or-no to be y-or-n because I hate typing more than I have to:
+#+BEGIN_SRC emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
 
 Don't wrap lines for code, but do wrap lines for text...
 #+BEGIN_SRC emacs-lisp
@@ -119,10 +118,13 @@ Don't wrap lines for code, but do wrap lines for text...
 Disable the audible bell (I'm smart, I can figure out when I've done something wrong) and disable all the chrome for the emacs external application.
 #+name: resets
 #+BEGIN_SRC emacs-lisp
-(setq ring-bell-function 'ignore) ;; the bell annoys the h*ck out of me, turn it off
-(menu-bar-mode -1) ;; for a "thin" emacs app
-(scroll-bar-mode -1) ;; for a "thin" emacs app
-(tool-bar-mode -1) ;; for a "thin" emacs app
+  (setq ring-bell-function 'ignore) ;; the bell annoys the h*ck out of me, turn it off
+  (setq initial-scratch-message "")
+  (setq inhibit-startup-message t)
+
+  (if (boundp (menu-bar-mode)) (menu-bar-mode -1)) ;; for a "thin" emacs app
+  (scroll-bar-mode -1) ;; for a "thin" emacs app
+  (if (boundp (tool-bar-mode)) (tool-bar-mode -1)) ;; for a "thin" emacs app
 #+END_SRC
 
 Use Fira Mono, set the line height and shrink the font to 9pt.
@@ -131,6 +133,8 @@ Use Fira Mono, set the line height and shrink the font to 9pt.
 (setq-default line-spacing 3)
 (set-face-attribute 'default nil :height 100)
 #+END_SRC
+
+#+RESULTS:
 
 I like my cursor to be a thin line rather than a chunky block. I've always found the chunky block to be distracting.
 #+name: resets
@@ -158,9 +162,9 @@ Enable all potential languages that would be used for org-babel
 
 make it /evil/. Enable vim mode and enable evil mode for org mode.
 #+BEGIN_SRC emacs-lisp
-(require 'evil)
-(evil-mode 1)
-(require 'evil-org)
+;(require 'evil)
+;(evil-mode 1)
+;(require 'evil-org)
 #+END_SRC
 
 Reset (C,M)-v to only move half pages forwards and backwards respectively...
@@ -179,6 +183,18 @@ Reset (C,M)-v to only move half pages forwards and backwards respectively...
 (global-set-key (kbd "M-v") 'scroll-half-page-backward)
 #+END_SRC
 
+Use super (cmd) + an arrow to easily navigate windows...
+#+BEGIN_SRC emacs-lisp
+(use-package windmove
+  ;; :defer 4
+  :ensure t
+  :config
+  ;; use command key on Mac
+  (windmove-default-keybindings 'super)
+  ;; wrap around at edges
+  (setq windmove-wrap-around t))
+#+END_SRC
+
 ** Essentials
 
 Automatically insert the closing character for pair-type characters.
@@ -189,7 +205,7 @@ Automatically insert the closing character for pair-type characters.
 
 In some languages (looking at you lisp family!) it can be really hard to tell which pair of parens goes together, enable parens highlighting:
 #+BEGIN_SRC emacs-lisp
-(show-parens-mode 1)
+(show-paren-mode 1)
 #+END_SRC 
 
 ** Appearance
@@ -275,7 +291,13 @@ murdered out (makes the appearance a lot more subtle on interactions)
 line numers...
 #+name: appearance
 #+BEGIN_SRC emacs-lisp
-(add-hook 'prog-mode-hook 'linum-mode)
+  (require 'nlinum)
+  (add-hook 'prog-mode-hook 'nlinum-mode)
+#+END_SRC
+
+Highlight the current line:
+#+BEGIN_SRC emacs-lisp
+(global-hl-line-mode 1)
 #+END_SRC
 
 ** Configuration File
@@ -296,7 +318,15 @@ This defines the order of how the separate code blocks are loaded.
 a register for "e" to open my =init.org= from anywhere inside of emacs.
 #+name: funcs-and-macros
 #+BEGIN_SRC emacs-lisp
-(set-register ?e (cons 'file "~/.emacs.d/init.org"))
+(set-register ?e (cons 'file "~/src/gitlab.com/chaseadamsio/dotfiles/emacs.org"))
+#+END_SRC
+
+setup a global key binding for =C-x C-r= to evaluate the =.emacs.d/init.el= file (this comes in handy because the =init.org= is evaluated by this file, so it's a really easy way to reload configuration without having to open the buffer and evaluate it).
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-x C-r") (lambda ()
+                                    (interactive)
+                                    (load-file "~/.emacs.d/init.el")))
+
 #+END_SRC
 
 a function for RFC 3339 format (Hugo blog frontmatter)
@@ -347,7 +377,7 @@ This matches the todo keywords that I use on a daily basis...
 
 #+BEGIN_SRC emacs-lisp
   (setq org-todo-keywords
-        '((sequence "NEXT(n)" "TODO(t)" "IN PROGRESS(p)" "WAITING(w)" "SOMEDAY(s)" "PROJECT(p)" "|" "DONE(d)" "DELEGATED(l)" "CANCELLED(c)")))
+        '((sequence "TODO(t)" "NEXT(n)" "IN PROGRESS(p)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "DELEGATED(l)" "CANCELLED(c)")))
 #+END_SRC
 
 an easy way to get to the org-agenda with a globally set key for "C-c a"...
@@ -370,9 +400,8 @@ Make org-level-1 the same height as other lines (the doom themes sizing makes th
 
 enable ido mode with flexible matching in both buffer and file search...
 #+BEGIN_SRC emacs-lisp
-  (setq ido-enable-flex-matching t)
-  (setq ido-everywhere t)
-  (ido-mode 1)
+;  (setq ido-enable-flex-matching t)
+;  (ido-mode 1)
 #+END_SRC
 
 #+RESULTS:
