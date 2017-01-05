@@ -347,8 +347,6 @@ Quickly open my main org file
 
 ** Org Mode
 
-
-
 This is required for markdown exporting to work.
 
 #+BEGIN_SRC emacs-lisp
@@ -380,10 +378,25 @@ This matches the todo keywords that I use on a daily basis...
         '((sequence "TODO(t)" "NEXT(n)" "IN PROGRESS(p)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "DELEGATED(l)" "CANCELLED(c)")))
 #+END_SRC
 
-an easy way to get to the org-agenda with a globally set key for "C-c a"...
+activate org-agenda keybinding:
 
 #+BEGIN_SRC emacs-lisp
-(global-set-key "\C-ca" 'org-agenda)
+  (global-set-key "\C-ca" 'org-agenda)
+#+END_SRC
+
+activate org-capture keybinding:
+#+BEGIN_SRC emacs-lisp 
+     (global-set-key "\C-cc" 'org-capture)
+#+END_SRC
+
+add an org capture template for when creating a new todo, 
+#+BEGIN_SRC emacs-lisp
+(setq org-capture-templates
+'(
+    ("t" "TODO Task" entry (file+headline "~/Dropbox/org/inbox.org" "Tasks")
+         "* TODO %?\nCREATED: %u\nSRC: %a\n%i\n")
+    ))
+
 #+END_SRC
 
 a fix for an issue I'm experiencing with doom themes where [[https://github.com/hlissner/emacs-doom-theme/issues/30][org-level-1 font has unexpected behavior when moving cursor through characters]]:
