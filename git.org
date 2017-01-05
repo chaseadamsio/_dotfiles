@@ -72,3 +72,17 @@ Make it easy on me and automatically correct commads I mistype:
   [help]
           autocorrect = 1
 #+END_SRC
+
+anything that needs to be unique to a specific environment (user email and name, for instance) should live here and it'll be included. 
+
+Big thanks to [[http://agateau.com/2015/splitting-your-gitconfig/][Aurélien Gâteau's post on Includes in a git config] for explaining that the way to test this should be:
+
+#+BEGIN_EXAMPLE
+  git config --global --includes user.email
+#+END_EXAMPLE
+
+
+#+BEGIN_SRC sh
+  [include]
+          path = ~/.gitconfig.local
+#+END_SRC
