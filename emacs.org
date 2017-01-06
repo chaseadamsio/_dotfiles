@@ -404,10 +404,14 @@ create a custom method to find a heading under the datree for current date
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
         '(
-          ("l" "Link" entry (file+function "~/Dropbox/org/journal.org" org-find-heading-in-datetree)
-           "* %?\nPROPERTIES:\n:Url:%i\n:END:\n\n%i")
-          ("t" "TODO Task" entry (file+headline "~/Dropbox/org/inbox.org" "Tasks")
-           "* TODO %?\nCREATED: %u\nSRC: %a\n%i\n")
+          ("p" "Personal Templates")
+          ("w" "Work Templates")
+          ("pl" "Link" entry (file+function "~/Dropbox/org/journal.org" org-find-heading-in-datetree)
+           "* %?\n:PROPERTIES:\n:Url:%i\n:END:\n\n%i")
+          ("pt" "TODO Task" entry (file+headline "~/Dropbox/org/inbox.org" "Tasks")
+           "* TODO %?\n:LOGBOOK:\n:CREATED: %u\nSRC: %a\n:END:\n%i\n")
+          ("wi" "JIRA ISSUE Task" entry (file+headline "~/Notes/work.org" "Backlog")
+           "* TODO BFDTORBIT-%^{Issue} %^{Description}\n:PROPERTIES:\n:Link:%i\n:END:\nCREATED: %u\n ")
           )  
         )
 #+END_SRC
