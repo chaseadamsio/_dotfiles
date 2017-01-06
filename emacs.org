@@ -54,8 +54,8 @@ Use multicursor...
 
 Initialize exec-path-from-shell for getting GOPATH later...
 #+BEGIN_SRC emacs-lisp
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
+
+  (exec-path-from-shell-initialize)
 #+END_SRC
 
 use helm-projectile...
