@@ -2,15 +2,15 @@
 #+AUTHOR: Chase Adams
 #+EMAIL: chasebuildssoftware@gmail.com
 
-* There & Back Again
-
 On 2016-12-09, I started my journey into Emacs. There was no way of knowing that this 6 year running champion for vim would fall deeply into the blackhole that is Emacs, but now that I'm here, there's no turning back...Emacs is simply the tool I've been looking for my entire career as a software engineer.
 
 This document is a living, breathing self-documented configuration. What you see in this file is /exactly/ what my configuration looks like, the ~init.el~ will always contain the code found in this document because /Emacs org-mode/ is doing the generation for me.
 
-* emacs.org
-
-** Package Management & Package Defaults
+#+BEGIN_SRC emacs-lisp
+  (setq dotfiles-dir (file-name-directory
+                      (or load-file-name (buffer-file-name))))
+#+END_SRC
+* Package Management & Package Defaults
 
 Package Management is really important to me, so I did my research and found that Cask meets my requirements:
 
@@ -97,7 +97,7 @@ Save backups and auto-saves to system temporary directory rather than in the sou
           `((".*" ,temporary-file-directory t)))
 #+END_SRC
 
-** Sensible Resets
+* Sensible Resets
 
 Reset yes-or-no to be y-or-n because I hate typing more than I have to:
 #+BEGIN_SRC emacs-lisp
@@ -162,9 +162,9 @@ Enable all potential languages that would be used for org-babel
 
 make it /evil/. Enable vim mode and enable evil mode for org mode.
 #+BEGIN_SRC emacs-lisp
-;(require 'evil)
-;(evil-mode 1)
-;(require 'evil-org)
+(require 'evil)
+(evil-mode 1)
+(require 'evil-org)
 #+END_SRC
 
 Reset (C,M)-v to only move half pages forwards and backwards respectively...
@@ -195,7 +195,7 @@ Use super (cmd) + an arrow to easily navigate windows...
   (setq windmove-wrap-around t))
 #+END_SRC
 
-** Essentials
+* Essentials
 
 Automatically insert the closing character for pair-type characters.
 #+name: essentials
@@ -208,7 +208,7 @@ In some languages (looking at you lisp family!) it can be really hard to tell wh
 (show-paren-mode 1)
 #+END_SRC 
 
-** Appearance
+* Appearance
 
 I'm using [[https://github.com/hlissner/emacs-doom-theme][Doom Themes]] as my color scheme with =dark one= as the loaded theme.
 #+name: appearance
@@ -300,7 +300,7 @@ Highlight the current line:
 (global-hl-line-mode 1)
 #+END_SRC
 
-** Configuration File
+* Configuration File
 
 This defines the order of how the separate code blocks are loaded.
 #+BEGIN_SRC emacs-lisp :tangle yes :noweb no-export :exports code
@@ -313,13 +313,16 @@ This defines the order of how the separate code blocks are loaded.
 <<languages>>
 #+END_SRC
 
-** Registers, Utility Functions & Macros
+* Registers
+  Registers are a convenient way to access frequently opened files in a quick manner. You can access a register by typing =C-x r j= followed by the letter in the =set-register ?= to jump to that file.
+  #+name: funcs-and-macros
+  #+BEGIN_SRC emacs-lisp
+    (set-register ?e (cons file . ,(concat dotfiles-dir "emacs.org")))
+    (set-register ?d (cons file . ,(dotfiles-dir)))
+  #+END_SRC
 
-a register for "e" to open my =init.org= from anywhere inside of emacs.
-#+name: funcs-and-macros
-#+BEGIN_SRC emacs-lisp
-(set-register ?e (cons 'file "~/src/gitlab.com/chaseadamsio/dotfiles/emacs.org"))
-#+END_SRC
+* Registers, Utility Functions & Macros
+
 
 setup a global key binding for =C-x C-r= to evaluate the =.emacs.d/init.el= file (this comes in handy because the =init.org= is evaluated by this file, so it's a really easy way to reload configuration without having to open the buffer and evaluate it).
 #+BEGIN_SRC emacs-lisp
@@ -336,7 +339,8 @@ a function for RFC 3339 format (Hugo blog frontmatter)
     (insert (shell-command-to-string "echo -n $(date +%Y-%m-%dT%H:%M:%SZ)")))
 #+END_SRC
 
-** Keybindings
+* Keybindings
+   CLOSED: [2017-01-10 Tue 16:59]
 
 Quickly open my main org file
 
@@ -345,7 +349,7 @@ Quickly open my main org file
                   (lambda () (interactive) (find-file "~/org/organizer.org")))
 #+END_SRC
 
-** Org Mode
+* Org 
 
 This is required for markdown exporting to work.
 
@@ -426,7 +430,7 @@ a fix for an issue I'm experiencing with doom themes where [[https://github.com/
 
 Make org-level-1 the same height as other lines (the doom themes sizing makes the headlines do wonky things with my font)
 
-** Ido Mode
+* Ido 
 
 enable ido mode with flexible matching in both buffer and file search...
 #+BEGIN_SRC emacs-lisp
@@ -436,7 +440,7 @@ enable ido mode with flexible matching in both buffer and file search...
 
 #+RESULTS:
 
-** Languages: Go
+* Golang
 
 
 Import =GOPATH= from the shell.
@@ -468,15 +472,15 @@ Import =GOPATH= from the shell.
 Use go-eldoc
 #+name: languages
 #+BEGIN_SRC emacs-lisp
-; (add-hook 'go-mode-hook 'go-eldoc-setup)
+ (add-hook 'go-mode-hook 'go-eldoc-setup)
 #+END_SRC
 
 Use company-go
 #+name: languages
 #+BEGIN_SRC emacs-lisp
  (require 'company-go)
-; (add-hook 'go-mode-hook
-;       (lambda ()
-;         (set (make-local-variable 'company-backends) '(company-go))
-;         (company-mode)))
+ (add-hook 'go-mode-hook
+       (lambda ()
+         (set (make-local-variable 'company-backends) '(company-go))
+         (company-mode)))
 #+END_SRC
