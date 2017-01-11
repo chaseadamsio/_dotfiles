@@ -36,11 +36,29 @@ I like for my desktop to /always/ look clean, even if I happened to accidentally
   defaults write com.apple.finder CreateDesktop false
 #+END_SRC
 
+** Finder
+
+Show the status bar at the bottom of the Finder window
+#+BEGIN_SRC sh
+  defaults write com.apple.finder ShowStatusBar -bool true
+#+END_SRC
+
+Enable tap to click on the trackpad for both current user and for the login screen
+#+BEGIN_SRC sh
+  defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+  defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+  defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+#+END_SRC
+
+Autohide the Dock
+#+BEGIN_SRC sh
+  defaults write com.apple.dock autohide -bool true
+#+END_SRC
+
 Kill all the OSX services that run this stuff so we can have it all take effect:
 #+BEGIN_SRC sh
   killall SystemUIServer
   killall Finder
 #+END_SRC
 
-#+RESULTS:
 

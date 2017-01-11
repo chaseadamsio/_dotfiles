@@ -2,6 +2,7 @@
 #+AUTHOR: Chase Adams
 #+EMAIL: chasebuildssoftware@gmail.com
 
+
 On 2016-12-09, I started my journey into Emacs. There was no way of knowing that this 6 year running champion for vim would fall deeply into the blackhole that is Emacs, but now that I'm here, there's no turning back...Emacs is simply the tool I've been looking for my entire career as a software engineer.
 
 This document is a living, breathing self-documented configuration. What you see in this file is /exactly/ what my configuration looks like, the ~init.el~ will always contain the code found in this document because /Emacs org-mode/ is doing the generation for me.
@@ -349,14 +350,61 @@ Quickly open my main org file
                   (lambda () (interactive) (find-file "~/org/organizer.org")))
 #+END_SRC
 
-* Org 
+* Ido 
 
-This is required for markdown exporting to work.
-
+enable ido mode with flexible matching in both buffer and file search...
 #+BEGIN_SRC emacs-lisp
-(eval-after-load "org"
-  '(require 'ox-md nil t))
+;  (setq ido-enable-flex-matching t)
+;  (ido-mode 1)
 #+END_SRC
+
+#+RESULTS:
+
+* Golang
+
+
+Import =GOPATH= from the shell.
+#+name: languages
+#+BEGIN_SRC emacs-lisp
+(exec-path-from-shell-copy-env "GOPATH")
+#+END_SRC
+
+- add a hook for go-mode to load 
+- use goimports for gofmt-cmd
+- gofmt before save
+- custom compile command
+- godef jump bindings
+
+#+name: languages
+#+BEGIN_SRC emacs-lisp
+ (defun caio-go-mode-hook ()
+   (setq gofmt-command "goimports")
+   (add-hook 'before-save-hook 'gofmt-before-save)
+   (if (not (string-match "go" compile-command))
+       (set (make-local-variable 'compile-command)
+            "go build -v && go test -v && go vet"))
+   (global-set-key (kbd "M-.") 'godef-describe)
+   (global-set-key (kbd "M-*") 'pop-tag-mark)
+ )
+ (add-hook 'go-mode-hook 'caio-go-mode-hook)
+#+END_SRC
+
+Use go-eldoc
+#+name: languages
+#+BEGIN_SRC emacs-lisp
+ (add-hook 'go-mode-hook 'go-eldoc-setup)
+#+END_SRC
+
+Use company-go
+#+name: languages
+#+BEGIN_SRC emacs-lisp
+ (require 'company-go)
+ (add-hook 'go-mode-hook
+       (lambda ()
+         (set (make-local-variable 'company-backends) '(company-go))
+         (company-mode)))
+#+END_SRC
+* COMMENT Org 
 
 log todos and notes with the time that they were completed:
 #+BEGIN_SRC emacs-lisp
@@ -420,6 +468,13 @@ create a custom method to find a heading under the datree for current date
         )
 #+END_SRC
 
+set exports to be silent by default for code block executions
+#+BEGIN_SRC emacs-lisp
+    (setq org-babel-default-header-args
+          (cons '(:results . "none")
+          (assq-delete-all :results org-babel-default-header-args)))
+#+END_SRC
+
 a fix for an issue I'm experiencing with doom themes where [[https://github.com/hlissner/emacs-doom-theme/issues/30][org-level-1 font has unexpected behavior when moving cursor through characters]]:
 
 #+BEGIN_SRC emacs-lisp
@@ -430,57 +485,40 @@ a fix for an issue I'm experiencing with doom themes where [[https://github.com/
 
 Make org-level-1 the same height as other lines (the doom themes sizing makes the headlines do wonky things with my font)
 
-* Ido 
+* Org Publish
 
-enable ido mode with flexible matching in both buffer and file search...
-#+BEGIN_SRC emacs-lisp
-;  (setq ido-enable-flex-matching t)
-;  (ido-mode 1)
+#+BEGIN_SRC emacs-lisp 
+  (require 'ox-publish)
+  (setq caio-header-file "~/src/gitlab.com/chaseadamsio/dotfiles/partials/header.html")
+  (defun caio-header (arg)
+    (with-temp-buffer
+      (insert-file-contents caio-header-file)
+      (buffer-string)))
+
+  (setq org-publish-project-alist
+        '(
+          ("dotfiles"
+           :base-directory "~/src/gitlab.com/chaseadamsio/dotfiles/"
+           :base-extension "org"
+           :publishing-directory "~/src/gitlab.com/chaseadamsio/dotfiles/public_html/"
+           :recursive t
+           :publishing-function org-html-publish-to-html
+           :headline-level 4
+           :html-head "<link href=\"https://chaseadams.io/css/main.css\" rel=\"stylesheet\">"
+           :html-doctype "html5"
+           :html-divs caio-org-html-divs
+           :html-preamble caio-header
+           :with-toc nil)
+        ("images"
+         :base-directory "~/src/gitlab.com/chaseadamsio/dotfiles/"
+         :base-extension "jpg\\|gif\\|png"
+         :publishing-directory "~/src/gitlab.com/chaseadamsio/dotfiles/public_html"
+         :publishing-function org-publish-attachment)
+        ("dotfiles-all" :components ("dotfiles" "images"))))
 #+END_SRC
 
-#+RESULTS:
-
-* Golang
-
-
-Import =GOPATH= from the shell.
-#+name: languages
+* Tramp
 #+BEGIN_SRC emacs-lisp
-(exec-path-from-shell-copy-env "GOPATH")
+(setq tramp-default-method "ssh")
 #+END_SRC
 
-- add a hook for go-mode to load 
-- use goimports for gofmt-cmd
-- gofmt before save
-- custom compile command
-- godef jump bindings
-
-#+name: languages
-#+BEGIN_SRC emacs-lisp
- (defun caio-go-mode-hook ()
-   (setq gofmt-command "goimports")
-   (add-hook 'before-save-hook 'gofmt-before-save)
-   (if (not (string-match "go" compile-command))
-       (set (make-local-variable 'compile-command)
-            "go build -v && go test -v && go vet"))
-   (global-set-key (kbd "M-.") 'godef-describe)
-   (global-set-key (kbd "M-*") 'pop-tag-mark)
- )
- (add-hook 'go-mode-hook 'caio-go-mode-hook)
-#+END_SRC
-
-Use go-eldoc
-#+name: languages
-#+BEGIN_SRC emacs-lisp
- (add-hook 'go-mode-hook 'go-eldoc-setup)
-#+END_SRC
-
-Use company-go
-#+name: languages
-#+BEGIN_SRC emacs-lisp
- (require 'company-go)
- (add-hook 'go-mode-hook
-       (lambda ()
-         (set (make-local-variable 'company-backends) '(company-go))
-         (company-mode)))
-#+END_SRC
