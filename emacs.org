@@ -427,7 +427,7 @@ This matches the todo keywords that I use on a daily basis...
 
 #+BEGIN_SRC emacs-lisp
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "IN PROGRESS(p)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "DELEGATED(l)" "CANCELLED(c)")))
+        '((sequence "TODO(t)" "NEXT(n)" "IN PROGRESS(p)" "IN REVIEW(r)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "DELEGATED(l)" "CANCELLED(c)")))
 #+END_SRC
 
 activate org-agenda keybinding:
