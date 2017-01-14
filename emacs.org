@@ -1,11 +1,16 @@
-#+TITLE: chaseadamsio emacs configuration
+#+TITLE: chasemacs
 #+AUTHOR: Chase Adams
 #+EMAIL: chasebuildssoftware@gmail.com
 
+*This =org= file is evaluated in Emacs by [[./bootstrap.org::*init.el][bootstrap.org in init.el]]. If you're going to use my dotfiles as an example for how to write your own emacs configuration, please checkout [[./bootstrap.org][bootstrap.org]] first.* 
+
+The purpose of this file is to load all of the other =org= files. They've been split into core
 
 On 2016-12-09, I started my journey into Emacs. There was no way of knowing that this 6 year running champion for vim would fall deeply into the blackhole that is Emacs, but now that I'm here, there's no turning back...Emacs is simply the tool I've been looking for my entire career as a software engineer.
 
 This document is a living, breathing self-documented configuration. What you see in this file is /exactly/ what my configuration looks like, the ~init.el~ will always contain the code found in this document because /Emacs org-mode/ is doing the generation for me.
+
+Setup 
 
 #+BEGIN_SRC emacs-lisp
   (setq dotfiles-dir (file-name-directory
@@ -501,6 +506,7 @@ Make org-level-1 the same height as other lines (the doom themes sizing makes th
            :base-directory "~/src/gitlab.com/chaseadamsio/dotfiles/"
            :base-extension "org"
            :publishing-directory "~/src/gitlab.com/chaseadamsio/dotfiles/public_html/"
+           :section-numbers nil
            :recursive t
            :publishing-function org-html-publish-to-html
            :headline-level 4
