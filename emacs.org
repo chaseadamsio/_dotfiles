@@ -128,9 +128,9 @@ Disable the audible bell (I'm smart, I can figure out when I've done something w
   (setq initial-scratch-message "")
   (setq inhibit-startup-message t)
 
-  (if (boundp (menu-bar-mode)) (menu-bar-mode -1)) ;; for a "thin" emacs app
-  (scroll-bar-mode -1) ;; for a "thin" emacs app
-  (if (boundp (tool-bar-mode)) (tool-bar-mode -1)) ;; for a "thin" emacs app
+  (if (fboundp 'menu-bar-mode) (menu-bar-mode -1)) ;; for a "thin" emacs app
+  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1)) ;; for a "thin" emacs app
+  (if (fboundp 'tool-bar-mode) (tool-bar-mode -1)) ;; for a "thin" emacs app
 #+END_SRC
 
 Use Fira Mono, set the line height and shrink the font to 9pt.
