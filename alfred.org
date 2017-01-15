@@ -1,5 +1,14 @@
-#+TITLE: Alfred Theme
+#+TITLE: AlfredApp Theme
+#+CATEGORY: config
+#+DESCRIPTION: Theme URL for AlfredApp
 
-#+BEGIN_EXAMPLE
-  alfred://theme/searchForegroundColor=rgba(81,175,239,1.00)&resultSubtextFontSize=1&searchSelectionForegroundColor=rgba(255,255,255,1.00)&separatorColor=rgba(51,51,51,0.00)&resultSelectedBackgroundColor=rgba(16,16,19,1.00)&shortcutColor=rgba(81,175,239,1.00)&scrollbarColor=rgba(7,9,9,0.00)&imageStyle=4&resultSubtextFont=Monaco&background=rgba(21,22,24,1.00)&shortcutFontSize=2&searchFontSize=2&resultSubtextColor=rgba(62,81,88,1.00)&searchBackgroundColor=rgba(16,16,19,1.00)&name=seti&resultTextFontSize=1&resultSelectedSubtextColor=rgba(62,81,88,1.00)&shortcutSelectedColor=rgba(7,9,9,1.00)&widthSize=3&border=rgba(48,52,55,0.00)&resultTextFont=Helvetica&resultTextColor=rgba(81,175,239,1.00)&cornerRoundness=3&searchFont=Lucida%20Grande&searchPaddingSize=4&credits=Chase%20Adams&searchSelectionBackgroundColor=rgba(56,139,246,1.00)&resultSelectedTextColor=rgba(81,175,239,1.00)&resultPaddingSize=2&shortcutFont=Geneva
-#+END_EXAMPLE
+This theme is based off of the Atom One Dark Theme.
+
+* Screenshot
+[[file:screenshots/alfredapp.png]]
+
+* Installation
+
+Visit this url in the browser: 
+  [[alfred://theme/searchForegroundColor=rgba(81,175,239,1.00)&resultSubtextFontSize=1&searchSelectionForegroundColor=rgba(255,255,255,1.00)&separatorColor=rgba(51,51,51,0.00)&resultSelectedBackgroundColor=rgba(16,16,19,1.00)&shortcutColor=rgba(81,175,239,1.00)&scrollbarColor=rgba(7,9,9,0.00)&imageStyle=4&resultSubtextFont=Monaco&background=rgba(21,22,24,1.00)&shortcutFontSize=2&searchFontSize=2&resultSubtextColor=rgba(62,81,88,1.00)&searchBackgroundColor=rgba(16,16,19,1.00)&name=seti&resultTextFontSize=1&resultSelectedSubtextColor=rgba(62,81,88,1.00)&shortcutSelectedColor=rgba(7,9,9,1.00)&widthSize=3&border=rgba(48,52,55,0.00)&resultTextFont=Helvetica&resultTextColor=rgba(81,175,239,1.00)&cornerRoundness=3&searchFont=Lucida%20Grande&searchPaddingSize=4&credits=Chase%20Adams&searchSelectionBackgroundColor=rgba(56,139,246,1.00)&resultSelectedTextColor=rgba(81,175,239,1.00)&resultPaddingSize=2&shortcutFont=Geneva]]
+

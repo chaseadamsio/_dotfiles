@@ -1,21 +1,63 @@
-#+TITLE: chasemacs
+#+TITLE: emacs/init
 #+AUTHOR: Chase Adams
 #+EMAIL: chasebuildssoftware@gmail.com
 
 *This =org= file is evaluated in Emacs by [[./bootstrap.org::*init.el][bootstrap.org in init.el]]. If you're going to use my dotfiles as an example for how to write your own emacs configuration, please checkout [[./bootstrap.org][bootstrap.org]] first.* 
 
-The purpose of this file is to load all of the other =org= files. They've been split into core
+The purpose of this file is to load all of the other =org= files. 
 
 On 2016-12-09, I started my journey into Emacs. There was no way of knowing that this 6 year running champion for vim would fall deeply into the blackhole that is Emacs, but now that I'm here, there's no turning back...Emacs is simply the tool I've been looking for my entire career as a software engineer.
 
 This document is a living, breathing self-documented configuration. What you see in this file is /exactly/ what my configuration looks like, the ~init.el~ will always contain the code found in this document because /Emacs org-mode/ is doing the generation for me.
 
-Setup 
+* Setup 
 
+=caio-load-org-dotfiles= is the same function that's been explained in [[file:../bootstrap.org][bootstrap.org]]. It's "cheaper" than using org-babel-load-file: 
 #+BEGIN_SRC emacs-lisp
-  (setq dotfiles-dir (file-name-directory
-                      (or load-file-name (buffer-file-name))))
+  (defun caio-load-org-dotfiles (path)
+    (with-temp-buffer
+      (insert-file (caio-dotfiles-join path))
+      (goto-char (point-min))
+      (while (not (eobp))
+        (forward-line 1)
+        (cond
+         ((looking-at "^#\\+BEGIN_SRC +emacs-lisp *$")
+          (let ((l (match-end 0)))
+            (search-forward "\n#+END_SRC")
+            (eval-region l (match-beginning 0)))))
+        )))
 #+END_SRC
+
+=dotfiles-dir= makes a file call for dotfiles easier by getting the path for us:
+#+BEGIN_SRC emacs-lisp
+  (setq dotfiles-dir "~/src/gitlab.com/chaseadamsio/dotfiles/")
+  (setq emacs-dir (concat dotfiles-dir "emacs/"))
+#+END_SRC
+
+=caio-dotfiles-join= takes a path and returns a path for =dotfiles/emacs/**/*.org=
+#+BEGIN_SRC emacs-lisp
+  (defun caio-dotfiles-join (path)
+    "Join the dotfile directory with the path provided"
+    (concat emacs-dir path ".org"))
+#+END_SRC
+
+* Core
+
+Load =[[file:keybindings.org][keybindings.org]]=
+#+BEGIN_SRC emacs-lisp
+(caio-load-org-dotfiles "keybindings")
+#+END_SRC
+
+Load =[[file:registers.org][registers.org]]=
+#+BEGIN_SRC emacs-lisp 
+(caio-load-org-dotfiles "registers")
+#+END_SRC
+
+Load =[[file:appearance.org][appearance.org]]=
+#+BEGIN_SRC emacs-lisp 
+(caio-load-org-dotfiles "appearance")
+#+END_SRC
+
 * Package Management & Package Defaults
 
 Package Management is really important to me, so I did my research and found that Cask meets my requirements:
@@ -121,50 +163,6 @@ Don't wrap lines for code, but do wrap lines for text...
           word-wrap t)))
 #+END_SRC
 
-Disable the audible bell (I'm smart, I can figure out when I've done something wrong) and disable all the chrome for the emacs external application.
-#+name: resets
-#+BEGIN_SRC emacs-lisp
-  (setq ring-bell-function 'ignore) ;; the bell annoys the h*ck out of me, turn it off
-  (setq initial-scratch-message "")
-  (setq inhibit-startup-message t)
-
-  (if (fboundp 'menu-bar-mode) (menu-bar-mode -1)) ;; for a "thin" emacs app
-  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1)) ;; for a "thin" emacs app
-  (if (fboundp 'tool-bar-mode) (tool-bar-mode -1)) ;; for a "thin" emacs app
-#+END_SRC
-
-Use Fira Mono, set the line height and shrink the font to 9pt.
-#+BEGIN_SRC emacs-lisp
-(set-face-attribute 'default nil :family "Fira Mono")
-(setq-default line-spacing 3)
-(set-face-attribute 'default nil :height 100)
-#+END_SRC
-
-#+RESULTS:
-
-I like my cursor to be a thin line rather than a chunky block. I've always found the chunky block to be distracting.
-#+name: resets
-#+BEGIN_SRC emacs-lisp
-(setq-default cursor-type 'bar)
-#+END_SRC
-
-One of the things I dislike about emacs is when you select some text and want to replace it with other text the way you would in a sane editor, it leaves the selected text and places the cursor at the end of the selection and starts typing. This "fixes" that so that when I select text and start to type, it replaces the selected text with my newly typed words. 
-#+name: resets
-#+BEGIN_SRC emacs-lisp
-(delete-selection-mode 1)
-#+END_SRC
-
-Enable all potential languages that would be used for org-babel
-#+name: resets
-#+BEGIN_SRC emacs-lisp
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((js . t)
-     (sass . t)
-     (css . t)
-     (sh . t)
-     ))
-#+END_SRC
 
 make it /evil/. Enable vim mode and enable evil mode for org mode.
 #+BEGIN_SRC emacs-lisp
@@ -319,15 +317,8 @@ This defines the order of how the separate code blocks are loaded.
 <<languages>>
 #+END_SRC
 
-* Registers
-  Registers are a convenient way to access frequently opened files in a quick manner. You can access a register by typing =C-x r j= followed by the letter in the =set-register ?= to jump to that file.
-  #+name: funcs-and-macros
-  #+BEGIN_SRC emacs-lisp
-    (set-register ?e (cons file . ,(concat dotfiles-dir "emacs.org")))
-    (set-register ?d (cons file . ,(dotfiles-dir)))
-  #+END_SRC
 
-* Registers, Utility Functions & Macros
+* Utility Functions & Macros
 
 
 setup a global key binding for =C-x C-r= to evaluate the =.emacs.d/init.el= file (this comes in handy because the =init.org= is evaluated by this file, so it's a really easy way to reload configuration without having to open the buffer and evaluate it).
@@ -343,16 +334,6 @@ a function for RFC 3339 format (Hugo blog frontmatter)
 #+Begin_SRC emacs-lisp
 (defun insert-current-date () (interactive)
     (insert (shell-command-to-string "echo -n $(date +%Y-%m-%dT%H:%M:%SZ)")))
-#+END_SRC
-
-* Keybindings
-   CLOSED: [2017-01-10 Tue 16:59]
-
-Quickly open my main org file
-
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c o")
-                  (lambda () (interactive) (find-file "~/org/organizer.org")))
 #+END_SRC
 
 * Ido 
@@ -409,7 +390,7 @@ Use company-go
          (set (make-local-variable 'company-backends) '(company-go))
          (company-mode)))
 #+END_SRC
-* COMMENT Org 
+* Org 
 
 log todos and notes with the time that they were completed:
 #+BEGIN_SRC emacs-lisp

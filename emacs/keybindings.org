@@ -1,0 +1,7 @@
+#+TITLE: emacs/keybindings
+
+Quickly open my Dropbox journal:
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c j")
+                  (lambda () (interactive) (find-file "~/Dropbox/journal.org")))
+#+END_SRC

@@ -1,0 +1,14 @@
+#+TITLE: Org Mode
+
+
+Enable all potential languages that would be used for org-babel
+#+name: resets
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((js . t)
+     (sass . t)
+     (css . t)
+     (sh . t)
+     ))
+#+END_SRC
