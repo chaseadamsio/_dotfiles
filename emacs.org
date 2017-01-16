@@ -1,16 +1,56 @@
-#+TITLE: chaseadamsio emacs configuration
+#+TITLE: emacs/init
 #+AUTHOR: Chase Adams
 #+EMAIL: chasebuildssoftware@gmail.com
 
-* There & Back Again
+*This =org= file is evaluated in Emacs by [[./bootstrap.org::*init.el][bootstrap.org in init.el]]. If you're going to use my dotfiles as an example for how to write your own emacs configuration, please checkout [[./bootstrap.org][bootstrap.org]] first.* 
+
+The purpose of this file is to load all of the other =org= files. 
 
 On 2016-12-09, I started my journey into Emacs. There was no way of knowing that this 6 year running champion for vim would fall deeply into the blackhole that is Emacs, but now that I'm here, there's no turning back...Emacs is simply the tool I've been looking for my entire career as a software engineer.
 
 This document is a living, breathing self-documented configuration. What you see in this file is /exactly/ what my configuration looks like, the ~init.el~ will always contain the code found in this document because /Emacs org-mode/ is doing the generation for me.
 
-* emacs.org
+* Setup 
 
-** Package Management & Package Defaults
+=caio-load-org-dotfiles= is the same function that's been explained in [[file:../bootstrap.org][bootstrap.org]]. It's "cheaper" than using org-babel-load-file: 
+#+BEGIN_SRC emacs-lisp
+  (defun caio-load-org-dotfiles (path)
+    (with-temp-buffer
+      (insert-file (caio-dotfiles-join path))
+      (goto-char (point-min))
+      (while (not (eobp))
+        (forward-line 1)
+        (cond
+         ((looking-at "^#\\+BEGIN_SRC +emacs-lisp *$")
+          (let ((l (match-end 0)))
+            (search-forward "\n#+END_SRC")
+            (eval-region l (match-beginning 0)))))
+        )))
+#+END_SRC
+
+=dotfiles-dir= makes a file call for dotfiles easier by getting the path for us:
+#+BEGIN_SRC emacs-lisp
+  (setq dropbox-dir "~/Dropbox/org/")
+  (setq dotfiles-dir "~/src/gitlab.com/chaseadamsio/dotfiles/")
+  (setq emacs-dir (concat dotfiles-dir "emacs/"))
+#+END_SRC
+
+=caio-dotfiles-join= takes a path and returns a path for =dotfiles/emacs/**/*.org=
+#+BEGIN_SRC emacs-lisp
+  (defun caio-dotfiles-join (path)
+    "Join the dotfile directory with the path provided"
+    (concat dotfiles-dir path ".org"))
+#+END_SRC
+
+=caio-dropbox-join= takes a path and returns a path for =Dropbox/org/**/*.org=
+#+BEGIN_SRC emacs-lisp
+  (defun caio-dropbox-join (path)
+    "Join the dotfile directory with the path provided"
+    (concat dropbox-dir path ".org"))
+#+END_SRC
+
+
+* Package Management & Package Defaults
 
 Package Management is really important to me, so I did my research and found that Cask meets my requirements:
 
@@ -97,7 +137,7 @@ Save backups and auto-saves to system temporary directory rather than in the sou
           `((".*" ,temporary-file-directory t)))
 #+END_SRC
 
-** Sensible Resets
+* Sensible Resets
 
 Reset yes-or-no to be y-or-n because I hate typing more than I have to:
 #+BEGIN_SRC emacs-lisp
@@ -115,56 +155,12 @@ Don't wrap lines for code, but do wrap lines for text...
           word-wrap t)))
 #+END_SRC
 
-Disable the audible bell (I'm smart, I can figure out when I've done something wrong) and disable all the chrome for the emacs external application.
-#+name: resets
-#+BEGIN_SRC emacs-lisp
-  (setq ring-bell-function 'ignore) ;; the bell annoys the h*ck out of me, turn it off
-  (setq initial-scratch-message "")
-  (setq inhibit-startup-message t)
-
-  (if (boundp (menu-bar-mode)) (menu-bar-mode -1)) ;; for a "thin" emacs app
-  (scroll-bar-mode -1) ;; for a "thin" emacs app
-  (if (boundp (tool-bar-mode)) (tool-bar-mode -1)) ;; for a "thin" emacs app
-#+END_SRC
-
-Use Fira Mono, set the line height and shrink the font to 9pt.
-#+BEGIN_SRC emacs-lisp
-(set-face-attribute 'default nil :family "Fira Mono")
-(setq-default line-spacing 3)
-(set-face-attribute 'default nil :height 100)
-#+END_SRC
-
-#+RESULTS:
-
-I like my cursor to be a thin line rather than a chunky block. I've always found the chunky block to be distracting.
-#+name: resets
-#+BEGIN_SRC emacs-lisp
-(setq-default cursor-type 'bar)
-#+END_SRC
-
-One of the things I dislike about emacs is when you select some text and want to replace it with other text the way you would in a sane editor, it leaves the selected text and places the cursor at the end of the selection and starts typing. This "fixes" that so that when I select text and start to type, it replaces the selected text with my newly typed words. 
-#+name: resets
-#+BEGIN_SRC emacs-lisp
-(delete-selection-mode 1)
-#+END_SRC
-
-Enable all potential languages that would be used for org-babel
-#+name: resets
-#+BEGIN_SRC emacs-lisp
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((js . t)
-     (sass . t)
-     (css . t)
-     (sh . t)
-     ))
-#+END_SRC
 
 make it /evil/. Enable vim mode and enable evil mode for org mode.
 #+BEGIN_SRC emacs-lisp
-;(require 'evil)
-;(evil-mode 1)
-;(require 'evil-org)
+(require 'evil)
+(evil-mode 1)
+(require 'evil-org)
 #+END_SRC
 
 Reset (C,M)-v to only move half pages forwards and backwards respectively...
@@ -195,7 +191,7 @@ Use super (cmd) + an arrow to easily navigate windows...
   (setq windmove-wrap-around t))
 #+END_SRC
 
-** Essentials
+* Essentials
 
 Automatically insert the closing character for pair-type characters.
 #+name: essentials
@@ -208,7 +204,7 @@ In some languages (looking at you lisp family!) it can be really hard to tell wh
 (show-paren-mode 1)
 #+END_SRC 
 
-** Appearance
+* Appearance
 
 I'm using [[https://github.com/hlissner/emacs-doom-theme][Doom Themes]] as my color scheme with =dark one= as the loaded theme.
 #+name: appearance
@@ -300,7 +296,7 @@ Highlight the current line:
 (global-hl-line-mode 1)
 #+END_SRC
 
-** Configuration File
+* Configuration File
 
 This defines the order of how the separate code blocks are loaded.
 #+BEGIN_SRC emacs-lisp :tangle yes :noweb no-export :exports code
@@ -313,13 +309,9 @@ This defines the order of how the separate code blocks are loaded.
 <<languages>>
 #+END_SRC
 
-** Registers, Utility Functions & Macros
 
-a register for "e" to open my =init.org= from anywhere inside of emacs.
-#+name: funcs-and-macros
-#+BEGIN_SRC emacs-lisp
-(set-register ?e (cons 'file "~/src/gitlab.com/chaseadamsio/dotfiles/emacs.org"))
-#+END_SRC
+* Utility Functions & Macros
+
 
 setup a global key binding for =C-x C-r= to evaluate the =.emacs.d/init.el= file (this comes in handy because the =init.org= is evaluated by this file, so it's a really easy way to reload configuration without having to open the buffer and evaluate it).
 #+BEGIN_SRC emacs-lisp
@@ -336,22 +328,72 @@ a function for RFC 3339 format (Hugo blog frontmatter)
     (insert (shell-command-to-string "echo -n $(date +%Y-%m-%dT%H:%M:%SZ)")))
 #+END_SRC
 
-** Keybindings
+* Ido 
 
-Quickly open my main org file
-
+enable ido mode with flexible matching in both buffer and file search...
 #+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c o")
-                  (lambda () (interactive) (find-file "~/org/organizer.org")))
+;  (setq ido-enable-flex-matching t)
+;  (ido-mode 1)
 #+END_SRC
 
-** Org Mode
+#+RESULTS:
 
-This is required for markdown exporting to work.
+* Golang
 
+
+Import =GOPATH= from the shell.
+#+name: languages
 #+BEGIN_SRC emacs-lisp
-(eval-after-load "org"
-  '(require 'ox-md nil t))
+(exec-path-from-shell-copy-env "GOPATH")
+#+END_SRC
+
+- add a hook for go-mode to load 
+- use goimports for gofmt-cmd
+- gofmt before save
+- custom compile command
+- godef jump bindings
+
+#+name: languages
+#+BEGIN_SRC emacs-lisp
+ (defun caio-go-mode-hook ()
+   (setq gofmt-command "goimports")
+   (add-hook 'before-save-hook 'gofmt-before-save)
+   (if (not (string-match "go" compile-command))
+       (set (make-local-variable 'compile-command)
+            "go build -v && go test -v && go vet"))
+   (global-set-key (kbd "M-.") 'godef-describe)
+   (global-set-key (kbd "M-*") 'pop-tag-mark)
+ )
+ (add-hook 'go-mode-hook 'caio-go-mode-hook)
+#+END_SRC
+
+Use go-eldoc
+#+name: languages
+#+BEGIN_SRC emacs-lisp
+ (add-hook 'go-mode-hook 'go-eldoc-setup)
+#+END_SRC
+
+Use company-go
+#+name: languages
+#+BEGIN_SRC emacs-lisp
+ (require 'company-go)
+ (add-hook 'go-mode-hook
+       (lambda ()
+         (set (make-local-variable 'company-backends) '(company-go))
+         (company-mode)))
+#+END_SRC
+* Org 
+
+Enable all potential languages that would be used for org-babel
+#+name: resets
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((js . t)
+     (sass . t)
+     (css . t)
+     (sh . t)
+     ))
 #+END_SRC
 
 log todos and notes with the time that they were completed:
@@ -375,7 +417,7 @@ This matches the todo keywords that I use on a daily basis...
 
 #+BEGIN_SRC emacs-lisp
   (setq org-todo-keywords
-        '((sequence "TODO(t)" "NEXT(n)" "IN PROGRESS(p)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "DELEGATED(l)" "CANCELLED(c)")))
+        '((sequence "TODO(t)" "NEXT(n)" "IN PROGRESS(p)" "IN REVIEW(r)" "WAITING(w)" "SOMEDAY(s)" "|" "DONE(d)" "DELEGATED(l)" "CANCELLED(c)")))
 #+END_SRC
 
 activate org-agenda keybinding:
@@ -416,6 +458,13 @@ create a custom method to find a heading under the datree for current date
         )
 #+END_SRC
 
+set exports to be silent by default for code block executions
+#+BEGIN_SRC emacs-lisp
+    (setq org-babel-default-header-args
+          (cons '(:results . "none")
+          (assq-delete-all :results org-babel-default-header-args)))
+#+END_SRC
+
 a fix for an issue I'm experiencing with doom themes where [[https://github.com/hlissner/emacs-doom-theme/issues/30][org-level-1 font has unexpected behavior when moving cursor through characters]]:
 
 #+BEGIN_SRC emacs-lisp
@@ -426,57 +475,100 @@ a fix for an issue I'm experiencing with doom themes where [[https://github.com/
 
 Make org-level-1 the same height as other lines (the doom themes sizing makes the headlines do wonky things with my font)
 
-** Ido Mode
+* Org Publish
 
-enable ido mode with flexible matching in both buffer and file search...
-#+BEGIN_SRC emacs-lisp
-;  (setq ido-enable-flex-matching t)
-;  (ido-mode 1)
+#+BEGIN_SRC emacs-lisp 
+  (require 'ox-publish)
+  (setq caio-header-file "~/src/gitlab.com/chaseadamsio/dotfiles/partials/header.html")
+  (defun caio-header (arg)
+    (with-temp-buffer
+      (insert-file-contents caio-header-file)
+      (buffer-string)))
+
+  (setq org-publish-project-alist
+        '(
+          ("dotfiles"
+           :base-directory "~/src/gitlab.com/chaseadamsio/dotfiles/"
+           :base-extension "org"
+           :publishing-directory "~/src/gitlab.com/chaseadamsio/dotfiles/public_html/"
+           :section-numbers nil
+           :recursive t
+           :publishing-function org-html-publish-to-html
+           :headline-level 4
+           :html-head "<link href=\"https://chaseadams.io/css/main.css\" rel=\"stylesheet\">"
+           :html-doctype "html5"
+           :html-divs caio-org-html-divs
+           :html-preamble caio-header
+           :with-toc nil)
+        ("images"
+         :base-directory "~/src/gitlab.com/chaseadamsio/dotfiles/"
+         :base-extension "jpg\\|gif\\|png"
+         :publishing-directory "~/src/gitlab.com/chaseadamsio/dotfiles/public_html"
+         :publishing-function org-publish-attachment)
+        ("dotfiles-all" :components ("dotfiles" "images"))))
 #+END_SRC
 
-#+RESULTS:
-
-** Languages: Go
-
-
-Import =GOPATH= from the shell.
-#+name: languages
+* Tramp
 #+BEGIN_SRC emacs-lisp
-(exec-path-from-shell-copy-env "GOPATH")
+(setq tramp-default-method "ssh")
 #+END_SRC
 
-- add a hook for go-mode to load 
-- use goimports for gofmt-cmd
-- gofmt before save
-- custom compile command
-- godef jump bindings
 
-#+name: languages
+* Appearance (refactor)
+Disable the audible bell (I'm smart, I can figure out when I've done something wrong) and disable all the chrome for the emacs external application.
+#+name: resets
 #+BEGIN_SRC emacs-lisp
- (defun caio-go-mode-hook ()
-   (setq gofmt-command "goimports")
-   (add-hook 'before-save-hook 'gofmt-before-save)
-   (if (not (string-match "go" compile-command))
-       (set (make-local-variable 'compile-command)
-            "go build -v && go test -v && go vet"))
-   (global-set-key (kbd "M-.") 'godef-describe)
-   (global-set-key (kbd "M-*") 'pop-tag-mark)
- )
- (add-hook 'go-mode-hook 'caio-go-mode-hook)
+  (setq ring-bell-function 'ignore) ;; the bell annoys the h*ck out of me, turn it off
+  (setq initial-scratch-message "")
+  (setq inhibit-startup-message t)
+
+  (if (fboundp 'menu-bar-mode) (menu-bar-mode -1)) ;; for a "thin" emacs app
+  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1)) ;; for a "thin" emacs app
+  (if (fboundp 'tool-bar-mode) (tool-bar-mode -1)) ;; for a "thin" emacs app
 #+END_SRC
 
-Use go-eldoc
-#+name: languages
+Use Fira Mono, set the line height and shrink the font to 9pt.
 #+BEGIN_SRC emacs-lisp
-; (add-hook 'go-mode-hook 'go-eldoc-setup)
+(set-face-attribute 'default nil :family "Fira Mono")
+(setq-default line-spacing 3)
+(set-face-attribute 'default nil :height 100)
 #+END_SRC
 
-Use company-go
-#+name: languages
+I like my cursor to be a thin line rather than a chunky block. I've always found the chunky block to be distracting.
+#+name: resets
 #+BEGIN_SRC emacs-lisp
- (require 'company-go)
-; (add-hook 'go-mode-hook
-;       (lambda ()
-;         (set (make-local-variable 'company-backends) '(company-go))
-;         (company-mode)))
+(setq-default cursor-type 'bar)
+#+END_SRC
+
+One of the things I dislike about emacs is when you select some text and want to replace it with other text the way you would in a sane editor, it leaves the selected text and places the cursor at the end of the selection and starts typing. This "fixes" that so that when I select text and start to type, it replaces the selected text with my newly typed words. 
+#+name: resets
+#+BEGIN_SRC emacs-lisp
+(delete-selection-mode 1)
+#+END_SRC
+
+* Registers (refactor)
+Registers are a convenient way to access frequently opened files in a quick manner.
+
+You can access a register by typing =C-x r j= followed by the letter in the =set-register ?= to jump to that file.
+
+** Organize Registers
+Quickly open my Dropbox journal:
+#+BEGIN_SRC emacs-lisp
+  (set-register ?j (cons 'file (caio-dropbox-join "journal")))
+#+END_SRC
+
+Quickly open my Dropbox organize:
+#+BEGIN_SRC emacs-lisp
+  (set-register ?o (cons 'file (caio-dropbox-join "organize")))
+#+END_SRC
+
+** Dotfiles Registers
+*** Register for opening =[[file:init.org][init.org]]=
+#+BEGIN_SRC emacs-lisp
+  (set-register ?e (cons 'file (caio-dotfiles-join "emacs")))
+#+END_SRC
+
+*** register for opening =dotfiles=
+#+BEGIN_SRC emacs-lisp
+  (set-register ?d (cons 'file dotfiles-dir))
 #+END_SRC
