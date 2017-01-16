@@ -30,6 +30,7 @@ This document is a living, breathing self-documented configuration. What you see
 
 =dotfiles-dir= makes a file call for dotfiles easier by getting the path for us:
 #+BEGIN_SRC emacs-lisp
+  (setq dropbox-dir "~/Dropbox/org/")
   (setq dotfiles-dir "~/src/gitlab.com/chaseadamsio/dotfiles/")
   (setq emacs-dir (concat dotfiles-dir "emacs/"))
 #+END_SRC
@@ -38,9 +39,15 @@ This document is a living, breathing self-documented configuration. What you see
 #+BEGIN_SRC emacs-lisp
   (defun caio-dotfiles-join (path)
     "Join the dotfile directory with the path provided"
-    (concat emacs-dir path ".org"))
+    (concat dotfiles-dir path ".org"))
 #+END_SRC
 
+=caio-dropbox-join= takes a path and returns a path for =Dropbox/org/**/*.org=
+#+BEGIN_SRC emacs-lisp
+  (defun caio-dropbox-join (path)
+    "Join the dotfile directory with the path provided"
+    (concat dropbox-dir path ".org"))
+#+END_SRC
 
 
 * Package Management & Package Defaults
@@ -507,13 +514,6 @@ Make org-level-1 the same height as other lines (the doom themes sizing makes th
 #+END_SRC
 
 
-* Keybindings (refactor)
-Quickly open my Dropbox journal:
-#+BEGIN_SRC emacs-lisp
-  (global-set-key (kbd "C-c j")
-                  (lambda () (interactive) (find-file "~/Dropbox/journal.org")))
-#+END_SRC
-
 * Appearance (refactor)
 Disable the audible bell (I'm smart, I can figure out when I've done something wrong) and disable all the chrome for the emacs external application.
 #+name: resets
@@ -551,12 +551,24 @@ Registers are a convenient way to access frequently opened files in a quick mann
 
 You can access a register by typing =C-x r j= followed by the letter in the =set-register ?= to jump to that file.
 
-** Register for opening =[[file:init.org][init.org]]=
+** Organize Registers
+Quickly open my Dropbox journal:
 #+BEGIN_SRC emacs-lisp
-  (set-register ?e (cons 'file (caio-dotfiles-join "init")))
+  (set-register ?j (cons 'file (caio-dropbox-join "journal")))
 #+END_SRC
 
-** register for opening =dotfiles=
+Quickly open my Dropbox organize:
+#+BEGIN_SRC emacs-lisp
+  (set-register ?o (cons 'file (caio-dropbox-join "organize")))
+#+END_SRC
+
+** Dotfiles Registers
+*** Register for opening =[[file:init.org][init.org]]=
+#+BEGIN_SRC emacs-lisp
+  (set-register ?e (cons 'file (caio-dotfiles-join "emacs")))
+#+END_SRC
+
+*** register for opening =dotfiles=
 #+BEGIN_SRC emacs-lisp
   (set-register ?d (cons 'file dotfiles-dir))
 #+END_SRC
