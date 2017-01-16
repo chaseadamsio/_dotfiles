@@ -41,22 +41,7 @@ This document is a living, breathing self-documented configuration. What you see
     (concat emacs-dir path ".org"))
 #+END_SRC
 
-* Core
 
-Load =[[file:keybindings.org][keybindings.org]]=
-#+BEGIN_SRC emacs-lisp
-(caio-load-org-dotfiles "keybindings")
-#+END_SRC
-
-Load =[[file:registers.org][registers.org]]=
-#+BEGIN_SRC emacs-lisp 
-(caio-load-org-dotfiles "registers")
-#+END_SRC
-
-Load =[[file:appearance.org][appearance.org]]=
-#+BEGIN_SRC emacs-lisp 
-(caio-load-org-dotfiles "appearance")
-#+END_SRC
 
 * Package Management & Package Defaults
 
@@ -392,6 +377,18 @@ Use company-go
 #+END_SRC
 * Org 
 
+Enable all potential languages that would be used for org-babel
+#+name: resets
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((js . t)
+     (sass . t)
+     (css . t)
+     (sh . t)
+     ))
+#+END_SRC
+
 log todos and notes with the time that they were completed:
 #+BEGIN_SRC emacs-lisp
 (setq org-log-done 'time)
@@ -509,3 +506,57 @@ Make org-level-1 the same height as other lines (the doom themes sizing makes th
 (setq tramp-default-method "ssh")
 #+END_SRC
 
+
+* Keybindings (refactor)
+Quickly open my Dropbox journal:
+#+BEGIN_SRC emacs-lisp
+  (global-set-key (kbd "C-c j")
+                  (lambda () (interactive) (find-file "~/Dropbox/journal.org")))
+#+END_SRC
+
+* Appearance (refactor)
+Disable the audible bell (I'm smart, I can figure out when I've done something wrong) and disable all the chrome for the emacs external application.
+#+name: resets
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore) ;; the bell annoys the h*ck out of me, turn it off
+  (setq initial-scratch-message "")
+  (setq inhibit-startup-message t)
+
+  (if (fboundp 'menu-bar-mode) (menu-bar-mode -1)) ;; for a "thin" emacs app
+  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1)) ;; for a "thin" emacs app
+  (if (fboundp 'tool-bar-mode) (tool-bar-mode -1)) ;; for a "thin" emacs app
+#+END_SRC
+
+Use Fira Mono, set the line height and shrink the font to 9pt.
+#+BEGIN_SRC emacs-lisp
+(set-face-attribute 'default nil :family "Fira Mono")
+(setq-default line-spacing 3)
+(set-face-attribute 'default nil :height 100)
+#+END_SRC
+
+I like my cursor to be a thin line rather than a chunky block. I've always found the chunky block to be distracting.
+#+name: resets
+#+BEGIN_SRC emacs-lisp
+(setq-default cursor-type 'bar)
+#+END_SRC
+
+One of the things I dislike about emacs is when you select some text and want to replace it with other text the way you would in a sane editor, it leaves the selected text and places the cursor at the end of the selection and starts typing. This "fixes" that so that when I select text and start to type, it replaces the selected text with my newly typed words. 
+#+name: resets
+#+BEGIN_SRC emacs-lisp
+(delete-selection-mode 1)
+#+END_SRC
+
+* Registers (refactor)
+Registers are a convenient way to access frequently opened files in a quick manner.
+
+You can access a register by typing =C-x r j= followed by the letter in the =set-register ?= to jump to that file.
+
+** Register for opening =[[file:init.org][init.org]]=
+#+BEGIN_SRC emacs-lisp
+  (set-register ?e (cons 'file (caio-dotfiles-join "init")))
+#+END_SRC
+
+** register for opening =dotfiles=
+#+BEGIN_SRC emacs-lisp
+  (set-register ?d (cons 'file dotfiles-dir))
+#+END_SRC

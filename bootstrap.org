@@ -33,7 +33,7 @@ First, as with all of my tangled files ake sure it's clear that this file is aut
 Now we'll create a temporary buffer with the =emacs/init.org= contents...
 #+BEGIN_SRC emacs-lisp
   (with-temp-buffer
-    (insert-file "~/src/gitlab.com/chaseadamsio/dotfiles/emacs/init.org")
+    (insert-file "~/src/gitlab.com/chaseadamsio/dotfiles/emacs.org")
 #+END_SRC
 
 start at the =point-min= or first accessible point in the buffer and go forward one line until we've reached the end of the buffer (=eobp=)...
