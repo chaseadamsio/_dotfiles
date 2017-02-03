@@ -561,6 +561,11 @@ Quickly open my Dropbox organize:
   (set-register ?o (cons 'file (caio-dropbox-join "organize")))
 #+END_SRC
 
+Quickly open my work journal:
+#+BEGIN_SRC emacs-lisp
+  (set-register ?w (cons 'file "~/notes/work.org"))
+#+END_SRC
+
 ** Dotfiles Registers
 *** Register for opening =[[file:init.org][init.org]]=
 #+BEGIN_SRC emacs-lisp
