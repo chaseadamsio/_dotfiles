@@ -155,14 +155,6 @@ Don't wrap lines for code, but do wrap lines for text...
           word-wrap t)))
 #+END_SRC
 
-
-make it /evil/. Enable vim mode and enable evil mode for org mode.
-#+BEGIN_SRC emacs-lisp
-(require 'evil)
-(evil-mode 1)
-(require 'evil-org)
-#+END_SRC
-
 Reset (C,M)-v to only move half pages forwards and backwards respectively...
 #+BEGIN_SRC emacs-lisp
 (defun scroll-half-page-backward ()
