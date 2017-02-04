@@ -353,7 +353,7 @@ Import =GOPATH= from the shell.
      (if (not (string-match "go" compile-command))
          (set (make-local-variable 'compile-command)
               "go build -v && go test -v && go vet"))
-     (global-set-key (kbd "MD") 'godef-jump)
+     (global-set-key (kbd "M-return") 'godef-jump)
      (global-set-key (kbd "M-.") 'godef-describe)
      (global-set-key (kbd "M-*") 'pop-tag-mark)
    )
