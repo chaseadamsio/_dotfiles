@@ -94,8 +94,8 @@ Use multicursor...
 
 Initialize exec-path-from-shell for getting GOPATH later...
 #+BEGIN_SRC emacs-lisp
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
+
+  (exec-path-from-shell-initialize)
 #+END_SRC
 
 use helm-projectile...
@@ -153,14 +153,6 @@ Don't wrap lines for code, but do wrap lines for text...
 (add-hook 'text-mode-hook '(lambda ()
     (setq truncate-lines nil
           word-wrap t)))
-#+END_SRC
-
-
-make it /evil/. Enable vim mode and enable evil mode for org mode.
-#+BEGIN_SRC emacs-lisp
-(require 'evil)
-(evil-mode 1)
-(require 'evil-org)
 #+END_SRC
 
 Reset (C,M)-v to only move half pages forwards and backwards respectively...
@@ -355,16 +347,17 @@ Import =GOPATH= from the shell.
 
 #+name: languages
 #+BEGIN_SRC emacs-lisp
- (defun caio-go-mode-hook ()
-   (setq gofmt-command "goimports")
-   (add-hook 'before-save-hook 'gofmt-before-save)
-   (if (not (string-match "go" compile-command))
-       (set (make-local-variable 'compile-command)
-            "go build -v && go test -v && go vet"))
-   (global-set-key (kbd "M-.") 'godef-describe)
-   (global-set-key (kbd "M-*") 'pop-tag-mark)
- )
- (add-hook 'go-mode-hook 'caio-go-mode-hook)
+   (defun caio-go-mode-hook ()
+     (setq gofmt-command "goimports")
+     (add-hook 'before-save-hook 'gofmt-before-save)
+     (if (not (string-match "go" compile-command))
+         (set (make-local-variable 'compile-command)
+              "go build -v && go test -v && go vet"))
+     (global-set-key (kbd "M-return") 'godef-jump)
+     (global-set-key (kbd "M-.") 'godef-describe)
+     (global-set-key (kbd "M-*") 'pop-tag-mark)
+   )
+   (add-hook 'go-mode-hook 'caio-go-mode-hook)
 #+END_SRC
 
 Use go-eldoc
@@ -443,6 +436,13 @@ create a custom method to find a heading under the datree for current date
     (goto-char (point-at-eol)))
 #+END_SRC
 
+enable org-habit for scheduling meetings and setting up habits
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'org-modules "org-habit")
+#+END_SRC
+
+** Org Capture Templates
+
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
         '(
@@ -460,9 +460,9 @@ create a custom method to find a heading under the datree for current date
 
 set exports to be silent by default for code block executions
 #+BEGIN_SRC emacs-lisp
-    (setq org-babel-default-header-args
-          (cons '(:results . "none")
-          (assq-delete-all :results org-babel-default-header-args)))
+  ;;    (setq org-babel-default-header-args
+  ;;         (cons '(:results . "none")
+  ;;         (assq-delete-all :results org-babel-default-header-args)))
 #+END_SRC
 
 a fix for an issue I'm experiencing with doom themes where [[https://github.com/hlissner/emacs-doom-theme/issues/30][org-level-1 font has unexpected behavior when moving cursor through characters]]:
@@ -560,6 +560,11 @@ Quickly open my Dropbox journal:
 Quickly open my Dropbox organize:
 #+BEGIN_SRC emacs-lisp
   (set-register ?o (cons 'file (caio-dropbox-join "organize")))
+#+END_SRC
+
+Quickly open my work journal:
+#+BEGIN_SRC emacs-lisp
+  (set-register ?w (cons 'file "~/notes/work.org"))
 #+END_SRC
 
 ** Dotfiles Registers
