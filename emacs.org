@@ -217,10 +217,10 @@ Set some variables for the doom ui.
 (defvar doom-ui-theme 'doom-one
   "The color theme currently in use.")
 (defvar doom-ui-font
-  (font-spec :family "Fira Mono" :size 9)
+  (font-spec :family "Fira Mono")
   "The font currently in use.")
 (defvar doom-ui-variable-pitch-font
-  (font-spec :family "Fira Sans" :size 9)
+  (font-spec :family "Fira Sans")
   "The font currently in use.")
 (setq org-fontify-whole-heading-line t
       org-fontify-done-headline t

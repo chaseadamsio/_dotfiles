@@ -1,0 +1,18 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /Users/chaseadamsio/src/gitlab.com/chaseadamsio/dotfiles/shell.org
+
+
+* .bash_profile
+:PROPERTIES:
+:header-args: :tangle ~/.bash_profile
+:ARCHIVE_TIME: 2017-02-07 Tue 06:13
+:ARCHIVE_FILE: ~/src/gitlab.com/chaseadamsio/dotfiles/shell.org
+:ARCHIVE_CATEGORY: shell
+:END:
+
+#+BEGIN_SRC shell
+source ~/.bashrc
+#+END_SRC
+

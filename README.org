@@ -34,6 +34,6 @@ Let it be known:
 I stand on the shoulders of giants.
 #+END_QUOTE
 
-My Dotfiles weren't a sole, Herculean task, but rather a composiion of what I've learned from others. You can find an exhaustive list of the people I'm grateful for at [[./acknowledgements.org][acknowledgements.org]] as well as a list of links to the blog posts, dotfiles and Emacs configurations I used to get [[https://dotfiles.chaseadamsio][my Dotfiles]] to where they are.
+My Dotfiles weren't a sole, Herculean task, but rather a composiion of what I've learned from others. You can find an exhaustive list of the people I'm grateful for at [[./acknowledgements.org][acknowledgements.org]] as well as a list of links to the blog posts, dotfiles and Emacs configurations I used to get [[https://dotfiles.chaseadams.io][my Dotfiles]] to where they are.
 * Backlog
 ** TODO add a function that takes an *.org file path and evaluates the source code blocks the same way that =init.el= does for =emacs-lisp=.

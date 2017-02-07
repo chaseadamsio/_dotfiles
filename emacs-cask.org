@@ -35,6 +35,7 @@ Not to be confused with Homebrew's Cask, this is Emacs Cask, a better package ma
   (depends-on "nlinum")
   (depends-on "nlinum-relative")
   (depends-on "octicons")
+  (depends-on "org")
   (depends-on "pallet")
   (depends-on "powerline")
   (depends-on "powerline-evil")
