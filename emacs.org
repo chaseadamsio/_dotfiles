@@ -320,6 +320,16 @@ a function for RFC 3339 format (Hugo blog frontmatter)
     (insert (shell-command-to-string "echo -n $(date +%Y-%m-%dT%H:%M:%SZ)")))
 #+END_SRC
 
+
+* Evil
+Initialize evil mode:
+#+BEGIN_SRC emacs-lisp
+  (require 'evil)
+  (evil-mode 1)
+
+  (require 'evil-org)
+#+END_SRC
+
 * Ido 
 
 enable ido mode with flexible matching in both buffer and file search...
