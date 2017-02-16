@@ -28,6 +28,7 @@ Not to be confused with Homebrew's Cask, this is Emacs Cask, a better package ma
   (depends-on "go-rename")
   (depends-on "helm")
   (depends-on "helm-projectile")
+  (depends-on "key-chord")
   (depends-on "magit")
   (depends-on "markdown-mode")
   (depends-on "multiple-cursors")

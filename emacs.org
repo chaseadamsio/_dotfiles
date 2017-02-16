@@ -330,6 +330,14 @@ Initialize evil mode:
   (require 'evil-org)
 #+END_SRC
 
+Exit insert mode by pressing j and then j quickly:
+#+BEGIN_SRC emacs-lisp
+  (require 'key-chord)
+  (setq key-chord-two-keys-delay 0.5)
+  (key-chord-define evil-insert-state-map  "jj" 'evil-normal-state)
+  (key-chord-mode 1)
+#+END_SRC
+
 * Ido 
 
 enable ido mode with flexible matching in both buffer and file search...
@@ -395,7 +403,7 @@ Enable all potential languages that would be used for org-babel
    '((js . t)
      (sass . t)
      (css . t)
-     (sh . t)
+     (shell . t)
      ))
 #+END_SRC
 
