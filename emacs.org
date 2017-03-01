@@ -183,6 +183,12 @@ Use super (cmd) + an arrow to easily navigate windows...
   (setq windmove-wrap-around t))
 #+END_SRC
 
+Resize font easily with =M-+= and =M--=...
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "M-+") 'text-scale-increase)
+(global-set-key (kbd "M--") 'text-scale-decrease)
+#+END_SRC
+
 * Essentials
 
 Automatically insert the closing character for pair-type characters.
