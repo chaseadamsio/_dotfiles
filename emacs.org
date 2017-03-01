@@ -410,6 +410,7 @@ Enable all potential languages that would be used for org-babel
      (sass . t)
      (css . t)
      (shell . t)
+     (lua . t)
      ))
 #+END_SRC
 
