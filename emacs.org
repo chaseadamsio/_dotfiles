@@ -483,13 +483,6 @@ enable org-habit for scheduling meetings and setting up habits
         )
 #+END_SRC
 
-set exports to be silent by default for code block executions
-#+BEGIN_SRC emacs-lisp
-  ;;    (setq org-babel-default-header-args
-  ;;         (cons '(:results . "none")
-  ;;         (assq-delete-all :results org-babel-default-header-args)))
-#+END_SRC
-
 a fix for an issue I'm experiencing with doom themes where [[https://github.com/hlissner/emacs-doom-theme/issues/30][org-level-1 font has unexpected behavior when moving cursor through characters]]:
 
 #+BEGIN_SRC emacs-lisp
