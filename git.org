@@ -73,6 +73,11 @@ Make it easy on me and automatically correct commads I mistype:
           autocorrect = 1
 #+END_SRC
 
+#+BEGIN_SRC shell
+  [pull]
+          rebase = true
+#+END_SRC
+
 anything that needs to be unique to a specific environment (user email and name, for instance) should live here and it'll be included. 
 
 Big thanks to [[http://agateau.com/2015/splitting-your-gitconfig/][Aurélien Gâteau's post on Includes in a git config] for explaining that the way to test this should be:
