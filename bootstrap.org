@@ -74,3 +74,11 @@ This one is a little tricky. For files that need to be evaluated as shell script
 ** TODO Programatically tangle *.org files 
 ** TODO Programatically evaluate files that only need to be evaluated (such as =osx-defaults.org=)
 
+Curl =git-completion.sh= to =~/bin= to be used by the shell.
+
+#+BEGIN_SRC sh
+  cd ~/bin && curl -o git-completion.bash \
+       https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+#+END_SRC
+
+#+RESULTS:

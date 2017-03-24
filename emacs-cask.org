@@ -14,6 +14,7 @@ Not to be confused with Homebrew's Cask, this is Emacs Cask, a better package ma
   (depends-on "change-inner")
   (depends-on "company")
   (depends-on "company-go")
+  (depends-on "dockerfile-mode")
   (depends-on "doom-themes")
   (depends-on "evil-leader")
   (depends-on "evil-magit")
