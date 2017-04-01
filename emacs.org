@@ -549,7 +549,7 @@ Use Fira Mono, set the line height and shrink the font to 9pt.
 #+BEGIN_SRC emacs-lisp
 (set-face-attribute 'default nil :family "Fira Mono")
 (setq-default line-spacing 3)
-(set-face-attribute 'default nil :height 100)
+(set-face-attribute 'default nil :height 120)
 #+END_SRC
 
 I like my cursor to be a thin line rather than a chunky block. I've always found the chunky block to be distracting.
