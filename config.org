@@ -1,0 +1,357 @@
+#+TITLE: Emacs Configuration
+#+AUTHOR: Chase Adams
+
+* Defaults 
+
+If using the Emacs GUI, disable all the chrome-ish features for a more spartan-esque view.
+#+BEGIN_SRC emacs-lisp
+(if window-system
+    (progn
+      (menu-bar-mode -1)
+      (tool-bar-mode -1)
+      (toggle-scroll-bar -1)
+      ))
+#+END_SRC
+
+Disables the annoying bell every time I do something wrong. I know I did something wrong. I don't need a reminder stupid bell.
+#+BEGIN_SRC emacs-lisp
+  (setq ring-bell-function 'ignore)
+#+END_SRC
+
+Disables wonky evil bindings copying to system clipboard (maybe?) 
+#+BEGIN_SRC emacs-lisp
+  (fset 'evil-visual-update-x-selection 'ignore)
+#+END_SRC
+
+Highlight the current line.
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+    (use-package linum
+      :ensure t
+      :init
+      (progn
+	(add-hook 'prog-mode-hook 'linum-mode)
+	(add-hook 'org-mode-hook 'linum-mode)
+	(add-hook 'yaml-mode-hook 'linum-mode))
+      :config
+      (setq linum-format "%4d  ")
+  )
+#+END_SRC
+
+Give the lines some room to breathe.
+#+BEGIN_SRC emacs-lisp
+  (setq-default line-spacing 3)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (set-face-attribute 'default nil :family "Fira Mono")
+#+END_SRC
+
+* Package Sources
+
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+
+  (setq package-archives
+	'(("gnu" . "http://elpa.gnu.org/packages/")
+	  ("melpa" . "http://melpa.org/packages/")
+	  ("melpa-stable" . "http://stable.melpa.org/packages/")
+	  ("org" . "http://orgmode.org/elpa/")))
+
+  (setq package-archive-priorities
+	'(("org" . 4)
+	  ("melpa-stable" . 3)
+	  ("melpa" . 2)
+	  ("gnu" . 1)))
+
+  (package-initialize)
+#+END_SRC
+
+* Everything Else
+
+Turn "yes or no" into "y or n".
+
+#+BEGIN_SRC emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p) ; make yes-no confirm y-n
+#+END_SRC
+
+#+BEGIN_SRC  emacs-lisp
+  (setq-default truncate-lines 1) ; no word wrap
+
+  (show-paren-mode)  
+  (setq inhibit-splash-screen t)
+  
+  (menu-bar-mode -1) 
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  ;; (global-set-key (kbd "C-x C-r") 
+  ;; 		"reload init.el"
+  ;; 		(lambda ()
+  ;; 		  (interactive "p")
+  ;; 		  (load-file "~/.emacs.d/init.el")))
+  (defun reload-init ()
+    "reload ~/.emacs.d/init.el"
+    (load-file "~/.emacs.d/init.el"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (setq backup-directory-alist `((".*" . "~/.emacs.d/tmp"))
+	auto-save-file-name-transforms `((".*" , "~/.emacs.d/tmp" t)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq general-default-prefix "C")
+(setq general-default-states 'normal)
+#+END_SRC
+
+** Company
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :ensure t
+    :diminish company-mode
+    :init
+    (progn
+      (setq company-tooltip-limit 20)
+      (setq company-idle-delay .3)   
+      (setq company-echo-delay 0)    
+      (setq company-begin-commands '(self-insert-command))))
+#+END_SRC
+
+** Evil
+
+#+BEGIN_SRC emacs-lisp
+  (use-package evil
+    :ensure
+    :config
+    (evil-mode t)
+#+END_SRC
+
+** Magit
+
+#+BEGIN_SRC emacs-lisp
+    (use-package magit
+      :ensure t
+      :defer
+      :config
+      (use-package evil-magit
+	:ensure t
+	:defer))
+
+#+END_SRC
+
+** Markdown
+
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode
+    :ensure    markdown-mode
+    :defer     t
+    :mode      ("\\.\\(markdown\\|mdown\\|md\\)$" . markdown-mode))
+#+END_SRC
+
+** Org
+
+#+BEGIN_SRC emacs-lisp
+  (use-package org
+    :ensure t
+    :pin org
+    :config
+
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((emacs-lisp . t)
+       (js . t)
+       (sass . t)
+       (css . t)
+       (shell . t)
+       (python . t)
+       (lua . t)
+       (dot . t)
+       ))
+    (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images))
+#+END_SRC
+
+** YAML
+
+#+BEGIN_SRC emacs-lisp
+  (use-package yaml-mode
+    :ensure t
+    :defer)
+#+END_SRC
+
+** Go
+   
+#+BEGIN_SRC emacs-lisp
+  (use-package go-mode
+    :ensure t
+    :config
+    (progn
+      (setq gofmt-command "goimports")
+      (add-hook 'before-save-hook 'gofmt-before-save)
+      (if (not (string-match "go" compile-command))
+	  (set (make-local-variable 'compile-command)
+	       "go build -v && go test -v && go vet"))
+      (bind-key [remap find-tag] #'godef-jump)
+      (add-hook 'go-mode-hook 'electric-pair-mode)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package company-go
+    :ensure t
+    :init
+    (add-hook 'go-mode-hook
+	      (lambda ()
+		(set (make-local-variable 'company-backends) '(company-go))
+		(company-mode))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package eldoc
+    :diminish eldoc-mode)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package go-eldoc
+    :ensure t
+    :diminish go-eldoc-mode
+    :defer
+    :init
+    (progn
+      (set-face-attribute 'eldoc-highlight-function-argument nil
+			  :underline t :foreground "green"
+			  :weight 'bold))
+    (add-hook 'go-mode-hook 'go-eldoc-setup))
+
+#+END_SRC
+
+** Rainbow 
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-mode
+    :ensure t
+    :diminish rainbow-mode
+    :defer)
+#+END_SRC
+
+** Autopair
+
+#+BEGIN_SRC emacs-lisp
+  (use-package autopair
+    :ensure t
+    :diminish autopair-mode
+    :init
+    (autopair-mode))
+#+END_SRC
+
+
+** General
+
+#+BEGIN_SRC emacs-lisp
+  (use-package general
+    :ensure t
+    :diminish general
+    :init
+    (setq general-default-prefix "SPC")
+    (setq general-default-states '(normal visual))
+    :config
+    (general-define-key 
+			:timeout 0.1
+			:states '(normal visual)))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (general-define-key :prefix "SPC"
+		      :states '(normal visual)
+		      "SPC" '(counsel-M-x :which-key "M-x"))
+#+END_SRC
+
+** Which Key
+
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key 
+    :ensure t
+    :diminish which-key-mode
+    :init
+    (which-key-mode)
+    :config
+    (which-key-setup-side-window-right-bottom)
+    (setq which-key-sort-order 'which-key-key-order-alpha
+	  which-key-side-window-max-width 0.33
+	  which-key-idle-delay 0.05)
+    )
+
+#+END_SRC
+
+** Projectile
+
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :ensure    t
+    :diminish projectile-mode
+    :init
+    (setq projectile-completion-system 'ivy
+	  projectile-enable-caching t
+	  projectile-globally-ignored-buffers '("*eshell*"
+						"*magit-process*"
+						"TAGS")
+	  projectile-globally-ignored-files '("TAGS")
+	  projectile-globally-ignored-file-suffixes '(".gif"
+						      ".gitkeep"
+						      ".jpeg"
+						      ".jpg"
+						      ".png"
+						      ".zip")
+	  projectile-mode-line nil
+	  projectile-tags-command "ripper-tags -R -f TAGS"
+	  projectile-track-known-projects-automatically nil)
+    (projectile-global-mode t)
+    :config
+    (general-define-key 
+     :states '(normal visual)
+     :prefix "SPC"
+     "p" '(:ignore t :which-key "Projectile p")
+     "p b" '(projectile-switch-to-buffer :which-key "Switch buffer")
+     "p D" '(projectile-dired :which-key "Dired")
+     "p d" '(projectile-find-dir :which-key "Find directory")
+     "p f" '(projectile-find-file :which-key "Find file ")
+     "p j" '(projectile-find-tag :which-key "Find tag")
+     "p k" '(projectile-kill-buffers :which-key "Kill [project] buffers")
+     "p p" '(projectile-switch-project :which-key "Switch project")
+     "p R" '(projectile-regenerate-tags :which-key "Regenerate tags")
+     "p r" '(projectile-recentf :which-key "Recent [project] files")
+     "p s" '(projectile-run-eshell :which-key "Eshell"))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+#+END_SRC
+
+
+* Color Themes
+
+#+BEGIN_SRC emacs-lisp
+  (deftheme chasemacs)
+
+  (custom-theme-set-faces
+   'chasemacs
+   '(default ((t (:background "#31343F" :foreground "#D2D4FF" :height 100)))) 
+   '(fringe ((t (:background "#31343F"))))
+   '(vertical-border ((t (:foreground "#535353"))))
+   '(highlight ((t (:background "#353948"))))
+   '(cursor ((t (:background "#15AAFE"))))
+   '(font-lock-builtin-face ((t (:foreground "#D983F5" :weight bold))))
+   '(font-lock-constant-face ((t (:foreground "#D983F5"))))
+   '(font-lock-function-name-face ((t (:foreground "#7DBAFF"))))
+   '(font-lock-keyword-face ((t (:foreground "#E29BF7"))))
+   '(font-lock-string-face ((t (:foreground "#A1EF9D"))))
+   '(font-lock-comment-face ((t (:foreground "#63677F"))))
+   '(font-lock-variable-name-face ((t (:foreground "#FDC64D"))))
+   '(mode-line ((t (:background "#31343F" :foreground "#EBEDF3"))))
+   '(mode-line-inactive ((t (:background "#31343F" :foreground "#63677F"))))
+   '(header-line ((t (:background "#31343F" :foreground "#EBEDF3" :slant i))))
+   '(secondary-selection ((t (:background "#2D2D38"))))
+   '(linum ((t (:background "#31343F" :foreground "#535353")))))
+#+END_SRC
