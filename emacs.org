@@ -204,41 +204,7 @@ In some languages (looking at you lisp family!) it can be really hard to tell wh
 
 * Appearance
 
-I'm using [[https://github.com/hlissner/emacs-doom-theme][Doom Themes]] as my color scheme with =dark one= as the loaded theme.
 #+name: appearance
-#+BEGIN_SRC emacs-lisp
-(require 'doom-themes)
-(load-theme 'doom-one t)
-#+END_SRC
-
-Set the doom-buffers to be "brighter".
-#+name: appearance
-#+BEGIN_SRC emacs-lisp
-(add-hook 'find-file-hook 'doom-buffer-mode)
-#+END_SRC
-
-Set some variables for the doom ui.
-#+name: appearance
-#+BEGIN_SRC emacs-lisp
-(defvar doom-ui-theme 'doom-one
-  "The color theme currently in use.")
-(defvar doom-ui-font
-  (font-spec :family "Fira Mono")
-  "The font currently in use.")
-(defvar doom-ui-variable-pitch-font
-  (font-spec :family "Fira Sans")
-  "The font currently in use.")
-(setq org-fontify-whole-heading-line t
-      org-fontify-done-headline t
-      org-fontify-quote-and-verse-blocks t)
-#+END_SRC
-
-Use doom neotree with nice icons.
-#+name: appearance
-#+BEGIN_SRC emacs-lisp
-(require 'doom-neotree)
-(setq doom-neotree-enable-file-icons 'simple)
-#+END_SRC
 
 all-the-icons for beautiful icons in modeline and neotree.
 #+name: appearance
@@ -594,4 +560,71 @@ Quickly open my work journal:
 *** register for opening =dotfiles=
 #+BEGIN_SRC emacs-lisp
   (set-register ?d (cons 'file dotfiles-dir))
+#+END_SRC
+
+* Color Theme
+
+#+BEGIN_SRC  emacs-lisp
+  (unless (>= emacs-major-version 24)
+    (error "requires Emacs 24 or later."))
+
+  (deftheme chaseadamsio "A dark colour theme")
+
+  (let ((color-bg     "background")
+	(color-fg     "foreground")
+	(color-00 "black")
+	(color-01 "red")
+	(color-02 "green")
+	(color-03 "yellow")
+	(color-04 "blue")
+	(color-05 "magenta")
+	(color-06 "cyan")
+	(color-07 "white")
+	(color-08 "brightblack")
+	(color-09 "brightred")
+	(color-0A "brightgreen")
+	(color-0B "brightyellow")
+	(color-0C "brightblue")
+	(color-0D "brightmagenta")
+	(color-0E "brightcyan")
+	(color-0F "brightwhite"))
+
+    (custom-theme-set-faces
+     'chaseadamsio
+
+     `(default ((t (:background ,color-bg :foreground ,color-fg))))
+     `(cursor  ((t (:background ,color-bg))))
+     `(highlight ((t (:background ,color-08))))
+     `(region ((t (:background ,color-09))))
+     `(hl-line ((t (:background ,color-08))))
+     `(error ((t (:foreground ,color-01))))
+     `(success ((t (:foreground ,color-02))))
+     `(fringe ((t (:background ,color-08))))
+     `(secondary-selection ((t (:background ,color-08))))
+     `(mode-line ((t (:background ,color-08 :foreground ,color-0B))))
+     `(mode-line-inactive ((t (:background ,color-bg :foreground ,color-0B))))
+     `(mode-line-buffer-id ((t (:box nil :foreground ,color-fg))))
+     `(trailing-whitespace ((t (:background ,color-01))))    
+     `(font-lock-keyword-face ((t (:foreground ,color-05)))) 
+     `(font-lock-string-face ((t (:foreground ,color-02)))) 
+     `(font-lock-builtin-face ((t (:foreground ,color-02)))) 
+     `(font-lock-comment-face ((t (:foreground ,color-0B)))) 
+     `(font-lock-color-constant-face ((t (:foreground ,color-02)))) 
+     `(font-lock-function-name-face ((t (:foreground ,color-04)))) 
+     `(font-lock-variable-name-face ((t (:foreground ,color-04)))) 
+     `(font-lock-type-face ((t (:foreground ,color-05)))) 
+     `(show-paren-match-face ((t (:foreground ,color-04)))) 
+     `(show-paren-mismatch-face ((t (:foreground ,color-01)))) 
+     ;; org-mode
+     `(org-document-title ((t (:height 1.2 :foreground ,color-06))))
+     `(org-document-info-keyword ((t (:foreground ,color-0B))))
+     `(org-level-1 ((t (:foreground ,color-04))))
+     `(org-level-2 ((t (:foreground ,color-02))))
+     `(org-level-3 ((t (:foreground ,color-06))))
+     `(org-level-4 ((t (:foreground ,color-05))))
+     `(org-level-5 ((t (:foreground ,color-01))))
+     `(org-level-6 ((t (:foreground ,color-03))))
+     `(org-link ((t (:foreground ,color-06))))
+     `(linum ((t (:foreground ,color-0B))))
+     ))
 #+END_SRC
