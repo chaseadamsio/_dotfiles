@@ -2,8 +2,8 @@ module.exports = {
   config: {
     fontSize: 10,
     fontFamily: '"Fira Mono", "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
-    cursorShape: 'BEAM',
-    cursorBlink: true,
+    cursorShape: 'BLOCK',
+    cursorBlink: false,
     css: '',
     termCSS: '',
     showHamburgerMenu: '',
@@ -16,7 +16,12 @@ module.exports = {
     copyOnSelect: true,
     hyperStatusLine: {
       footerTransparent: false,
-    }
+    },
+    termCSS: `
+      x-screen {
+        -webkit-font-smoothing: subpixel-antialiased !important;
+      }
+    `,
   },
 
   plugins: [
