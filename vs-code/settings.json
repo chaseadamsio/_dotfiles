@@ -1,0 +1,12 @@
+{
+    "workbench.colorTheme": "Argon — Noble Theme",
+    "editor.fontSize": 12,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j","j"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "editor.fontFamily": "'Fira Mono', Menlo, Monaco, 'Courier New', monospace",
+    "window.title": "${activeEditorLong}"
+}
