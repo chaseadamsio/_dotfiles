@@ -1,0 +1,12 @@
+cask "visual-studio-code"
+cask "google-chrome"
+cask "alfred"
+cask "hammerspoon"
+cask "spotify"
+cask "iterm2"
+cask "notion"
+
+brew "git"
+brew "go"
+brew "python3"
+brew "zsh"
