@@ -61,4 +61,8 @@ Kill all the OSX services that run this stuff so we can have it all take effect:
   killall Finder
 #+END_SRC
 
-
+Set the key repeat on OSX High Sierra to be fast. Requires logging out and logging back in
+#+BEGIN_SRC sh
+  defaults write NSGlobalDomain KeyRepeat -int 1
+  defaults write NSGlobalDomain InitialKeyRepeat -int 10
+#+END_SRC
