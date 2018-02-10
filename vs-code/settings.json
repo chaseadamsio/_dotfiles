@@ -9,5 +9,6 @@
     ],
     "editor.fontFamily": "'Fira Mono', Menlo, Monaco, 'Courier New', monospace",
     "window.title": "${activeEditorLong}",
-    "git.autofetch": true
+    "git.autofetch": true,
+    "python.pythonPath": "/usr/local/bin/python3"
 }
