@@ -6,7 +6,7 @@ If you're looking at them and you're not me, feel free to use them as a guide.
 
 # Setup
 
-- Clone dotfiles
+- Clone dotfiles:
     ```console
         mkdir -p $HOME/src/gitlab.com/chaseadamsio
         git clone git@gitlab.com:chaseadamsio/dotfiles.git
@@ -14,7 +14,7 @@ If you're looking at them and you're not me, feel free to use them as a guide.
 
 - Symlink files
 
-- Install homebrew
+- Install homebrew:
     ```console
     #!/bin/bash
     homebrew_expected_md5="546219756e1bc7a557030d9e63d2d6f0"
