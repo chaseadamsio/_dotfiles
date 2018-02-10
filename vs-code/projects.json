@@ -1,0 +1,14 @@
+[
+	{
+		"name": "dotfiles",
+		"rootPath": "$home/src/gitlab.com/chaseadamsio/dotfiles",
+		"paths": [],
+		"group": ""
+	},
+	{
+		"name": "chaseadams.io",
+		"rootPath": "$home/src/gitlab.com/chaseadamsio/chaseadamsio.gitlab.io",
+		"paths": [],
+		"group": ""
+	}
+]
