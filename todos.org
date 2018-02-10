@@ -1,8 +1,0 @@
-#+TITLE: Organizer
-
-Keeping an organizer.todo and adding it to my org agenda makes it easy to keep up with what needs to be done next.
-
-* Now
-
-* Backlog
-** add a function that takes an *.org file path and evaluates the source code blocks the same way that =init.el= does for =emacs-lisp=.
