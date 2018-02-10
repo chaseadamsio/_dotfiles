@@ -1,0 +1,58 @@
+[alias]
+    b = branch 
+    rv = remote -v 
+    s = status -sb 
+    st = status 
+    d = diff 
+    co = checkout 
+    com = checkout master 
+    f = fetch 
+    l = log 
+    a = add 
+    ap = add --patch 
+    c = commit 
+    p = push 
+    clean = checkout -f -- 
+    dirty = reset --hard 
+
+[core]
+    editor = code
+
+[color]
+    # Use colors in Git commands that are capable of colored output when
+    # outputting to the terminal. (This is the default setting in Git e 1.8.4.)
+    ui = auto
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold # line info
+    old = red # deletions
+    new = green # additions
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+# Detect copies as well as renames
+[diff]
+    renames = copies
+
+# make it easy for autocorrect
+[help]
+    autocorrect = 1
+
+[pull]
+    rebase = true
+
+# anything that needs to be unique to a specific environmeemacsnt (user email and name, for instance) should live here and it'll be included. 
+# Big thanks to [[http://agateau.com/2015/splitting-your-gitconfig/][Aurélien Gâteau's post on Includes in a git config] for explaining that the way to test this should be:
+# git config --global --includes user.email
+
+[include]
+    path = ~/.gitconfig.local
