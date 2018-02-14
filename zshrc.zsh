@@ -9,8 +9,9 @@ SAVEHIST=10000
 
 export GOPATH=$HOME
 export WRK=$GOPATH/src
-export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
 export DOTFILES=$GOPATH/src/gitlab.com/chaseadamsio/dotfiles
+
+export PATH=/usr/local/bin:$GOPATH/bin:/usr/local/go/bin:$PATH
 
 ### CD ###
 alias ..="cd ../"
