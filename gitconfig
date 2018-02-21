@@ -39,6 +39,9 @@
     changed = green
     untracked = cyan
 
+[merge]
+    conflictstyle = diff3
+
 # Detect copies as well as renames
 [diff]
     renames = copies
