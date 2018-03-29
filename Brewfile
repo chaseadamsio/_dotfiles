@@ -8,7 +8,7 @@ cask "iterm2"
 cask "notion"
 cask "docker" 
 cask "vanilla"
-cask "/Users/chaseadamsio/src/gitlab.com/chaseadamsio/dotfiles/casks/screenflow.rb"
+cask "kap"
 
 brew "git"
 brew "go"
