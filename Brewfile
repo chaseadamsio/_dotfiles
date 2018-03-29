@@ -8,6 +8,7 @@ cask "iterm2"
 cask "notion"
 cask "docker" 
 cask "vanilla"
+cask "ngrok"
 cask "kap"
 
 brew "git"
