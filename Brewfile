@@ -11,6 +11,7 @@ cask "vanilla"
 cask "ngrok"
 cask "kap"
 cask "joplin"
+cask "hyper"
 
 brew "git"
 brew "go"
