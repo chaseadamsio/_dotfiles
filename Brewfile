@@ -10,6 +10,7 @@ cask "docker"
 cask "vanilla"
 cask "ngrok"
 cask "kap"
+cask "joplin"
 
 brew "git"
 brew "go"
@@ -21,6 +22,9 @@ brew "openssh"
 brew "screenfetch"
 brew "zsh"
 brew "pt"
+brew "joplin"
 
 tap "thoughtbot/formulae"
 brew "rcm"
+
+
