@@ -13,6 +13,7 @@ cask "kap"
 cask "joplin"
 cask "hyper"
 
+brew "emacs-plus", args: ["with-no-title-bars"]
 brew "git"
 brew "go"
 brew "dep"
