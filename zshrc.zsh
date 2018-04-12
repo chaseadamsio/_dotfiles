@@ -68,3 +68,5 @@ git-branch-nuke() {
 ### OSX ###
 # Sometimes the daemon for the built-in cameras on OSX gets in a weird state and the camera no longer works. This restarts the daemon and fixes the camera issue:
 alias fixcamera="sudo killall VDCAssistant"
+
+PROMPT='λ %F{cyan}%~ %F{white}'
