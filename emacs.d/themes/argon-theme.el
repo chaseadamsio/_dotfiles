@@ -33,6 +33,7 @@
  `(font-lock-negation-char-face ((t (:slant italic))))
 
  `(dired-flagged ((t (:foreground "#F86F65"))))
+ `(dired-marked ((t (:foreground "#D983f5"))))
 
  `(company-tooltip ((t (:background "#272B34" :foreground "#C7C8ff"))))
  `(company-tooltip-selection ((t (:background "#20242D"))))
