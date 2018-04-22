@@ -25,6 +25,7 @@ brew "screenfetch"
 brew "zsh"
 brew "pt"
 brew "joplin"
+brew "fzf"
 
 tap "thoughtbot/formulae"
 brew "rcm"
