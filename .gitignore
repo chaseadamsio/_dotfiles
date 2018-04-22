@@ -28,7 +28,3 @@ Temporary Items
 *.swp
 .#*
 public_html
-
-emacs.d
-!emacs.d/init.el
-!emacs.d/themes/*
