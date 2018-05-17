@@ -17,6 +17,7 @@ function shiftLeft()
 end
 
 hs.hotkey.bind(hyper, "Left", shiftLeft)
+hs.hotkey.bind(hyper, "h", shiftLeft)
 
 function shiftRight()
     local win = hs.window.focusedWindow()
@@ -32,6 +33,7 @@ function shiftRight()
 end
 
 hs.hotkey.bind(hyper, "Right", shiftRight)
+hs.hotkey.bind(hyper, "l", shiftRight)
 
 function shiftTop()
     local win = hs.window.focusedWindow()
@@ -47,6 +49,7 @@ function shiftTop()
 end
 
 hs.hotkey.bind(hyper, "Up", shiftTop)
+hs.hotkey.bind(hyper, "k", shiftTop)
 
 function shiftBottom()
     local win = hs.window.focusedWindow()
@@ -62,6 +65,7 @@ function shiftBottom()
 end
 
 hs.hotkey.bind(hyper, "Down", shiftBottom)
+hs.hotkey.bind(hyper, "j", shiftBottom)
 
 function shiftTopLeft()
     local win = hs.window.focusedWindow()
