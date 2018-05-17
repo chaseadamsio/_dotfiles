@@ -1,5 +1,4 @@
 {
-    "workbench.colorTheme": "Argon — Noble Theme",
     "editor.fontSize": 12,
     "vim.insertModeKeyBindings": [
         {
@@ -10,5 +9,6 @@
     "editor.fontFamily": "'Fira Mono', Menlo, Monaco, 'Courier New', monospace",
     "window.title": "${activeEditorLong}",
     "git.autofetch": true,
-    "python.pythonPath": "/usr/local/bin/python3"
+    "editor.minimap.enabled": false,
+    "workbench.colorTheme": "Argon — Noble Theme"
 }
