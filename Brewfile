@@ -29,6 +29,8 @@ brew "zsh"
 brew "pt"
 brew "joplin"
 brew "fzf"
+brew "yarn"
+brew "ccat"
 
 tap "thoughtbot/formulae"
 brew "rcm"
