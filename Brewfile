@@ -12,6 +12,7 @@ cask "ngrok"
 cask "kap"
 cask "joplin"
 cask "hyper"
+cask "rocket" # emoji quick picker
 
 brew "emacs-plus", args: ["with-no-title-bars"]
 brew "git"
