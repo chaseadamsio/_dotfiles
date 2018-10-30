@@ -57,5 +57,8 @@
 # Big thanks to [[http://agateau.com/2015/splitting-your-gitconfig/][Aurélien Gâteau's post on Includes in a git config] for explaining that the way to test this should be:
 # git config --global --includes user.email
 
+[user]
+    name = Chase Adams
+
 [include]
     path = ~/.gitconfig.local
