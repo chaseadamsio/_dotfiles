@@ -10,3 +10,6 @@ ln-keybindings:
 
 ln-projects:
 	ln -s $(PWD)/projects.json $(VSCODECFGDIR)/projects.json
+
+clean:
+	rm $(VSCODECFGDIR)/projects.json $(VSCODECFGDIR)/keybindings.json $(VSCODECFGDIR)/settings.json
