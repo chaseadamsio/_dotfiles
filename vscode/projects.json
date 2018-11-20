@@ -1,0 +1,20 @@
+[
+	{
+		"name": "dotfiles",
+		"rootPath": "$home/src/github.com/chaseadamsio/dotfiles",
+		"paths": [],
+		"group": ""
+	},
+	{
+		"name": "chaseadams.io",
+		"rootPath": "$home/src/github.com/chaseadamsio/chaseadams.io",
+		"paths": [],
+		"group": ""
+	},
+	{
+		"name": "Dropbox",
+		"rootPath": "$home/Dropbox",
+		"paths": [],
+		"group": ""
+	}
+]
