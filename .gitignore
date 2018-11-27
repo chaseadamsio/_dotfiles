@@ -32,3 +32,4 @@ public_html
 emacs.d/*
 !emacs.d/themes/
 !emacs.d/init.el
+!emacs.d/configuration.org
