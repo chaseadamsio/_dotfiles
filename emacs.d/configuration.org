@@ -1,0 +1,186 @@
+#+BEGIN_SRC emacs-lisp
+  (require 'package)
+  (setq package-enable-at-startup nil)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+  (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+
+  (package-initialize)
+
+  ;; auto-install use-package
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  ;; display line numbers
+  (global-display-line-numbers-mode 1)
+
+    ;;;;;; PACKAGES ;;;;;;
+
+  ;; evil == vim bindings
+  (use-package evil
+    :ensure t
+    :config (evil-mode 1))
+
+  (use-package flycheck
+    :ensure t)
+
+  (use-package exec-path-from-shell
+    :ensure t)
+
+  (use-package nvm
+    :ensure t
+    :after exec-path-from-shell
+    :config
+    (when (memq window-system '(mac ns x))
+      (exec-path-from-shell-initialize)))
+
+    ;;; JavaScript
+  (load-file "~/.emacs.d/emacs-flow-jsx-mode.el")
+  (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . flow-jsx-mode))
+
+  ;; required for prettier to be found in local node_modules
+  (use-package add-node-modules-path :ensure t)
+
+  ;; prettier
+  (use-package prettier-js
+    :ensure t
+    :after (flow-jsx-mode add-node-modules-path)
+    :config
+    (add-hook 'flow-jsx-mode-hook #'add-node-modules-path)
+    (add-hook 'flow-jsx-mode-hook #'prettier-js-mode))
+
+  (use-package company
+    :ensure t
+    :config
+    (set (make-local-variable 'company-backends) '(company-files))
+    (add-hook 'after-init-hook 'global-company-mode))
+
+  ;; markdown support
+  (use-package markdown-mode
+    :ensure t
+    :mode (("README\\.md\\'" . gfm-mode)
+	   ("\\.md\\'" . markdown-mode)
+	   ("\\.markdown\\'" . markdown-mode))
+    :init (setq markdown-command "multimarkdown"))
+
+  (use-package homebrew-mode :ensure t)
+
+  (use-package web-mode :ensure t)
+
+  ;; lua support
+  (use-package lua-mode :ensure t)
+
+  ;; git support
+  (use-package magit :ensure t)
+
+  (use-package github-browse-file :ensure t)
+
+  ;; project management
+  (use-package projectile :ensure t
+    :init (projectile-global-mode))
+
+  (use-package ivy :ensure t
+    :config (ivy-mode 1))
+
+  (use-package swiper :ensure t
+    :config (global-set-key (kbd "C-s") 'swiper))
+
+  (use-package counsel
+    :ensure t
+    :config
+    (global-set-key (kbd "M-x") 'counsel-M-x)
+    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+    (global-set-key (kbd "<f1> l") 'counsel-find-library)
+    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+    (global-set-key (kbd "<f2> u") 'counsel-unicode-char))
+
+  (use-package counsel-projectile :ensure t
+    :config (counsel-projectile-mode 1))
+
+  ;; https://github.com/noctuid/general.el
+  (use-package general
+    :ensure t
+    :init
+    (general-define-key :prefix "SPC"
+			:keymaps 'normal
+			;; unbind SPC and give it a title for which-key (see echo area)
+			"" '(nil :which-key "my lieutenant general prefix")
+			"p" '(counsel-projectile-switch-project :which-key "switch project")
+			"s" '(counsel-rg :which-key "search"))
+    )
+
+  (use-package undo-tree :ensure t)
+
+  (use-package diminish
+    :ensure t
+    :config
+    (diminish 'flycheck-mode)
+    (diminish 'projectile-mode)
+    (diminish 'undo-tree-mode)
+    (diminish 'which-key-mode)
+    (diminish 'evil-org-mode)
+    (diminish 'org-mode)
+    (diminish 'rainbow-mode))
+
+
+  ;; https://github.com/justbur/emacs-which-key
+  (use-package which-key
+    :ensure t
+    :config
+    (which-key-mode)
+    (setq which-key-idle-delay .3)
+    ) 
+
+    ;;;;;; UI ;;;;;;
+
+  (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+  (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+
+  (use-package doom-themes
+    :ensure t
+    :config
+    (load-theme 'doom-one t))
+
+    ;;;;;; customization ;;;;;;;
+
+  ;; detach the UI customization that gets appended to the file every save http://emacsblog.org/2008/12/06/quick-tip-detaching-the-custom-file/
+  (setq custom-file (make-temp-file "emacs-custom"))
+
+  ;; bind escape to keyboard escape (so I don't have to gg when in the mini-buffer, acts more like vim
+  (global-set-key (kbd "<escape>")      'keyboard-escape-quit)
+
+  ;; disable creating backup~ files
+  (setq make-backup-files nil) 
+  ;; disable creating #autosave# files
+  (setq auto-save-default nil) 
+
+  (add-hook 'prog-mode-hook 'electric-pair-local-mode)
+  (show-paren-mode 1)
+
+  ;;; org
+
+  (use-package ob-http :ensure t)
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((http       . t)
+     (shell      . t)
+     (js         . t)
+     (emacs-lisp . t)
+     (python . t)
+     ))
+
+  (global-set-key (kbd "C-c c") 'org-capture)
+  (setq org-export-coding-system 'utf-8)
+
+  ;; for emacs-plus as a way to have a more seamless application window
+  (add-to-list 'default-frame-alist
+	       '(ns-transparent-titlebar . t))
+  (add-to-list 'default-frame-alist
+	       '(ns-appearance . dark))
+
+#+END_SRC

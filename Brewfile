@@ -15,6 +15,7 @@ cask "vanilla" # hide mac menu bar
 cask "alfred" # general purpose productivity 
 cask "hammerspoon" # OSX lua automation
 
+brew "emacs-plus"
 brew "git"
 brew "node"
 brew "go"
