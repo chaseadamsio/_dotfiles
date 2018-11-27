@@ -104,13 +104,23 @@
   (use-package general
     :ensure t
     :init
-    (general-define-key :prefix "SPC"
-			:keymaps 'normal
-			;; unbind SPC and give it a title for which-key (see echo area)
-			"" '(nil :which-key "my lieutenant general prefix")
-			"p" '(counsel-projectile-switch-project :which-key "switch project")
-			"s" '(counsel-rg :which-key "search"))
-    )
+    (general-define-key
+     :prefix "SPC"
+     :keymaps 'normal
+     ;; unbind SPC and give it a title for which-key (see echo area)
+     "" '(nil :which-key "my lieutenant general prefix")
+     "SPC" '(counsel-M-x :which-key "M-x")
+     ;;"f" '(nil :which-key "file")
+     ;;"ff" '(counsel-find-file :which-key "find file")
+     "/" '(counsel-rg :which-key "rg")
+     "p" '(nil
+	   :which-key "projects")
+     "pp" '(counsel-projectile-switch-project :which-key "switch project")
+     "pf" '(counsel-projectile-find-file :which-key "find file in project")
+     "p/" '(counsel-projectile-rg :which-key "search project")
+     "g" '(nil :which-key "git")
+     "gs" '(magit-status :which-key "status")
+     ))
 
   (use-package undo-tree :ensure t)
 
