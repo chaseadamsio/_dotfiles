@@ -158,8 +158,12 @@
   ;; disable creating #autosave# files
   (setq auto-save-default nil) 
 
-  (add-hook 'prog-mode-hook 'electric-pair-local-mode)
   (show-paren-mode 1)
+  (add-hook 'prog-mode-hook 'electric-pair-local-mode)
+  
+  (setq truncate-lines t word-wrap nil)
+
+  (setq ring-bell-function 'ignore) ;; the bell annoys the h*ck out of me, turn it off
 
   ;;; org
 
