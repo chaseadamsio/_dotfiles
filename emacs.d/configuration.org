@@ -15,15 +15,51 @@
   ;; display line numbers
   (global-display-line-numbers-mode 1)
 
-    ;;;;;; PACKAGES ;;;;;;
+      ;;;;;; PACKAGES ;;;;;;
 
   ;; evil == vim bindings
   (use-package evil
     :ensure t
     :config (evil-mode 1))
 
+  (defun my/use-eslint-from-node-modules ()
+    (let* ((root (locate-dominating-file
+		  (or (buffer-file-name) default-directory)
+		  "node_modules"))
+	   (eslint (and root
+			(expand-file-name "node_modules/eslint/bin/eslint.js"
+					  root))))
+      (when (and eslint (file-executable-p eslint))
+	(setq-local flycheck-javascript-eslint-executable eslint))))
+
+  (defun my/use-flow-from-node-modules ()
+    (let* ((root (locate-dominating-file
+		  (or (buffer-file-name) default-directory)
+		  "node_modules"))
+	   (flow (and root
+			(expand-file-name "node_modules/.bin/flow"
+					  root))))
+      (when (and flow (file-executable-p flow))
+	(setq-local flycheck-javascript-flow-executable flow))))
+
+  (defun my/use-flow-for-coverage-from-node-modules ()
+    (let* ((root (locate-dominating-file
+		  (or (buffer-file-name) default-directory)
+		  "node_modules"))
+	   (flow (and root
+			(expand-file-name "node_modules/.bin/flow"
+					  root))))
+      (when (and flow (file-executable-p flow))
+	(setq-local flycheck-javascript-flow-coverage-executable flow))))
+
   (use-package flycheck
-    :ensure t)
+    :ensure t
+    :init
+    (global-flycheck-mode)
+    (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+    (add-hook 'flycheck-mode-hook #'my/use-flow-from-node-modules)
+    (add-hook 'flycheck-mode-hook #'my/use-flow-for-coverage-from-node-modules)
+    )
 
   (use-package exec-path-from-shell
     :ensure t)
@@ -35,9 +71,21 @@
     (when (memq window-system '(mac ns x))
       (exec-path-from-shell-initialize)))
 
-    ;;; JavaScript
-  (load-file "~/.emacs.d/emacs-flow-jsx-mode.el")
-  (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . flow-jsx-mode))
+  (use-package flycheck-flow
+    :ensure t
+    :after flycheck
+    :config
+    (flycheck-add-next-checker 'javascript-flow 'javascript-flow-coverage)
+    )
+
+  (use-package company-flow
+    :ensure t
+    :after company
+    :config
+    (add-to-list 'company-backends 'company-flow))
+
+  (use-package json-mode
+    :ensure t)
 
   ;; required for prettier to be found in local node_modules
   (use-package add-node-modules-path :ensure t)
