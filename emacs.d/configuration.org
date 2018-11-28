@@ -1,15 +1,25 @@
+
+* Package Initialization
+
+** Setup Package Repositories
+
+All of the really good packages can be found in one of the 3 package archives. This sets them up for being able to install the packages I use.
+
 #+BEGIN_SRC emacs-lisp
     (require 'package)
     (setq package-enable-at-startup nil)
     (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
     (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
     (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+    (package-initialize)
 #+END_SRC
 
 * Install =use-package=
 
+[[https://github.com/jwiegley/use-package][=use-package=]] is how I require, install and declare my Emacs package configuration. This installs =use-package= automatically if it's not already present.
+
+
 #+BEGIN_SRC emacs-lisp
-    ;; auto-install use-package
     (unless (package-installed-p 'use-package)
       (package-refresh-contents)
       (package-install 'use-package))
@@ -18,6 +28,7 @@
 * Work around for when Melpa is Down
 
 Melpa has been down today and this was a workaround I fonud on [[https://github.com/d12frosted/elpa-mirror][d12frosted's github]].
+
 #+BEGIN_SRC emacs-lisp
   (setq package-archives
 	'(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
@@ -25,20 +36,23 @@ Melpa has been down today and this was a workaround I fonud on [[https://github.
 	  ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
 #+END_SRC
 
+* EViL (Extensible Vi Layer)
+
+I came from the editor vim, so I use vim bindings with evil.
+
 #+BEGIN_SRC emacs-lisp
-    (package-initialize)
-
-
-    ;; display line numbers
-    (global-display-line-numbers-mode 1)
-
-	;;;;;; PACKAGES ;;;;;;
-
-    ;; evil == vim bindings
     (use-package evil
       :ensure t
       :config (evil-mode 1))
+#+END_SRC
 
+* Languages
+
+** Javascript
+
+Setup check for local eslint and flow executables for flycheck. *This needs to be refactored to take the name of the executable and the path instead of repeating the same code.*
+
+#+BEGIN_SRC emacs-lisp
     (defun my/use-eslint-from-node-modules ()
       (let* ((root (locate-dominating-file
 		    (or (buffer-file-name) default-directory)
@@ -77,7 +91,13 @@ Melpa has been down today and this was a workaround I fonud on [[https://github.
       (add-hook 'flycheck-mode-hook #'my/use-flow-from-node-modules)
       (add-hook 'flycheck-mode-hook #'my/use-flow-for-coverage-from-node-modules)
       )
+#+END_SRC
 
+* Everything Else
+
+I'm slowly documenting and migrating everything frome "Everything Else" to its proper home.
+
+#+BEGIN_SRC emacs-lisp
     (use-package exec-path-from-shell
       :ensure t)
 
@@ -265,6 +285,10 @@ Melpa has been down today and this was a workaround I fonud on [[https://github.
     (setq enable-recursive-minibuffers t)
 
     (defalias 'yes-or-no-p 'y-or-n-p)
+
+    ;; display line numbers
+    (global-display-line-numbers-mode 1)
+
 
     (add-to-list 'load-path "~/src/github.com/chaseadamsio/dotfiles/emacs.d/argon.el")
     (add-to-list 'custom-theme-load-path "~/src/github.com/chaseadamsio/dotfiles/emacs.d/themes")
