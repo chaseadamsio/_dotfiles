@@ -77,3 +77,9 @@ ln-hammerspoon:
 
 clean-hammerspoon:
 	rm -rf $(HOME)/.hammerspoon
+
+ln-emacs.d:
+	ln -s $(PWD)/emacs.d $(HOME)/.emacs.d
+
+clean-emacs.d:
+	rm -rf $(HOME)/.emacs.d
