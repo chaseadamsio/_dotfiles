@@ -197,4 +197,11 @@
   (add-to-list 'default-frame-alist
 	       '(ns-appearance . dark))
 
+  (setq enable-recursive-minibuffers t)
+
+  (defalias 'yes-or-no-p 'y-or-n-p)
+
+  (add-to-list 'load-path "~/src/github.com/chaseadamsio/dotfiles/emacs.d/argon.el")
+  (add-to-list 'custom-theme-load-path "~/src/github.com/chaseadamsio/dotfiles/emacs.d/themes")
+  (load-theme 'argon t)
 #+END_SRC
