@@ -45,10 +45,11 @@
   ;; prettier
   (use-package prettier-js
     :ensure t
-    :after (flow-jsx-mode add-node-modules-path)
+    :after (add-node-modules-path)
     :config
-    (add-hook 'flow-jsx-mode-hook #'add-node-modules-path)
-    (add-hook 'flow-jsx-mode-hook #'prettier-js-mode))
+    (add-hook 'js-mode-hook #'add-node-modules-path)
+    (add-hook 'js-mode-hook #'prettier-js-mode))
+
 
   (use-package company
     :ensure t
