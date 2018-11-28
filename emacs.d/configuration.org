@@ -113,8 +113,7 @@
      ;;"f" '(nil :which-key "file")
      ;;"ff" '(counsel-find-file :which-key "find file")
      "/" '(counsel-rg :which-key "rg")
-     "p" '(nil
-	   :which-key "projects")
+     "p" '(nil :which-key "projects")
      "pp" '(counsel-projectile-switch-project :which-key "switch project")
      "pf" '(counsel-projectile-find-file :which-key "find file in project")
      "p/" '(counsel-projectile-rg :which-key "search project")
