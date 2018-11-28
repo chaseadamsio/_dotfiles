@@ -42,6 +42,8 @@ defaults-NSGlobalDomain:
 	defaults write NSGlobalDomain KeyRepeat -int 2
 	# Finder: show all filename extensions
 	defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+	# Dark Menubar
+	defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 
 defaults-Dock:
 	# Enable the 2D Dock
