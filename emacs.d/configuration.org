@@ -17,6 +17,7 @@
 
 * Work around for when Melpa is Down
 
+Melpa has been down today and this was a workaround I fonud on [[https://github.com/d12frosted/elpa-mirror][d12frosted's github]].
 #+BEGIN_SRC emacs-lisp
   (setq package-archives
 	'(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
