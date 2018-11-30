@@ -260,6 +260,10 @@ I'm slowly documenting and migrating everything frome "Everything Else" to its p
   ;; git support
   (use-package magit)
 
+  (use-package evil-magit
+    :ensure t
+    :after '(evil magit))
+
   (use-package github-browse-file)
 
   ;; project management
