@@ -194,6 +194,13 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
   (use-package yaml-mode
     :ensure t)
 #+END_SRC
+* Docker
+#+BEGIN_SRC emacs-lisp
+  (use-package dockerfile-mode
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("Dockerfile-?.+\\'" . dockerfile-mode)))
+#+END_SRC
 * Everything Else
 
 I'm slowly documenting and migrating everything frome "Everything Else" to its proper home.
