@@ -90,6 +90,10 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
       (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
       (add-hook 'flycheck-mode-hook #'my/use-flow-from-node-modules)
       (add-hook 'flycheck-mode-hook #'my/use-flow-for-coverage-from-node-modules)
+      (add-hook 'org-mode-hook
+		(lambda() (with-eval-after-load 'flycheck
+			     (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
+			   ))
       )
 #+END_SRC
 
