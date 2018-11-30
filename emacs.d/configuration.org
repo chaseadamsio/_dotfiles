@@ -184,6 +184,11 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
      ))
 #+END_SRC
 
+* TOML
+#+BEGIN_SRC emacs-lisp
+  (use-package toml-mode
+    :ensure t)
+#+END_SRC
 * Everything Else
 
 I'm slowly documenting and migrating everything frome "Everything Else" to its proper home.
