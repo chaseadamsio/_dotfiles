@@ -14,6 +14,18 @@ All of the really good packages can be found in one of the 3 package archives. T
     (package-initialize)
 #+END_SRC
 
+* Configuration
+
+I've never used the splash screen, so it's better to just start with scratch.
+
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-splash-screen t)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (setq initial-scratch-message "")
+#+END_SRC
+
 * Install =use-package=
 
 [[https://github.com/jwiegley/use-package][=use-package=]] is how I require, install and declare my Emacs package configuration. This installs =use-package= automatically if it's not already present.
