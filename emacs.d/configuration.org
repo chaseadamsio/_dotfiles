@@ -32,16 +32,18 @@ I've never used the splash screen, so it's better to just start with scratch.
 
 
 #+BEGIN_SRC emacs-lisp
-    (unless (package-installed-p 'use-package)
-      (package-refresh-contents)
-      (package-install 'use-package))
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+
+  (setq use-package-always-ensure t)
 #+END_SRC
 
 * Work around for when Melpa is Down
 
 Melpa has been down today and this was a workaround I fonud on [[https://github.com/d12frosted/elpa-mirror][d12frosted's github]].
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (setq package-archives
 	'(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
 	  ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
@@ -54,8 +56,20 @@ I came from the editor vim, so I use vim bindings with evil.
 
 #+BEGIN_SRC emacs-lisp
     (use-package evil
-      :ensure t
       :config (evil-mode 1))
+#+END_SRC
+
+* EditorConfig
+#+BEGIN_SRC emacs-lisp
+  (use-package editorconfig
+    :config
+    (editorconfig-mode 1))
+#+END_SRC
+* RestClient
+
+#+BEGIN_SRC emacs-lisp
+  (use-package restclient)
+
 #+END_SRC
 
 * Languages
@@ -84,7 +98,6 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
   (set-js-executable-paths 'flycheck-javascript-flow-coverage-executable "node_modules/.bin/flow"))
  
     (use-package flycheck
-      :ensure t
       :init
       (global-flycheck-mode)
       (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
@@ -97,214 +110,249 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
       )
 #+END_SRC
 
+* Git Gutter
+
+#+BEGIN_SRC emacs-lisp
+  (use-package git-gutter-fringe
+     :diminish git-gutter-mode
+     :init (setq git-gutter-fr:side 'right-fringe)
+     :config (global-git-gutter-mode t))
+#+END_SRC
+* ripgrep
+#+BEGIN_SRC emacs-lisp
+  (use-package rg)
+#+END_SRC
+* General
+General is key bindings that's useful for key definitions, especially for EViL.
+
+I mostly borrow these bindings as I come across M-x commands I find myself using from the [[https://github.com/syl20bnr/spacemacs/blob/c7a103a772d808101d7635ec10f292ab9202d9ee/layers/%2Bdistributions/spacemacs-base/keybindings.el][spacemacs/keybindings.el]] and the [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#discovering][Spacemacs Docs on Github.]]
+
+#+BEGIN_SRC emacs-lisp
+  (defun caio/find-dotfile ()
+    "Edit the 'dotfile' in the current window."
+    (interactive)
+    (find-file-existing "~/.emacs.d/configuration.org"))
+
+  (use-package general
+    :init
+    (general-define-key
+     :prefix "SPC"
+     :keymaps 'normal
+     ;; unbind SPC and give it a title for which-key (see echo area)
+     "" '(nil :which-key "my lieutenant general prefix")
+
+     "SPC" '(counsel-M-x :which-key "M-x")
+     "/" '(counsel-rg :which-key "rg")
+
+     "b" '(nil :which-key "buffer")
+     "bb" '(ivy-switch-buffer :which-key "switch buffer")
+     "bk" '(kill-buffer :which-key "kill buffer")
+     "be" '(eval-buffer :which-key "evaluate buffer")
+
+     "f" '(nil :which-key "file")
+     "ff" '(counsel-find-file :which-key "find file")
+     "fed" '(caio/find-dotfile :whick-key "open dotfile")
+
+     "g" '(nil :which-key "git")
+     "gs" '(magit-status :which-key "status")
+
+     "h" '(nil :which-key "help")
+     "hd" '(nil :which-key "help describe")
+     "hdf" '(describe-function :which-key "describe function")
+     "hdv" '(describe-variable :which-key "describe variable")
+
+     "p" '(nil :which-key "projects")
+     "pp" '(counsel-projectile-switch-project :which-key "switch project")
+     "pf" '(counsel-projectile-find-file :which-key "find file in project")
+     "p/" '(counsel-projectile-rg :which-key "search project")
+
+     "w" '(nil :which-key "windows")
+     "wo" '(other-window :which-key "focus other window")
+     "wd" '(delete-window :which-key "delete window")
+     "w=" '(balance-windows :which-key "balance windows")
+     "wD" '(delete-other-windows :which-key "delete other windows")
+     "wv" '(split-window-right :which-key "split vertical")
+     "ws" '(split-window-below :which-key "split below")
+     "wh" '(evil-window-left :which-key "focus left")
+     "w <left>" '(evil-window-left :which-key "focus left")
+     "wj" '(evil-window-down :which-key "focus down")
+     "w <down>" '(evil-window-down :which-key "focus down")
+     "wk" '(evil-window-up :which-key "focus up")
+     "w <up>" '(evil-window-up :which-key "focus up")
+     "wl" '(evil-window-right :which-key "focus right")
+     "w <right>" '(evil-window-right :which-key "focus right")
+     ))
+#+END_SRC
+
 * Everything Else
 
 I'm slowly documenting and migrating everything frome "Everything Else" to its proper home.
 
 #+BEGIN_SRC emacs-lisp
-    (use-package exec-path-from-shell
-      :ensure t)
+  (use-package exec-path-from-shell)
 
-    (use-package nvm
-      :ensure t
-      :after exec-path-from-shell
-      :config
-      (when (memq window-system '(mac ns x))
-	(exec-path-from-shell-initialize)))
+  (use-package nvm
+    :after exec-path-from-shell
+    :config
+    (when (memq window-system '(mac ns x))
+      (exec-path-from-shell-initialize)))
 
-    (use-package flycheck-flow
-      :ensure t
-      :after flycheck
-      :config
-      (flycheck-add-next-checker 'javascript-flow 'javascript-flow-coverage)
-      )
+  (use-package flycheck-flow
+    :after flycheck
+    :config
+    (flycheck-add-next-checker 'javascript-flow 'javascript-flow-coverage)
+    )
 
-    (use-package company-flow
-      :ensure t
-      :after company
-      :config
-      (add-to-list 'company-backends 'company-flow))
+  (use-package company-flow
+    :after company
+    :config
+    (add-to-list 'company-backends 'company-flow))
 
-    (use-package json-mode
-      :ensure t)
+  (use-package json-mode)
 
-    ;; required for prettier to be found in local node_modules
-    (use-package add-node-modules-path :ensure t)
+  ;; required for prettier to be found in local node_modules
+  (use-package add-node-modules-path)
 
-    ;; prettier
-    (use-package prettier-js
-      :ensure t
-      :after (add-node-modules-path)
-      :config
-      (add-hook 'js-mode-hook #'add-node-modules-path)
-      (add-hook 'js-mode-hook #'prettier-js-mode))
+  ;; prettier
+  (use-package prettier-js
+    :after (add-node-modules-path)
+    :config
+    (add-hook 'js-mode-hook #'add-node-modules-path)
+    (add-hook 'js-mode-hook #'prettier-js-mode))
 
 
-    (use-package company
-      :ensure t
-      :config
-      (set (make-local-variable 'company-backends) '(company-files))
-      (add-hook 'after-init-hook 'global-company-mode))
+  (use-package company
+    :config
+    (set (make-local-variable 'company-backends) '(company-files))
+    (add-hook 'after-init-hook 'global-company-mode))
 
-    ;; markdown support
-    (use-package markdown-mode
-      :ensure t
-      :mode (("README\\.md\\'" . gfm-mode)
-	     ("\\.md\\'" . markdown-mode)
-	     ("\\.markdown\\'" . markdown-mode))
-      :init (setq markdown-command "multimarkdown"))
+  ;; markdown support
+  (use-package markdown-mode
+    :mode (("README\\.md\\'" . gfm-mode)
+	   ("\\.md\\'" . markdown-mode)
+	   ("\\.markdown\\'" . markdown-mode))
+    :init (setq markdown-command "multimarkdown"))
 
-    (use-package homebrew-mode :ensure t)
+  (use-package homebrew-mode)
 
-    (use-package web-mode :ensure t)
+  (use-package web-mode)
 
-    ;; lua support
-    (use-package lua-mode :ensure t)
+  ;; lua support
+  (use-package lua-mode)
 
-    ;; git support
-    (use-package magit :ensure t)
+  ;; git support
+  (use-package magit)
 
-    (use-package github-browse-file :ensure t)
+  (use-package github-browse-file)
 
-    ;; project management
-    (use-package projectile :ensure t
-      :init (projectile-global-mode))
+  ;; project management
+  (use-package projectile
+    :init (projectile-global-mode))
 
-    (use-package ivy :ensure t
-      :config (ivy-mode 1))
+  (use-package ivy
+    :config (ivy-mode 1))
 
-    (use-package swiper :ensure t
-      :config (global-set-key (kbd "C-s") 'swiper))
+  (use-package swiper
+    :config (global-set-key (kbd "C-s") 'swiper))
 
-    (use-package counsel
-      :ensure t
-      :config
-      (global-set-key (kbd "M-x") 'counsel-M-x)
-      (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-      (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-      (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-      (global-set-key (kbd "<f1> l") 'counsel-find-library)
-      (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-      (global-set-key (kbd "<f2> u") 'counsel-unicode-char))
+  (use-package counsel
+    :config
+    (global-set-key (kbd "M-x") 'counsel-M-x)
+    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+    (global-set-key (kbd "<f1> l") 'counsel-find-library)
+    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+    (global-set-key (kbd "<f2> u") 'counsel-unicode-char))
 
-    (use-package counsel-projectile :ensure t
-      :config (counsel-projectile-mode 1))
+  (use-package counsel-projectile
+    :config (counsel-projectile-mode 1))
 
-    ;; https://github.com/noctuid/general.el
-    (use-package general
-      :ensure t
-      :init
-      (general-define-key
-       :prefix "SPC"
-       :keymaps 'normal
-       ;; unbind SPC and give it a title for which-key (see echo area)
-       "" '(nil :which-key "my lieutenant general prefix")
-       "SPC" '(counsel-M-x :which-key "M-x")
-       ;;"f" '(nil :which-key "file")
-       ;;"ff" '(counsel-find-file :which-key "find file")
-       "/" '(counsel-rg :which-key "rg")
-       "p" '(nil :which-key "projects")
-       "pp" '(counsel-projectile-switch-project :which-key "switch project")
-       "pf" '(counsel-projectile-find-file :which-key "find file in project")
-       "p/" '(counsel-projectile-rg :which-key "search project")
-       "g" '(nil :which-key "git")
-       "gs" '(magit-status :which-key "status")
-       ))
+  (use-package undo-tree)
 
-    (use-package undo-tree :ensure t)
-
-    (use-package diminish
-      :ensure t
-      :config
-      (diminish 'flycheck-mode)
-      (diminish 'projectile-mode)
-      (diminish 'undo-tree-mode)
-      (diminish 'which-key-mode)
-      (diminish 'evil-org-mode)
-      (diminish 'org-mode)
-      (diminish 'rainbow-mode))
+  (use-package diminish
+    :config
+    (diminish 'flycheck-mode)
+    (diminish 'projectile-mode)
+    (diminish 'undo-tree-mode)
+    (diminish 'which-key-mode)
+    (diminish 'evil-org-mode)
+    (diminish 'org-mode)
+    (diminish 'rainbow-mode))
 
 
-    ;; https://github.com/justbur/emacs-which-key
-    (use-package which-key
-      :ensure t
-      :config
-      (which-key-mode)
-      (setq which-key-idle-delay .3)
-      ) 
+  ;; https://github.com/justbur/emacs-which-key
+  (use-package which-key
+    :config
+    (which-key-mode)
+    (setq which-key-idle-delay .3)
+    ) 
 
-	    ;;;;;; UI ;;;;;;
+	  ;;;;;; UI ;;;;;;
 
-    (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-    (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-    (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-
-    (use-package doom-themes
-      :ensure t
-      :config
-      (load-theme 'doom-one t))
-
-	;;;;;; customization ;;;;;;;
-
-    ;; detach the UI customization that gets appended to the file every save http://emacsblog.org/2008/12/06/quick-tip-detaching-the-custom-file/
-    (setq custom-file (make-temp-file "emacs-custom"))
-
-    ;; bind escape to keyboard escape (so I don't have to gg when in the mini-buffer, acts more like vim
-    (global-set-key (kbd "<escape>")      'keyboard-escape-quit)
-
-    ;; disable creating backup~ files
-    (setq make-backup-files nil) 
-    ;; disable creating #autosave# files
-    (setq auto-save-default nil) 
-
-    (show-paren-mode 1)
-    (add-hook 'prog-mode-hook 'electric-pair-local-mode)
-
-    (setq truncate-lines t word-wrap nil)
-
-    (setq ring-bell-function 'ignore) ;; the bell annoys the h*ck out of me, turn it off
-
-      ;;; org
-
-    (use-package ob-http :ensure t)
-
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((http       . t)
-       (shell      . t)
-       (js         . t)
-       (emacs-lisp . t)
-       (python . t)
-       ))
-
-    (global-set-key (kbd "C-c c") 'org-capture)
-    (setq org-export-coding-system 'utf-8)
-
-    ;; for emacs-plus as a way to have a more seamless application window
-    (add-to-list 'default-frame-alist
-		 '(ns-transparent-titlebar . t))
-    (add-to-list 'default-frame-alist
-		 '(ns-appearance . dark))
-
-    (setq enable-recursive-minibuffers t)
-
-    (defalias 'yes-or-no-p 'y-or-n-p)
-
-    ;; display line numbers
-    (global-display-line-numbers-mode 1)
+  (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+  (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
 
-    (add-to-list 'load-path "~/src/github.com/chaseadamsio/dotfiles/emacs.d/argon.el")
-    (add-to-list 'custom-theme-load-path "~/src/github.com/chaseadamsio/dotfiles/emacs.d/themes")
-    (load-theme 'argon t)
+  ;; detach the UI customization that gets appended to the file every save http://emacsblog.org/2008/12/06/quick-tip-detaching-the-custom-file/
+  (setq custom-file (make-temp-file "emacs-custom"))
+
+  ;; bind escape to keyboard escape (so I don't have to gg when in the mini-buffer, acts more like vim
+  (global-set-key (kbd "<escape>")      'keyboard-escape-quit)
+
+  ;; disable creating backup~ files
+  (setq make-backup-files nil) 
+  ;; disable creating #autosave# files
+  (setq auto-save-default nil) 
+
+  (show-paren-mode 1)
+  (add-hook 'prog-mode-hook 'electric-pair-local-mode)
+
+  (setq truncate-lines t word-wrap nil)
+
+  (setq ring-bell-function 'ignore) ;; the bell annoys the h*ck out of me, turn it off
+
+    ;;; org
+  (use-package evil-org)
+  (use-package ob-http)
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((http       . t)
+     (shell      . t)
+     (js         . t)
+     (emacs-lisp . t)
+     (python . t)
+     ))
+
+  (global-set-key (kbd "C-c c") 'org-capture)
+  (setq org-export-coding-system 'utf-8)
+
+  ;; for emacs-plus as a way to have a more seamless application window
+  (add-to-list 'default-frame-alist
+	       '(ns-transparent-titlebar . t))
+  (add-to-list 'default-frame-alist
+	       '(ns-appearance . dark))
+
+  (defalias 'yes-or-no-p 'y-or-n-p)
+
+  ;; display line numbers
+  (global-display-line-numbers-mode 1)
+
+
+  (add-to-list 'load-path "~/src/github.com/chaseadamsio/dotfiles/emacs.d/argon.el")
+  (add-to-list 'custom-theme-load-path "~/src/github.com/chaseadamsio/dotfiles/emacs.d/themes")
+  (load-theme 'argon t)
+
+  (set-face-attribute 'default nil :family "Fira Code" :height 120)
 #+END_SRC
 
-* Git Gutter
-
 #+BEGIN_SRC emacs-lisp
-  (use-package git-gutter-fringe
-     :ensure t
-     :diminish git-gutter-mode
-     :init (setq git-gutter-fr:side 'right-fringe)
-     :config (global-git-gutter-mode t))
+  (defface flow-fix-me-comment '((t (:foreground "#ff0000"))) "Red")
+
+  (font-lock-add-keywords
+   'js-mode '(("// $FlowFixMe" 0 'flow-fix-me-comment t)))
+
+
 #+END_SRC
