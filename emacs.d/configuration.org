@@ -65,36 +65,24 @@ I came from the editor vim, so I use vim bindings with evil.
 Setup check for local eslint and flow executables for flycheck. *This needs to be refactored to take the name of the executable and the path instead of repeating the same code.*
 
 #+BEGIN_SRC emacs-lisp
-    (defun my/use-eslint-from-node-modules ()
-      (let* ((root (locate-dominating-file
-		    (or (buffer-file-name) default-directory)
-		    "node_modules"))
-	     (eslint (and root
-			  (expand-file-name "node_modules/eslint/bin/eslint.js"
-					    root))))
-	(when (and eslint (file-executable-p eslint))
-	  (setq-local flycheck-javascript-eslint-executable eslint))))
 
-    (defun my/use-flow-from-node-modules ()
-      (let* ((root (locate-dominating-file
-		    (or (buffer-file-name) default-directory)
-		    "node_modules"))
-	     (flow (and root
-			  (expand-file-name "node_modules/.bin/flow"
-					    root))))
-	(when (and flow (file-executable-p flow))
-	  (setq-local flycheck-javascript-flow-executable flow))))
-
-    (defun my/use-flow-for-coverage-from-node-modules ()
-      (let* ((root (locate-dominating-file
-		    (or (buffer-file-name) default-directory)
-		    "node_modules"))
-	     (flow (and root
-			  (expand-file-name "node_modules/.bin/flow"
-					    root))))
-	(when (and flow (file-executable-p flow))
-	  (setq-local flycheck-javascript-flow-coverage-executable flow))))
-
+  (defun set-js-executable-paths (var-name exec-path)
+    (let* ((root (locate-dominating-file
+		   (or (buffer-file-name) default-directory)
+		   "node_modules"))
+	    (executable (and root
+			    (expand-file-name exec-path root))))
+	 (when (and executable (file-executable-p executable))
+	   (set var-name executable)))
+    )
+  
+  (defun my/use-eslint-from-node-modules ()
+  (set-js-executable-paths 'flycheck-javascript-eslint-executable "node_modules/eslint/bin/eslint.js"))
+  (defun my/use-flow-from-node-modules ()
+  (set-js-executable-paths 'flycheck-javascript-flow-executable "node_modules/.bin/flow"))
+  (defun my/use-flow-for-coverage-from-node-modules ()
+  (set-js-executable-paths 'flycheck-javascript-flow-coverage-executable "node_modules/.bin/flow"))
+ 
     (use-package flycheck
       :ensure t
       :init
