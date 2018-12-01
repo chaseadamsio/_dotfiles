@@ -110,6 +110,11 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
       )
 #+END_SRC
 
+* Org
+#+BEGIN_SRC emacs-lisp
+  (use-package org
+    :ensure t)
+#+END_SRC
 * Git Gutter
 
 #+BEGIN_SRC emacs-lisp
