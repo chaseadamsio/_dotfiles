@@ -195,11 +195,17 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
     :ensure t)
 #+END_SRC
 * Docker
+** Dockerfile
 #+BEGIN_SRC emacs-lisp
   (use-package dockerfile-mode
     :ensure t
     :config
     (add-to-list 'auto-mode-alist '("Dockerfile-?.+\\'" . dockerfile-mode)))
+#+END_SRC
+** Docker Compose
+#+BEGIN_SRC emacs-lisp
+  (use-package docker-compose-mode
+    :ensure t)
 #+END_SRC
 * Everything Else
 
