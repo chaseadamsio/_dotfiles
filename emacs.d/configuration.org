@@ -115,6 +115,15 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
   (use-package org
     :ensure t)
 #+END_SRC
+* Yasnippet
+#+BEGIN_SRC emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+    (yas-global-mode 1)
+    (add-to-list 'load-path
+		"~/.emacs.d/plugins/yasnippet"))
+#+END_SRC
 * Git Gutter
 
 #+BEGIN_SRC emacs-lisp
