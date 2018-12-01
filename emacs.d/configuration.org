@@ -162,6 +162,7 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
      "bb" '(ivy-switch-buffer :which-key "switch buffer")
      "bk" '(kill-buffer :which-key "kill buffer")
      "be" '(eval-buffer :which-key "evaluate buffer")
+     "br" '(revert-buffer :which-key "revert buffer")
 
      "f" '(nil :which-key "file")
      "ff" '(counsel-find-file :which-key "find file")
