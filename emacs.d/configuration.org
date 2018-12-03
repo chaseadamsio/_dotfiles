@@ -151,7 +151,8 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
     :init
     (general-define-key
      :prefix "SPC"
-     :keymaps 'normal
+     :non-normal-prefix "M-SPC"
+     :keymaps '(normal insert emacs)
      ;; unbind SPC and give it a title for which-key (see echo area)
      "" '(nil :which-key "my lieutenant general prefix")
 
