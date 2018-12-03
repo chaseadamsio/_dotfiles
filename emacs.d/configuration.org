@@ -3,27 +3,14 @@
 
 ** Setup Package Repositories
 
-All of the really good packages can be found in one of the 3 package archives. This sets them up for being able to install the packages I use.
+Add melpa, gnu and marmalade to package archives list.
 
 #+BEGIN_SRC emacs-lisp
-    (require 'package)
-    (setq package-enable-at-startup nil)
-    (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-    (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-    (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-    (package-initialize)
-#+END_SRC
-
-* Configuration
-
-I've never used the splash screen, so it's better to just start with scratch.
-
-#+BEGIN_SRC emacs-lisp
-(setq inhibit-splash-screen t)
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (setq initial-scratch-message "")
+  (setq package-enable-at-startup nil)
+  (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+			   ("marmalade" .  "http://marmalade-repo.org/packages/")
+			   ("gnu" . "http://elpa.gnu.org/packages/")))
+  (package-initialize)
 #+END_SRC
 
 * Install =use-package=
@@ -215,6 +202,9 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
      "w <up>" '(evil-window-up :which-key "focus up")
      "wl" '(evil-window-right :which-key "focus right")
      "w <right>" '(evil-window-right :which-key "focus right")
+
+     "y" '(nil :which-key "yasnippet")
+     "yn" '(yas-new-snippet :which-key "new snippet")
      ))
 #+END_SRC
 
@@ -347,7 +337,7 @@ I'm slowly documenting and migrating everything frome "Everything Else" to its p
     :config
     (which-key-mode)
     (setq which-key-idle-delay .3)
-    ) 
+    )
 
 	  ;;;;;; UI ;;;;;;
 
@@ -363,9 +353,9 @@ I'm slowly documenting and migrating everything frome "Everything Else" to its p
   (global-set-key (kbd "<escape>")      'keyboard-escape-quit)
 
   ;; disable creating backup~ files
-  (setq make-backup-files nil) 
+  (setq make-backup-files nil)
   ;; disable creating #autosave# files
-  (setq auto-save-default nil) 
+  (setq auto-save-default nil)
 
   (show-paren-mode 1)
   (add-hook 'prog-mode-hook 'electric-pair-local-mode)
@@ -396,7 +386,6 @@ I'm slowly documenting and migrating everything frome "Everything Else" to its p
   (add-to-list 'default-frame-alist
 	       '(ns-appearance . dark))
 
-  (defalias 'yes-or-no-p 'y-or-n-p)
 
   ;; display line numbers
   (global-display-line-numbers-mode 1)
