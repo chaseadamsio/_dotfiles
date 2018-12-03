@@ -192,6 +192,9 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
      "hdf" '(describe-function :which-key "describe function")
      "hdv" '(describe-variable :which-key "describe variable")
 
+     "o" '(nil :which-key "org-mode")
+     "oc" '(org-capture :which-key "org capture")
+
      "p" '(nil :which-key "projects")
      "pp" '(counsel-projectile-switch-project :which-key "switch project")
      "pf" '(counsel-projectile-find-file :which-key "find file in project")
