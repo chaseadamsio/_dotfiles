@@ -34,3 +34,4 @@ emacs.d/*
 !emacs.d/init.el
 !emacs.d/configuration.org
 !emacs.d/snippets/
+!emacs.d/projectile-bookmarks.eld
