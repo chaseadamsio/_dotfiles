@@ -39,42 +39,71 @@ I've never used the splash screen, so it's better to just start with scratch.
   (setq use-package-always-ensure t)
 #+END_SRC
 
-* Work around for when Melpa is Down
+* Setup Core
 
-Melpa has been down today and this was a workaround I fonud on [[https://github.com/d12frosted/elpa-mirror][d12frosted's github]].
+Shorten "yes" or "no" to "y" or "n".
 
-#+BEGIN_SRC emacs-lisp :tangle no
-  (setq package-archives
-	'(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
-	  ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
-	  ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
+#+BEGIN_SRC emacs-lisp
+  (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
-* EViL (Extensible Vi Layer)
+Disable splash screen.
+
+#+BEGIN_SRC emacs-lisp
+  (setq inhibit-splash-screen t)
+#+END_SRC
+
+Set scratch to be an empty buffer.
+
+#+BEGIN_SRC emacs-lisp
+  (setq initial-scratch-message "")
+#+END_SRC
+
+Highlight the current line.
+
+#+BEGIN_SRC emacs-lisp
+  (global-hl-line-mode 1)
+#+END_SRC
+
+* Setup Evil
 
 I came from the editor vim, so I use vim bindings with evil.
 
 #+BEGIN_SRC emacs-lisp
-    (use-package evil
-      :config (evil-mode 1))
+  (use-package evil
+    :ensure t
+    :config
+    (evil-mode 1)
+    )
 #+END_SRC
 
-* EditorConfig
+* Setup EditorConfig
 #+BEGIN_SRC emacs-lisp
   (use-package editorconfig
+    :ensure t
     :config
-    (editorconfig-mode 1))
+    (editorconfig-mode 1)
+    )
 #+END_SRC
-* RestClient
+* Setup RestClient
 
 #+BEGIN_SRC emacs-lisp
-  (use-package restclient)
-
+  (use-package restclient
+    :ensure t)
 #+END_SRC
 
-* Languages
 
-** Javascript
+* Setup Flycheck
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :init
+    (global-flycheck-mode)
+    (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+    (add-hook 'flycheck-mode-hook #'my/use-flow-from-node-modules)
+    (add-hook 'flycheck-mode-hook #'my/use-flow-for-coverage-from-node-modules)
+    )
+#+END_SRC
+* Setup Javascript
 
 Setup check for local eslint and flow executables for flycheck. *This needs to be refactored to take the name of the executable and the path instead of repeating the same code.*
 
@@ -89,25 +118,14 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
 	 (when (and executable (file-executable-p executable))
 	   (set var-name executable)))
     )
-  
+
   (defun my/use-eslint-from-node-modules ()
   (set-js-executable-paths 'flycheck-javascript-eslint-executable "node_modules/eslint/bin/eslint.js"))
   (defun my/use-flow-from-node-modules ()
   (set-js-executable-paths 'flycheck-javascript-flow-executable "node_modules/.bin/flow"))
   (defun my/use-flow-for-coverage-from-node-modules ()
   (set-js-executable-paths 'flycheck-javascript-flow-coverage-executable "node_modules/.bin/flow"))
- 
-    (use-package flycheck
-      :init
-      (global-flycheck-mode)
-      (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
-      (add-hook 'flycheck-mode-hook #'my/use-flow-from-node-modules)
-      (add-hook 'flycheck-mode-hook #'my/use-flow-for-coverage-from-node-modules)
-      (add-hook 'org-mode-hook
-		(lambda() (with-eval-after-load 'flycheck
-			     (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
-			   ))
-      )
+
 #+END_SRC
 
 * Org
