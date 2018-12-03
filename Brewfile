@@ -15,6 +15,9 @@ cask "vanilla" # hide mac menu bar
 cask "alfred" # general purpose productivity 
 cask "hammerspoon" # OSX lua automation
 
+tap "homebrew/cask-fonts"
+cask "font-fira-code"
+
 brew "emacs-plus"
 brew "git"
 brew "node"
