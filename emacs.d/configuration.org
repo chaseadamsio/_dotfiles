@@ -271,7 +271,6 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
 I'm slowly documenting and migrating everything frome "Everything Else" to its proper home.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package exec-path-from-shell)
 
   (use-package nvm
     :after exec-path-from-shell
