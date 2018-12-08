@@ -156,16 +156,6 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
   (use-package org-kanban
     :ensure t)
 #+END_SRC
-* Setup [[https://github.com/seudut/perspeen][Perspeen]]
-window management for emacs
-#+BEGIN_SRC emacs-lisp
-  (use-package perspeen
-    :ensure t
-    :init
-    (setq perspeen-use-tab t)
-    :config
-    (perspeen-mode))
-#+END_SRC
 * Yasnippet
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
@@ -247,13 +237,6 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
      "w <up>" '(evil-window-up :which-key "focus up")
      "wl" '(evil-window-right :which-key "focus right")
      "w <right>" '(evil-window-right :which-key "focus right")
-     "s" '(nil :which-key "workspace")
-     "sc" '(perspeen-create-ws :which-key "create workspace")
-     "sd" '(perspeen-change-root-dir :which-key "set directory root")
-     "sk" '(perspeen-delete-ws :which-key "kill workspace")
-     "sn" '(perspeen-next-ws :which-key "next workspace")
-     "sp" '(perspeen-previous-ws :which-key "previous workspace")
-     "sr" '(perspeen-rename-ws :which-key "rename workspace")
 
      "y" '(nil :which-key "yasnippet")
      "yn" '(yas-new-snippet :which-key "new snippet")
