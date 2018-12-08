@@ -53,6 +53,9 @@ Highlight the current line.
   (global-hl-line-mode 1)
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+  (setq-default line-spacing 2)
+#+END_SRC
 * Edit Emacs Config file
 #+BEGIN_SRC emacs-lisp
 
