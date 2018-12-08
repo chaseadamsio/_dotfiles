@@ -60,8 +60,10 @@ defaults-Dock:
 	defaults write com.apple.dock show-process-indicators -bool true
 	# Don’t animate opening applications from the Dock
 	defaults write com.apple.dock launchanim -bool false
+	# empty the dock of any pre-defined apps
+	defaults read com.apple.dock persistent-apps
 	# clean up right side (persistent)
-	-defaults delete com.apple.dock persistent-others
+	defaults delete com.apple.dock persistent-others
 	killall Dock
 
 defaults-Calendar:
