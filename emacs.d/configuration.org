@@ -149,7 +149,21 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
     (setq org-capture-templates
 	  '(("b" "Bookmark" entry (file+headline "~/Dropbox/inbox.org" "Bookmarks")
 	     "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1)
-	    )))
+	    ("t" "Task" entry (file+headline "~/Dropbox/todo.org" "Inbox")
+	     "* TODO %?\n  %i\n  %a\n")
+	    ("j" "Journal" entry (file+olp+datetree "~/Dropbox/planner.org" "Journal")
+	     "* %?\nEntered on %U\n  %i\n  %a")))
+    (custom-set-variables
+     '(org-agenda-files (quote ("~/Dropbox/todo.org")))
+     '(org-default-notes-file "~/Dropbox/notes.org")
+     '(org-agenda-ndays 7)
+     '(org-deadline-warning-days 14)
+     '(org-agenda-show-all-dates t)
+     '(org-agenda-skip-deadline-if-done t)
+     '(org-agenda-skip-scheduled-if-done t)
+     '(org-agenda-start-on-weekday t)
+     '(org-reverse-note-order t)
+     ))
 #+END_SRC
 ** Setup Org-Kanban
 #+BEGIN_SRC emacs-lisp
@@ -443,8 +457,21 @@ I'm slowly documenting and migrating everything frome "Everything Else" to its p
 
 #+END_SRC
 #+BEGIN_SRC emacs-lisp
-  (setq frame-title-format
-	'((:eval (if (buffer-file-name)
-		     (abbreviate-file-name (buffer-file-name))
-		   "%b"))))
+  (setq frame-title-format "")
+#+END_SRC
+
+* To Explore
+** Org
+*** org-habit
+[[https://www.gnu.org/software/emacs/manual/html_node/org/Tracking-your-habits.html][Tracking your habits - The Org Manual]]
+*** org-super-agenda
+[[https://github.com/alphapapa/org-super-agenda][alphapapa/org-super-agenda: Supercharge your Org daily/weekly agenda by grouping items]]
+** [[https://jblevins.org/projects/deft/][Deft]]
+/Inspired by Notational Velocity/
+#+BEGIN_SRC emacs-lisp :tangle false
+  (use-package deft
+    :ensure t
+    :config
+    (setq deft-extensions '("org" "md"))
+    (setq deft-directory "~/Dropbox"))
 #+END_SRC
