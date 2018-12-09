@@ -397,8 +397,14 @@ I'm slowly documenting and migrating everything frome "Everything Else" to its p
     (diminish 'which-key-mode)
     (diminish 'evil-org-mode)
     (diminish 'org-mode)
-    (diminish 'rainbow-mode))
-
+    (diminish 'rainbow-mode)
+    (diminish 'yas-minor-mode)
+    (diminish 'editorconfig-mode)
+    (diminish 'company-mode)
+    (diminish 'auto-revert-mode)
+    (diminish 'ivy-mode)
+    (diminish 'eldoc-mode)
+    )
 
   ;; https://github.com/justbur/emacs-which-key
   (use-package which-key
