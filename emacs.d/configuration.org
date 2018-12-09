@@ -105,7 +105,6 @@ I came from the editor vim, so I use vim bindings with evil.
     :ensure t)
 #+END_SRC
 
-
 * Setup Flycheck
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
@@ -180,6 +179,19 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
   (use-package org-kanban
     :ensure t)
 #+END_SRC
+* Setup Projectile
+Projectile is used for project management. It's a great way to access projects quickly. I create a =.projectile= in Dropbox folders I want quick access to and that's really helpful for making sure I can access them without also having to have them in version control or a build file of some sort.
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :init (projectile-global-mode)
+    )
+
+  (use-package org-projectile
+    :ensure t
+    :after org-mode projectile-mode)
+
+#+END_SRC
+
 * Yasnippet
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
@@ -353,11 +365,9 @@ I'm slowly documenting and migrating everything frome "Everything Else" to its p
     :after '(evil magit))
 
   (use-package github-browse-file)
+#+END_SRC
 
-  ;; project management
-  (use-package projectile
-    :init (projectile-global-mode))
-
+#+BEGIN_SRC emacs-lisp
   (use-package ivy
     :config (ivy-mode 1))
 
