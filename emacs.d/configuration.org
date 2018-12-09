@@ -118,6 +118,16 @@ I came from the editor vim, so I use vim bindings with evil.
 #+END_SRC
 * Setup Javascript
 
+Setup JSX to be available to any js files.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package rjsx-mode
+    :ensure t
+    :config
+    (add-to-list 'auto-mode-alist '("\/.*\\.js\\'" . rjsx-mode))
+    )
+#+END_SRC
+
 Setup check for local eslint and flow executables for flycheck. *This needs to be refactored to take the name of the executable and the path instead of repeating the same code.*
 
 #+BEGIN_SRC emacs-lisp
