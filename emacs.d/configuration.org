@@ -87,6 +87,11 @@ I came from the editor vim, so I use vim bindings with evil.
     :ensure t
     :config
     (evil-mode 1)
+    (use-package evil-commentary
+      :ensure t
+      :config
+      (evil-commentary-mode)
+      )
     )
 #+END_SRC
 
