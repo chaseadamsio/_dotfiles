@@ -34,6 +34,7 @@ brew "fzf"
 brew "yarn"
 brew "ccat"
 brew "rename" # util for batch renaming files
+brew "pandoc"
 
 tap "thoughtbot/formulae"
 brew "rcm"
