@@ -69,13 +69,20 @@ Highlight the current line.
 
   (when window-system (set-exec-path-from-shell-PATH))
 #+END_SRC
-* Edit Emacs Config file
+* Jump to Emacs Config file
 #+BEGIN_SRC emacs-lisp
-
 (defun caio/find-dotfile ()
     "Edit the 'dotfile' in the current window."
     (interactive)
     (find-file-existing "~/.emacs.d/configuration.org"))
+#+END_SRC
+
+* Jump to planner.org
+#+BEGIN_SRC emacs-lisp
+  (defun caio/find-planner ()
+      "Edit planner.org in the current window."
+      (interactive)
+      (find-file-existing "~/Dropbox/planner.org"))
 #+END_SRC
 
 * Setup Evil
