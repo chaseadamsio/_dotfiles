@@ -252,7 +252,8 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
 
      "f" '(nil :which-key "file")
      "ff" '(counsel-find-file :which-key "find file")
-     "fed" '(caio/find-dotfile :whick-key "open dotfile")
+     "fed" '(caio/find-dotfile :which-key "open dotfile")
+     "fop" '(caio/find-planner :which-key "open planner.org")
 
      "g" '(nil :which-key "git")
      "gs" '(magit-status :which-key "status")
