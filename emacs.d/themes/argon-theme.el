@@ -4,7 +4,7 @@
 ;; getting initial values from https://github.com/juba/color-theme-tangotango/blob/master/tangotango-theme.el
 (custom-theme-set-faces
  'argon
- `(default ((t (:weight normal :slant normal :underline nil :overline nil :strike-through nil :box nil :inverse-video nil :foreground "#C7C8FF" :background "#272B34" :stipple nil :inherit nil))))
+ `(default ((t (:weight normal :slant normal :box nil :underline nil :overline nil :strike-through nil :inverse-video nil :foreground "#C7C8FF" :background "#272B34" :stipple nil :inherit nil))))
  `(cursor ((t (:foreground "#C7C8FF" :background "#6CA9FF"))))
  `(region ((t (:foreground "#C7C8FF" :background "#6CA9FF"))))
  `(isearch ((t (:background "#234E79"))))
@@ -14,6 +14,7 @@
  `(line-number ((t (:background "#272B34" :foreground "#757694"))))
  `(mode-line ((t (:background "#20242D" :foreground "#C7C8FF" :inherit nil :box (:line-width 4 :color "#20242d")))))
  `(mode-line-inactive ((t (:background "#20242D" :foreground "#757694" :box (:line-width 4 :color "#20242d")))))
+ `(minibuffer ((t (:background "#20242D" :foreground "#C7C8FF"))))
  `(minibuffer-prompt ((t (:background "#20242D" :foreground "#969DAC"))))
  `(fringe ((t (:background "#272B34"))))
  `(hl-line ((t (:background "#20242D"))))
@@ -33,6 +34,9 @@
  `(font-lock-string-face  ((t (:foreground "#A1EF9D" :inherit nil))))
  `(font-lock-doc-face ((t (:foreground "#A1EF9D" :slant italic))))
  `(font-lock-negation-char-face ((t (:slant italic))))
+ `(show-paren-match ((t (:foreground "#6CA9FF"))))
+ `(show-paren-mismatch ((t (:foreground "#F86f65"))))
+
 
  `(dired-flagged ((t (:foreground "#F86F65"))))
  `(dired-marked ((t (:foreground "#D983f5"))))
