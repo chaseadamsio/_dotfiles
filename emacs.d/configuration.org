@@ -129,15 +129,27 @@ I came from the editor vim, so I use vim bindings with evil.
 #+END_SRC
 * Setup Javascript
 
-Setup JSX to be available to any js files.
+** JSX Mode
+Setup JSX to be available to any =.jsx= files.
 
 #+BEGIN_SRC emacs-lisp
   (use-package rjsx-mode
     :ensure t
     :config
-    (add-to-list 'auto-mode-alist '("\/.*\\.js\\'" . rjsx-mode))
+    (add-to-list 'auto-mode-alist '("components\\/.*\\.jsx?\\'" . rjsx-mode))
+    )
+
+  (use-package flow-minor-mode
+    :ensure t
+    :after rjsx-mode
+    :config
+    (add-hook 'rjsx-mode-hook 'flow-minor-enable-automatically)
+    (add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
     )
 #+END_SRC
+
+
+** Flycheck
 
 Setup check for local eslint and flow executables for flycheck. *This needs to be refactored to take the name of the executable and the path instead of repeating the same code.*
 
