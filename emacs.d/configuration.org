@@ -15,7 +15,7 @@ Add melpa, gnu and marmalade to package archives list.
 
 * Install =use-package=
 
-[[https://github.com/jwiegley/use-package][=use-package=]] is how I require, install and declare my Emacs package configuration. This installs =use-package= automatically if it's not already present.
+I use [[https://github.com/jwiegley/use-package][=use-package=]] to install, require and declare my Emacs package configuration. This installs =use-package= automatically if it's not already present.
 
 #+BEGIN_SRC emacs-lisp
   (defun my/install-use-package()
