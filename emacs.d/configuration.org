@@ -368,6 +368,11 @@ I'm slowly documenting and migrating everything frome "Everything Else" to its p
     (set (make-local-variable 'company-backends) '(company-files))
     (add-hook 'after-init-hook 'global-company-mode))
 
+
+  (use-package popup
+    :ensure t
+    :after company)
+
   ;; markdown support
   (use-package markdown-mode
     :mode (("README\\.md\\'" . gfm-mode)
