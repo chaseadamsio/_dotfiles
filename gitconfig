@@ -64,8 +64,9 @@
 [gpg]
     program = gpg
 
+[include]
+    path = ~/.gitconfig.local
+
 [includeIf "gitdir:~/src/github.com/webflow/**"]
     path = ~/.gitconfig.webflow.local
 
-[includeIf "gitdir:~/src/github.com/chaseadamsio/**"]
-    path = ~/.gitconfig.local
