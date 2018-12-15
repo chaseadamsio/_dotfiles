@@ -515,7 +515,7 @@ I'm slowly documenting and migrating everything frome "Everything Else" to its p
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (defface flow-fix-me-comment '((t (:foreground "#ff0000"))) "Red")
+  (defface flow-fix-me-comment '((t (:foreground "#F86F65"))) "#F86F65")
 
   (font-lock-add-keywords
    'js-mode '(("// $FlowFixMe" 0 'flow-fix-me-comment t)))
