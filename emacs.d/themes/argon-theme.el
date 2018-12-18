@@ -160,9 +160,20 @@
    `(org-block ((,c (:foreground ,white ))))
    `(org-verbatim ((,c (:foreground ,white ))))
 
-   `(doom-modeline-a)
+   ;; eshell
+   `(eshell-prompt ((,c (:foreground ,magenta :weight bold))))
+   `(eshell-ls-archive ((,c (:foreground ,magenta))))
+   `(eshell-ls-clutter ((,c (:foreground ,red))))
+   `(eshell-ls-directory ((,c (:foreground ,blue))))
+   `(eshell-ls-executable ((,c (:foreground ,green))))
+   `(eshell-ls-missing ((,c (:foreground ,red))))
+   `(eshell-ls-symlink ((,c (:foreground ,cyan))))
+   ;; (eshell-ls-backup     :foreground yellow)
+   ;; (eshell-ls-product    :foreground orange)
+   ;; (eshell-ls-readonly   :foreground orange)
+   ;; (eshell-ls-special    :foreground violet)
+   ;; (eshell-ls-unreadable :foreground base5)
 
-   `(eshell-prompt ((,c (:foreground ,white ))))
    ))
 
 ;;;###autoload
