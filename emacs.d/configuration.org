@@ -327,15 +327,22 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
   (use-package docker-compose-mode
     :ensure t)
 #+END_SRC
-* Rainbow Mode
+* Setup Rainbow Delimiters Mode
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
     :ensure t
     :config
     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
     )
-
 #+END_SRC
+
+* Setup Rainbow Mode
+#+BEGIN_SRC emacs-lisp
+  (use-package rainbow-mode
+    :ensure t
+    )
+#+END_SRC
+
 
 * Everything Else
 
