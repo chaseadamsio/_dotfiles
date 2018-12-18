@@ -68,19 +68,26 @@
    `(dired-marked ((,c (:foreground ,magenta))))
 
    ;; doom-modeline
+   ;; un-faced
+   ;; doom-modeline-panel: https://github.com/seagle0128/doom-modeline/blob/master/doom-modeline.el#L263
+   ;; doom-modeline-eldoc-bar
    `(doom-modeline-buffer-path ((,c (:foreground ,magenta))))
    `(doom-modeline-buffer-file ((,c (:foreground ,magenta))))
-   `(doom-modeline-project-root-dir ((,c (:foreground ,grey-04))))
    `(doom-modeline-buffer-modified ((,c (:foreground ,magenta))))
-   `(doom-modeline-inactive-bar ((,c (:foreground ,grey-01))))
-   `(doom-modeline-evil-emacs-state ((,c (:foreground ,green))))
-   `(doom-modeline-evil-insert-state ((,c (:foreground ,magenta))))
-   `(doom-modeline-evil-motion-state ((,c (:foreground ,magenta))))
-   `(doom-modeline-evil-normal-state ((,c (:foreground ,green))))
+   `(doom-modeline-inactive-bar ((,c (:foreground ,grey-04))))
+   `(doom-modeline-buffer-major-mode ((,c (:foreground ,blue))))
+   `(doom-modeline-buffer-minor-mode ((,c (:foreground ,cyan))))
+   `(doom-modeline-project-root-dir ((,c (:foreground ,grey-04))))
    `(doom-modeline-highlight ((,c (:foreground ,green))))
    `(doom-modeline-info ((,c (:foreground ,green))))
-   `(doom-modeline-warning ((,c (:foreground ,green))))
    `(doom-modeline-urgent ((,c (:foreground ,red))))
+   `(doom-modeline-warning ((,c (:foreground ,green))))
+   `(doom-modeline-evil-emacs-state ((,c (:foreground ,green))))
+   `(doom-modeline-evil-insert-state ((,c (:foreground ,red))))
+   `(doom-modeline-evil-motion-state ((,c (:foreground ,grey-04))))
+   `(doom-modeline-evil-normal-state ((,c (:foreground ,green))))
+   `(doom-modeline-evil-operator-state ((,c (:foreground ,blue))))
+   `(doom-modeline-evil-replace-state ((,c (:foreground ,magenta))))
 
    ;; git-gutter
    `(git-gutter:modified         ((,c (:foreground ,magenta-subtle))))
