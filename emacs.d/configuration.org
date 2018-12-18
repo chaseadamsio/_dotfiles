@@ -352,6 +352,16 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
     )
 #+END_SRC
 
+* Setup Doom Modeline
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-modeline
+    :ensure t
+    :defer t
+    :hook (after-init . doom-modeline-init)
+    :config
+    (setq doom-modeline-icon nil)
+    )
+#+END_SRC
 
 * Everything Else
 
