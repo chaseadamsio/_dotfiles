@@ -343,6 +343,15 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
     )
 #+END_SRC
 
+* Setup Aggressive Indent
+#+BEGIN_SRC emacs-lisp
+  (use-package aggressive-indent
+    :ensure t
+    :config
+    (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
+    )
+#+END_SRC
+
 
 * Everything Else
 
