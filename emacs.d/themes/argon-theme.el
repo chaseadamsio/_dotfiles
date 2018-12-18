@@ -1,18 +1,30 @@
+;;; argon-theme.el --- yet another theme for emacs -*- lexical-binding: t; -*-
+;;; Commentary:
+;; Argon themes is a pseudo-port from a theme made for VS Code
+;;
+;;; Code:
+
+
+(setq debug-on-error t)
+
 (deftheme argon
   "Argon theme")
 
 (let ((c '((class color)))
       (black "#272B34")
       (red "#F86F65")
+      (red-subtle "#A61207")
       (green "#A1EF9D")
-      (yellow "#FDC64D")
+      (green-subtle "#22AA1B")
       (blue "#6CA9FF")
       (blue-d "#234E79")
       (magenta "#D983F5")
+      (magenta-subtle "#860EAD")
       (cyan "#67DCF9")
       (white "#C7C8FF")
       (grey "#757694")
       (grey-00 "#20242D")
+      (grey-01 "#2B2E3B")
       (grey-04 "#52606B")
       (grey-05 "#969DAC")
       )
@@ -22,17 +34,18 @@
    `(fringe ((,c (:background ,black))))
    `(region ((,c (:background ,blue :foreground ,white))))
    `(lazy-highlight ((,c (:background ,black))))
-   `(hl-line ((,c (:background ,grey-00))))
+   `(hl-line ((,c (:background ,grey-01))))
    `(cursor ((,c (:background ,blue :foreground ,white))))
    `(trailing-whitespace ((,c (:background ,red))))
    ;; for display-line-number mode
-   `(line-number ((,c (:background ,black :foreground ,grey))))
+   `(line-number ((,c (:background ,black :foreground ,grey-04))))
    `(isearch ((,c (:background ,blue-d))))
    `(mode-line ((,c (:background  ,grey-00 :foreground ,white :inherit nil :box (:line-width 4 :color ,grey-00)))))
    `(mode-line-inactive ((,c (:background ,grey-00 :foreground ,grey :box (:line-width 4 :color ,grey-00)))))
    `(minibuffer ((,c (:background ,grey-00 :foreground ,white ))))
    `(minibuffer-prompt ((,c (:background ,grey-00 :foreground ,grey-05))))
-   `(vertical-border ((,c (:foreground ,grey))))
+   ;; separator
+   `(vertical-border ((,c (:foreground ,grey-00))))
    `(link ((,c (:foreground ,cyan))))
 
    ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Faces-for-Font-Lock.html
@@ -51,14 +64,28 @@
    `(show-paren-match ((,c (:foreground ,blue))))
    `(show-paren-mismatch ((,c (:foreground ,red))))
 
-
    `(dired-flagged ((,c (:foreground ,red))))
    `(dired-marked ((,c (:foreground ,magenta))))
 
+   ;; doom-modeline
+   `(doom-modeline-buffer-path ((,c (:foreground ,magenta))))
+   `(doom-modeline-buffer-file ((,c (:foreground ,magenta))))
+   `(doom-modeline-project-root-dir ((,c (:foreground ,grey-04))))
+   `(doom-modeline-buffer-modified ((,c (:foreground ,magenta))))
+   `(doom-modeline-inactive-bar ((,c (:foreground ,grey-01))))
+   `(doom-modeline-evil-emacs-state ((,c (:foreground ,green))))
+   `(doom-modeline-evil-insert-state ((,c (:foreground ,magenta))))
+   `(doom-modeline-evil-motion-state ((,c (:foreground ,magenta))))
+   `(doom-modeline-evil-normal-state ((,c (:foreground ,green))))
+   `(doom-modeline-highlight ((,c (:foreground ,green))))
+   `(doom-modeline-info ((,c (:foreground ,green))))
+   `(doom-modeline-warning ((,c (:foreground ,green))))
+   `(doom-modeline-urgent ((,c (:foreground ,red))))
+
    ;; git-gutter
-   `(git-gutter:modified         ((,c (:foreground ,magenta))))
-   `(git-gutter:added            ((,c (:foreground ,green))))
-   `(git-gutter:deleted          ((,c (:foreground ,red))))
+   `(git-gutter:modified         ((,c (:foreground ,magenta-subtle))))
+   `(git-gutter:added            ((,c (:foreground ,green-subtle))))
+   `(git-gutter:deleted          ((,c (:foreground ,red-subtle))))
    `(git-gutter+-modified        ((,c (:foreground ,magenta))))
    `(git-gutter+-added           ((,c (:foreground ,green))))
    `(git-gutter+-deleted         ((,c (:foreground ,red))))
@@ -115,18 +142,27 @@
    `(org-document-info ((,c (:foreground ,magenta))))
    `(org-document-info-keyword ((,c (:foreground ,grey :slant italic))))
 
-   `(org-level-1 ((,c (:foreground ,cyan))))
-   `(org-level-2 ((,c (:foreground ,cyan))))
-   `(org-level-3 ((,c (:foreground ,cyan))))
-   `(org-level-4 ((,c (:foreground ,cyan))))
-   `(org-level-5 ((,c (:foreground ,cyan))))
-   `(org-level-6 ((,c (:foreground ,cyan))))
-   `(org-level-7 ((,c (:foreground ,cyan))))
-   `(org-level-8 ((,c (:foreground ,cyan))))
+   `(org-level-1 ((,c (:foreground ,magenta))))
+   `(org-level-2 ((,c (:foreground ,magenta))))
+   `(org-level-3 ((,c (:foreground ,magenta))))
+   `(org-level-4 ((,c (:foreground ,magenta))))
+   `(org-level-5 ((,c (:foreground ,magenta))))
+   `(org-level-6 ((,c (:foreground ,magenta))))
+   `(org-level-7 ((,c (:foreground ,magenta))))
+   `(org-level-8 ((,c (:foreground ,magenta))))
    `(org-block ((,c (:foreground ,white ))))
    `(org-verbatim ((,c (:foreground ,white ))))
+
+   `(doom-modeline-a)
 
    `(eshell-prompt ((,c (:foreground ,white ))))
    ))
 
+;;;###autoload
+(when load-file-name
+  (add-to-list 'custom-theme-load-path
+               (file-name-as-directory (file-name-directory load-file-name))))
+
 (provide-theme 'argon)
+
+;;; argon-theme.el ends here
