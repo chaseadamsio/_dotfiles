@@ -10,7 +10,6 @@
   "window.title": "${activeEditorLong}",
   "git.autofetch": true,
   "editor.minimap.enabled": false,
-  "workbench.colorTheme": "Argon — Noble Theme",
   // open JSON editor instead of visual picker
   "workbench.settings.editor": "json",
   "editor.formatOnSave": true,
@@ -27,4 +26,5 @@
       "backgroundColor": "#272B34"
     }
   ],
+  "workbench.colorTheme": "Argon"
 }
