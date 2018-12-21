@@ -26,5 +26,6 @@
       "backgroundColor": "#272B34"
     }
   ],
+  "editor.renderIndentGuides": false,
   "workbench.colorTheme": "Argon"
 }
