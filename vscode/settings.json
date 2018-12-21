@@ -16,6 +16,7 @@
   // disable validate because of TSLint and ESLint collision
   "javascript.validate.enable": false,
   "prettier.eslintIntegration": true,
+  "gitlens.codeLens.enabled": false,
   "eslint.packageManager": "yarn",
   "todohighlight.isEnable": true,
   "todohighlight.isCaseSensitive": true,
