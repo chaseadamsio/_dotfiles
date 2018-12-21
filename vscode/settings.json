@@ -17,7 +17,13 @@
   // disable validate because of TSLint and ESLint collision
   "javascript.validate.enable": false,
   "prettier.eslintIntegration": true,
-  // reduce visual noise in the left sidebar
-  "workbench.activityBar.visible": false,
-  "gitlens.codeLens.enabled": false
+  "todohighlight.isEnable": true,
+  "todohighlight.isCaseSensitive": true,
+  "todohighlight.keywords": [
+    {
+      "text": "$FlowFixMe",
+      "color": "#F86F65",
+      "backgroundColor": "#272B34"
+    }
+  ],
 }
