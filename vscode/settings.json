@@ -17,6 +17,7 @@
   // disable validate because of TSLint and ESLint collision
   "javascript.validate.enable": false,
   "prettier.eslintIntegration": true,
+  "eslint.packageManager": "yarn",
   "todohighlight.isEnable": true,
   "todohighlight.isCaseSensitive": true,
   "todohighlight.keywords": [
