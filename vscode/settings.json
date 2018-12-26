@@ -28,6 +28,7 @@
     }
   ],
   "editor.renderIndentGuides": false,
+  "workbench.colorTheme": "Argon",
   "vim.leader": "<space>",
   "vim.normalModeKeyBindings": [
     {
