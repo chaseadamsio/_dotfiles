@@ -1,11 +1,6 @@
 {
   "editor.fontSize": 12,
-  "vim.insertModeKeyBindings": [
-    {
-      "before": ["j", "j"],
-      "after": ["<Esc>"]
-    }
-  ],
+
   "editor.fontFamily": "'Fira Mono', Menlo, Monaco, 'Courier New', monospace",
   "window.title": "${activeEditorLong}",
   "git.autofetch": true,
@@ -33,6 +28,12 @@
     "Brewfile": "ruby"
   },
   "vim.leader": "<space>",
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
+    }
+  ],
   "vim.normalModeKeyBindings": [
     {
       "before": ["<leader>", "<space>"],
