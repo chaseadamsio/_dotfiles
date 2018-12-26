@@ -29,6 +29,9 @@
   ],
   "editor.renderIndentGuides": false,
   "workbench.colorTheme": "Argon",
+  "files.associations": {
+    "Brewfile": "ruby"
+  },
   "vim.leader": "<space>",
   "vim.normalModeKeyBindings": [
     {
