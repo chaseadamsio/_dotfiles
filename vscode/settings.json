@@ -28,5 +28,59 @@
     }
   ],
   "editor.renderIndentGuides": false,
-  "workbench.colorTheme": "Argon"
+  "vim.leader": "<space>",
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["<leader>", "<space>"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.showCommands",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "g", "s"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.view.scm",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "f", "f"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.files.openFileFolder",
+          "args": [],
+          "when": "isMac"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "p", "p"],
+      "after": [],
+      "commands": [
+        {
+          "command": "projectManager.listProjects",
+          "args": []
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "'"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.terminal.toggleTerminal",
+          "args": []
+        }
+      ]
+    }
+  ],
+  "vim.easymotion": true
 }
