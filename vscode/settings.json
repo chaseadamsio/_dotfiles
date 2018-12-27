@@ -1,7 +1,6 @@
 {
   "editor.fontSize": 12,
-
-  "editor.fontFamily": "'Fira Mono', Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontFamily": "Hack, 'Fira Mono', Menlo, Monaco, 'Courier New', monospace",
   "window.title": "${activeEditorLong}",
   "git.autofetch": true,
   "editor.minimap.enabled": false,
