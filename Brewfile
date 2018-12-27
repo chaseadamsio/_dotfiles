@@ -14,6 +14,8 @@ cask "rocket" # emoji quick picker
 cask "vanilla" # hide mac menu bar
 cask "alfred" # general purpose productivity
 cask "hammerspoon" # OSX lua automation
+cask "font-source-code-pro"
+cask "font-hack"
 
 tap "homebrew/cask-fonts"
 cask "font-fira-code"
