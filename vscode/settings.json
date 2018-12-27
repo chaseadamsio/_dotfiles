@@ -8,6 +8,7 @@
   "workbench.settings.editor": "json",
   "workbench.settings.openDefaultSettings": false,
   "workbench.startupEditor": "newUntitledFile",
+  "workbench.panel.defaultLocation": "right",
   "editor.formatOnSave": true,
   // disable validate because of TSLint and ESLint collision
   "javascript.validate.enable": false,
