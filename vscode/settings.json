@@ -29,6 +29,7 @@
   "files.associations": {
     "Brewfile": "ruby"
   },
+  "vim.hlsearch": true,
   "vim.leader": "<space>",
   "vim.insertModeKeyBindings": [
     {
