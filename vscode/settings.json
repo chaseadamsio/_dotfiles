@@ -39,7 +39,7 @@
   ],
   "vim.normalModeKeyBindings": [
     {
-      "before": ["<leader>", "<space>"],
+      "before": ["<leader>", "<leader>"],
       "after": [],
       "commands": [
         {
@@ -63,9 +63,8 @@
       "after": [],
       "commands": [
         {
-          "command": "workbench.action.files.openFileFolder",
-          "args": [],
-          "when": "isMac"
+          "command": "workbench.action.quickOpen",
+          "args": []
         }
       ]
     },
