@@ -1,37 +1,9 @@
 
 defaults: \
+	do-macos-bash \
 	defaults-Calendar \
 	defaults-Dock \
-	defaults-Finder \
 	defaults-NSGlobalDomain
-	# close any System Preferences panes
-	osascript -e 'tell application "System Preferences" to quit'
-	mkdir -p ~/Documents/screenshots # setup screenshots folder for later
-	### SCREENSHOTS ###
-	# set screenshot location
-	defaults write com.apple.screencapture location ~/Documents/screenshots;
-	# disable screenshot shadow
-	defaults write com.apple.screencapture disable-shadow -bool TRUE;
-	# set type to png
-	defaults write com.apple.screencapture type png
-	### MISC ###
-	# set menubar clock to prefered 24 hr time
-	defaults write NSGlobalDomain AppleICUForce12HourTime -bool false
-	# restart OSX services
-	killall SystemUIServer
-
-defaults-Finder:
-	# keep the desktop clean even if there are files in the Desktop dir
-	defaults write com.apple.finder CreateDesktop false
-	# display the status bar in the finder window
-	defaults write com.apple.finder ShowStatusBar -bool true
-	# Finder: disable window animations and Get Info animations
-	defaults write com.apple.finder DisableAllAnimations -bool true
-	# Finder: show hidden files by default
-	defaults write com.apple.Finder AppleShowAllFiles -bool true
-	# Finder: show path bar
-	defaults write com.apple.finder ShowPathbar -bool true
-	killall Finder
 
 defaults-NSGlobalDomain:
 	# Disable smart quotes as they’re annoying when typing code
@@ -92,3 +64,11 @@ tangle-emacs.d-init:
 
 clean-emacs.d:
 	rm -rf $(HOME)/.emacs.d
+
+generate-macos-bash:
+	go run cmd/mdtangle/main.go --filename $(PWD)/macos.md --out $(PWD)/macos.bash
+
+execute-macos-bash:
+	chmod +x $(PWD)/macos.bash && ./macos.bash
+
+do-macos-bash: generate-macos-bash execute-macos-bash
