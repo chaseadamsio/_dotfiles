@@ -19,6 +19,9 @@
     "editor.quickSuggestions": false,
     "editor.lineNumbers": "off"
   },
+  "[org]": {
+    "todohighlight.isEnable": false
+  },
   "todohighlight.isEnable": true,
   "todohighlight.isCaseSensitive": true,
   "todohighlight.keywords": [
