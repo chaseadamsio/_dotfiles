@@ -96,6 +96,16 @@
       ]
     },
     {
+    {
+      "before": ["<leader>", "p", "f"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.findinfiles",
+          "args": []
+        }
+      ]
+    },
       "before": ["<leader>", "'"],
       "after": [],
       "commands": [
