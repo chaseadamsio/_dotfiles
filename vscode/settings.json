@@ -138,4 +138,5 @@
   ],
   "vim.easymotion": true,
   "search.location": "panel",
+  "workbench.activityBar.visible": false
 }
