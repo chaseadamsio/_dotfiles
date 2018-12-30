@@ -15,6 +15,10 @@
   "prettier.eslintIntegration": true,
   "gitlens.codeLens.enabled": false,
   "eslint.packageManager": "yarn",
+  "[markdown]": {
+    "editor.quickSuggestions": false,
+    "editor.lineNumbers": "off"
+  },
   "todohighlight.isEnable": true,
   "todohighlight.isCaseSensitive": true,
   "todohighlight.keywords": [
