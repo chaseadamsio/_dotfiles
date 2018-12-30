@@ -96,6 +96,15 @@
       ]
     },
     {
+      "before": ["<leader>", "p", "e"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.view.explorer",
+          "args": []
+        }
+      ]
+    },
     {
       "before": ["<leader>", "p", "f"],
       "after": [],
