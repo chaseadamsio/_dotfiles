@@ -155,5 +155,5 @@ function reloadConfig(files)
     end
 end
 
-dotfilesLuaWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/src/gitlab.com/chaseadamsio/dotfiles/", reloadConfig):start()
+dotfilesLuaWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/src/github.com/chaseadamsio/dotfiles/", reloadConfig):start()
 hs.notify.new({title="Hammerspoon", informativeText="Reloaded Config"}):send()
