@@ -39,3 +39,5 @@ brew "yarn"
 brew "ccat"
 brew "rename" # util for batch renaming files
 brew "pandoc"
+
+mas "Xcode", id: 497799835
