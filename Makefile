@@ -76,6 +76,9 @@ defaults-Calendar:
 	# Show event times
 	defaults write com.apple.iCal "Show time in Month View" -bool true
 
+ln-osx-scripts:
+	mkdir -p $(HOME)/Library && ln -s $(PWD)/osx-scripts $(HOME)/Library/Script\ Libraries
+
 ln-hammerspoon:
 	ln -s $(PWD)/hammerspoon $(HOME)/.hammerspoon
 
