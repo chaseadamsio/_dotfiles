@@ -17,6 +17,7 @@ cask "hammerspoon" # OSX lua automation
 cask "font-source-code-pro"
 cask "font-hack"
 cask "screenflow"
+cask "skitch"
 
 tap "homebrew/cask-fonts"
 cask "font-fira-code"
