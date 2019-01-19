@@ -21,6 +21,7 @@ cask "screenflow"
 tap "homebrew/cask-fonts"
 cask "font-fira-code"
 
+tap "d12frosted/emacs-plus"
 brew "emacs-plus"
 brew "git"
 brew "node"
