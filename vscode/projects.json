@@ -16,5 +16,23 @@
     "rootPath": "$home/Dropbox",
     "paths": [],
     "group": ""
+  },
+  {
+    "name": "chaseonsoftware.com content",
+    "rootPath": "$home/Dropbox/Apps/chaseadams.io",
+    "paths": [],
+    "group": ""
+  },
+  {
+    "name": "chaseonsoftware.com drafts",
+    "rootPath": "$home/Dropbox/Apps/chaseadams.io-drafts",
+    "paths": [],
+    "group": ""
+  },
+  {
+    "name": "!Planner",
+    "rootPath": "$home/Dropbox/!planner",
+    "paths": [],
+    "group": ""
   }
 ]

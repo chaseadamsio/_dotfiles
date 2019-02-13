@@ -1,15 +1,14 @@
 {
-  "editor.fontSize": 12,
   "editor.fontFamily": "Hack, 'Fira Mono', Menlo, Monaco, 'Courier New', monospace",
   "window.title": "${activeEditorLong}",
   "git.autofetch": true,
-  "editor.minimap.enabled": false,
   // open JSON editor instead of visual picker
   "workbench.settings.editor": "json",
   "workbench.settings.openDefaultSettings": false,
   "workbench.startupEditor": "newUntitledFile",
-  "workbench.panel.defaultLocation": "right",
+  "explorer.openEditors.visible": 0, // hide the open editors panel
   "editor.formatOnSave": true,
+  "editor.tabCompletion": "on",
   // disable validate because of TSLint and ESLint collision
   "javascript.validate.enable": false,
   "prettier.eslintIntegration": true,
@@ -17,22 +16,32 @@
   "eslint.packageManager": "yarn",
   "[markdown]": {
     "editor.quickSuggestions": false,
-    "editor.lineNumbers": "off"
+    "editor.lineNumbers": "off",
+    "editor.formatOnSave": false
   },
-  "[org]": {
-    "todohighlight.isEnable": false
-  },
+  "flow.stopFlowOnExit": false,
+  "flow.enabled": true,
+  "flow.useNPMPackagedFlow": true,
+  "flow.showStatus": true,
+  "flow.runOnEdit": false,
+  "flow.useLSP": true,
   "todohighlight.isEnable": true,
   "todohighlight.isCaseSensitive": true,
+
+  "todohighlight.defaultStyle": {
+    "color": "#F86F65",
+    "backgroundColor": "#272B34"
+  },
   "todohighlight.keywords": [
-    {
-      "text": "$FlowFixMe",
-      "color": "#F86F65",
-      "backgroundColor": "#272B34"
-    }
+    { "text": "FIXME" },
+    { "text": "TODO" },
+    { "text": "HACK" },
+    { "text": "$FlowFixMe" },
+    { "text": "$FlowIgnore" },
+    { "text": "$FlowExpectError" },
+    { "text": "FixMeAny" }
   ],
   "editor.renderIndentGuides": false,
-  "workbench.colorTheme": "Argon",
   "files.associations": {
     "Brewfile": "ruby"
   },
@@ -137,6 +146,25 @@
     }
   ],
   "vim.easymotion": true,
-  "search.location": "panel",
-  "workbench.activityBar.visible": false
+  "workbench.colorTheme": "Argon",
+  /* DEMO/Screencast settings (defaults for me) */
+  "workbench.activityBar.visible": false,
+  "editor.minimap.enabled": false,
+  "workbench.editor.showIcons": false,
+  "markdown-table-formatter.markdownGrammarScopes": [
+    "markdown",
+    "plaintext"
+  ],
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "window.zoomLevel": 0
+  /* DEMO/Screencast settings */
+  // "window.zoomLevel": 2,
+  // "workbench.statusBar.visible": false,
+  // "editor.lineNumbers": "off",
+  // "editor.fontSize": 12,
+  // "gitlens.currentLine.enabled": false,
+  // "scm.diffDecorations": "none",
+  // "editor.codeLens": false,
+  // "editor.hideCursorInOverviewRuler": true,
+  // "editor.overviewRulerBorder": false,
 }

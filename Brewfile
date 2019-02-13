@@ -18,9 +18,13 @@ cask "font-source-code-pro"
 cask "font-hack"
 cask "screenflow"
 cask "skitch"
+cask "mongodb"
 
 tap "homebrew/cask-fonts"
 cask "font-fira-code"
+
+tap "nektos/tap"
+brew "nektos/tap/act"
 
 brew "emacs-plus"
 brew "git"
@@ -43,5 +47,8 @@ brew "yarn"
 brew "ccat"
 brew "rename" # util for batch renaming files
 brew "pandoc"
+brew "jq"
+brew "awscli"
 
 mas "Xcode", id: 497799835
+mas "Day One", id: 1055511498

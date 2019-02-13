@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 if [[ -a ~/.localrc ]]; then
     source ~/.localrc
 fi
@@ -62,11 +62,21 @@ mkd() {
 # git-branch-nuke deletes a branch locally and in the origin remote
 git-branch-nuke() {
     git branch -D $1
-    git push origin :$1    
+    git push origin :$1
 }
 
 ### OSX ###
 # Sometimes the daemon for the built-in cameras on OSX gets in a weird state and the camera no longer works. This restarts the daemon and fixes the camera issue:
 alias fixcamera="sudo killall VDCAssistant"
 
-PROMPT='λ %F{cyan}%~ %F{white}'
+export PS1="\[\e[35m\]\W\[\e[37m\] "
+
+# for GPG
+GPG_TTY=$(tty)
+export GPG_TTY
+
+if [[ -a $(brew --prefix nvm)/nvm.sh ]]; then
+    # for NVM
+    export NVM_DIR=~/.nvm
+    source $(brew --prefix nvm)/nvm.sh
+fi

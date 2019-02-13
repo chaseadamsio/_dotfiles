@@ -26,9 +26,9 @@ function shiftRight()
     local max = screen:frame()
 
     f.w = max.w / 2
-    f.h = max.h 
+    f.h = max.h
     f.x = max.x + f.w
-    f.y = max.y 
+    f.y = max.y
     win:setFrame(f, 0)
 end
 
@@ -41,9 +41,9 @@ function shiftTop()
     local screen = win:screen()
     local max = screen:frame()
 
-    f.w = max.w 
+    f.w = max.w
     f.h = max.h / 2
-    f.x = max.x 
+    f.x = max.x
     f.y = max.y
     win:setFrame(f, 0)
 end
@@ -57,9 +57,9 @@ function shiftBottom()
     local screen = win:screen()
     local max = screen:frame()
 
-    f.w = max.w 
+    f.w = max.w
     f.h = max.h / 2
-    f.x = max.x 
+    f.x = max.x
     f.y = max.y + f.h
     win:setFrame(f, 0)
 end
@@ -75,8 +75,8 @@ function shiftTopLeft()
 
     f.w = max.w / 2
     f.h = max.h / 2
-    f.x = max.x 
-    f.y = max.y 
+    f.x = max.x
+    f.y = max.y
     win:setFrame(f, 0)
 end
 
@@ -91,7 +91,7 @@ function shiftTopRight()
     f.w = max.w / 2
     f.h = max.h / 2
     f.x = max.x + f.w
-    f.y = max.y 
+    f.y = max.y
     win:setFrame(f, 0)
 end
 
@@ -105,7 +105,7 @@ function shiftBottomLeft()
 
     f.w = max.w / 2
     f.h = max.h / 2
-    f.x = max.x 
+    f.x = max.x
     f.y = max.y + f.h
     win:setFrame(f, 0)
 end
@@ -133,10 +133,10 @@ function maximizeWindow()
     local screen = win:screen()
     local max = screen:frame()
 
-    f.w = max.w 
-    f.h = max.h 
-    f.x = max.x 
-    f.y = max.y 
+    f.w = max.w
+    f.h = max.h
+    f.x = max.x
+    f.y = max.y
     win:setFrame(f, 0)
 end
 
@@ -157,3 +157,11 @@ end
 
 dotfilesLuaWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/src/github.com/chaseadamsio/dotfiles/", reloadConfig):start()
 hs.notify.new({title="Hammerspoon", informativeText="Reloaded Config"}):send()
+
+
+function copyCurrChromeHighlight()
+    local wasSuccessful, jsout = hs.osascript.javascript("Application('Google Chrome').windows[0].activeTab.execute({javascript:'window.getSelection().toString()'})")
+    hs.notify.new({title="from chrome", informativeText=jsout}):send()
+end
+
+hs.hotkey.bind({"cmd", "shift"}, "C", copyCurrChromeHighlight)
