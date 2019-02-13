@@ -43,7 +43,8 @@
   ],
   "editor.renderIndentGuides": false,
   "files.associations": {
-    "Brewfile": "ruby"
+    "Brewfile": "ruby",
+    "*.alfredappearance": "json"
   },
   "vim.hlsearch": true,
   "vim.leader": "<space>",
