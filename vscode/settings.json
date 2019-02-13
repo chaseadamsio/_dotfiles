@@ -41,7 +41,7 @@
     { "text": "$FlowExpectError" },
     { "text": "FixMeAny" }
   ],
-  "editor.renderIndentGuides": false,
+  "workbench.colorTheme": "Argon",
   "files.associations": {
     "Brewfile": "ruby",
     "*.alfredappearance": "json"
@@ -147,25 +147,12 @@
     }
   ],
   "vim.easymotion": true,
-  "workbench.colorTheme": "Argon",
-  /* DEMO/Screencast settings (defaults for me) */
-  "workbench.activityBar.visible": false,
-  "editor.minimap.enabled": false,
-  "workbench.editor.showIcons": false,
-  "markdown-table-formatter.markdownGrammarScopes": [
-    "markdown",
-    "plaintext"
-  ],
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "window.zoomLevel": 0
-  /* DEMO/Screencast settings */
+  "workbench.activityBar.visible": false
+  // "editor.renderIndentGuides": false,
+  // "editor.minimap.enabled": false,
   // "window.zoomLevel": 2,
   // "workbench.statusBar.visible": false,
   // "editor.lineNumbers": "off",
-  // "editor.fontSize": 12,
   // "gitlens.currentLine.enabled": false,
-  // "scm.diffDecorations": "none",
-  // "editor.codeLens": false,
-  // "editor.hideCursorInOverviewRuler": true,
-  // "editor.overviewRulerBorder": false,
+  // "scm.diffDecorations": "none"
 }
