@@ -1,13 +1,13 @@
 [
   {
     "name": "dotfiles",
-    "rootPath": "$home/src/github.com/chaseadamsio/dotfiles",
+    "rootPath": "$home/src/gitlab.com/chaseadamsio/dotfiles",
     "paths": [],
     "group": ""
   },
   {
     "name": "chaseonsoftware.com",
-    "rootPath": "$home/src/github.com/chaseadamsio/chaseonsoftware.com",
+    "rootPath": "$home/src/gitlab.com/chaseadamsio/chaseonsoftware",
     "paths": [],
     "group": ""
   },
@@ -20,18 +20,6 @@
   {
     "name": "chaseonsoftware.com content",
     "rootPath": "$home/Dropbox/Apps/chaseadams.io",
-    "paths": [],
-    "group": ""
-  },
-  {
-    "name": "chaseonsoftware.com drafts",
-    "rootPath": "$home/Dropbox/Apps/chaseadams.io-drafts",
-    "paths": [],
-    "group": ""
-  },
-  {
-    "name": "!Planner",
-    "rootPath": "$home/Dropbox/!planner",
     "paths": [],
     "group": ""
   }

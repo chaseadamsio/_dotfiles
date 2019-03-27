@@ -15,6 +15,7 @@
   "gitlens.codeLens.enabled": false,
   "eslint.packageManager": "yarn",
   "[markdown]": {
+    "editor.tabCompletion": "onlySnippets",
     "editor.quickSuggestions": false,
     "editor.lineNumbers": "off",
     "editor.formatOnSave": false
@@ -147,9 +148,18 @@
     }
   ],
   "vim.easymotion": true,
-  "workbench.activityBar.visible": false
-  // "editor.renderIndentGuides": false,
-  // "editor.minimap.enabled": false,
+  "markdown-table-formatter.markdownGrammarScopes": ["markdown", "plaintext"],
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "window.zoomLevel": 0,
+  "breadcrumbs.enabled": true,
+  "workbench.statusBar.feedback.visible": false,
+  "diffEditor.renderSideBySide": true,
+  "extensions.showRecommendationsOnlyOnDemand": true,
+  /* DEMO/Screencast settings (defaults for me) */
+  "workbench.activityBar.visible": false,
+  "editor.minimap.enabled": false,
+  "workbench.editor.showIcons": false
+  /* DEMO/Screencast settings */
   // "window.zoomLevel": 2,
   // "workbench.statusBar.visible": false,
   // "editor.lineNumbers": "off",

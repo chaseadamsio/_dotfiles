@@ -1,5 +1,6 @@
 cask "visual-studio-code"
 cask "google-chrome"
+cask "google-chrome-canary"
 cask "firefox"
 cask "iterm2-nightly"
 cask "spotify"
@@ -26,10 +27,13 @@ cask "font-fira-code"
 tap "nektos/tap"
 brew "nektos/tap/act"
 
+brew "tree"
+brew "mongodb"
 brew "emacs-plus"
 brew "git"
 brew "gnupg"
 brew "nvm"
+brew "pinentry-mac"
 brew "go"
 brew "jsonnet"
 brew "dep"
@@ -49,6 +53,7 @@ brew "rename" # util for batch renaming files
 brew "pandoc"
 brew "jq"
 brew "awscli"
+brew "nvm"
 
 mas "Xcode", id: 497799835
 mas "Day One", id: 1055511498

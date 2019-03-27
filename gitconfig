@@ -1,19 +1,20 @@
 [alias]
-    b = branch 
-    rv = remote -v 
-    s = status -sb 
-    st = status 
-    d = diff 
-    co = checkout 
-    com = checkout master 
-    f = fetch 
-    l = log 
-    a = add 
-    ap = add --patch 
-    c = commit 
-    p = push 
-    clean = checkout -f -- 
-    dirty = reset --hard 
+    b = branch
+    rv = remote -v
+    s = status -sb
+    st = status
+    d = diff
+    co = checkout
+    com = checkout master
+    f = fetch
+    l = log
+    a = add
+    ap = add --patch
+    c = commit
+    p = push
+    clean = checkout -f --
+    nuke = clean -fx
+    dirty = reset --hard
 
 [core]
     editor = code
