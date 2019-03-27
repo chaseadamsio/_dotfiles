@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 if [[ -a ~/.localrc ]]; then
     source ~/.localrc
 fi
@@ -9,9 +9,9 @@ SAVEHIST=10000
 
 export GOPATH=$HOME
 export WRK=$GOPATH/src
-export DOTFILES=$GOPATH/src/gitlab.com/chaseadamsio/dotfiles
+export DOTFILES=$GOPATH/src/github.com/chaseadamsio/dotfiles
 
-export PATH=/usr/local/bin:$GOPATH/bin:/usr/local/go/bin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:/usr/local/go/bin:$PATH
 
 ### CD ###
 alias ..="cd ../"
@@ -69,14 +69,11 @@ git-branch-nuke() {
 # Sometimes the daemon for the built-in cameras on OSX gets in a weird state and the camera no longer works. This restarts the daemon and fixes the camera issue:
 alias fixcamera="sudo killall VDCAssistant"
 
-export PS1="\[\e[35m\]\W\[\e[37m\] "
+PROMPT='λ %F{cyan}%~ %F{white}'
 
-# for GPG
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+
 GPG_TTY=$(tty)
 export GPG_TTY
-
-if [[ -a $(brew --prefix nvm)/nvm.sh ]]; then
-    # for NVM
-    export NVM_DIR=~/.nvm
-    source $(brew --prefix nvm)/nvm.sh
-fi
