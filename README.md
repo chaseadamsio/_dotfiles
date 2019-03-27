@@ -33,7 +33,8 @@ If you're looking at them and you're not me, feel free to use them as a guide.
 
 ## Set Shell
 
+- run `brew bundle`
+
 ```sh
-sudo -s
-echo $(brew --prefix)/bin/bash >> /etc/shells
+chsh -s $(which zsh)
 ```
