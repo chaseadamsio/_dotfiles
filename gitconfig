@@ -7,6 +7,7 @@
     co = checkout
     com = checkout master
     f = fetch
+    inspect = blame
     l = log
     a = add
     ap = add --patch
@@ -46,7 +47,6 @@
 # Detect copies as well as renames
 [diff]
     renames = copies
-
 # make it easy for autocorrect
 [help]
     autocorrect = 1
