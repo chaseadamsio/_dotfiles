@@ -56,6 +56,7 @@ brew "pandoc"
 brew "jq"
 brew "awscli"
 brew "nvm"
+brew "httpie"
 
 mas "Xcode", id: 497799835
 mas "Day One", id: 1055511498
