@@ -1,4 +1,5 @@
 cask "visual-studio-code"
+cask "visual-studio-code-insiders"
 cask "google-chrome"
 cask "google-chrome-canary"
 cask "firefox"
