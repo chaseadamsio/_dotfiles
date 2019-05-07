@@ -69,7 +69,7 @@ git-branch-nuke() {
 # Sometimes the daemon for the built-in cameras on OSX gets in a weird state and the camera no longer works. This restarts the daemon and fixes the camera issue:
 alias fixcamera="sudo killall VDCAssistant"
 
-PROMPT='λ %F{cyan}%~ %F{white}'
+PROMPT='λ %F{magenta}%~ %F{white}'
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
