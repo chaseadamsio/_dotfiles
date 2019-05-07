@@ -5,7 +5,6 @@
   // open JSON editor instead of visual picker
   "workbench.settings.editor": "json",
   "workbench.settings.openDefaultSettings": false,
-  "workbench.startupEditor": "newUntitledFile",
   "explorer.openEditors.visible": 0, // hide the open editors panel
   "editor.formatOnSave": true,
   "editor.tabCompletion": "on",
@@ -43,6 +42,7 @@
     { "text": "FixMeAny" }
   ],
   "workbench.colorTheme": "Argon",
+  "workbench.startupEditor": "welcomePage",
   "workbench.colorCustomizations": {
     "editor.background": "#20242D",
     "editorGutter.background": "#20242D",
@@ -54,7 +54,10 @@
     "panel.border": "#343848",
     "editorCursor.foreground": "#C8C8FF",
     "sideBar.border": "#343848",
-    "editorGroupHeader.tabsBorder": "#343848"
+    "editorGroupHeader.tabsBorder": "#343848",
+    "focusBorder": "#343848",
+    "textLink.foreground": "#D983F5",
+    "textPreformat.foreground": "#C8C8FF"
   },
   "files.associations": {
     "Brewfile": "ruby",
