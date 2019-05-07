@@ -43,6 +43,19 @@
     { "text": "FixMeAny" }
   ],
   "workbench.colorTheme": "Argon",
+  "workbench.colorCustomizations": {
+    "editor.background": "#20242D",
+    "editorGutter.background": "#20242D",
+    "tab.activeBackground": "#20242D",
+    "terminal.background": "#20242D",
+    "tab.border": "#343848",
+    "tab.activeBorder": "#D983F5",
+    "statusBar.border": "#343848",
+    "panel.border": "#343848",
+    "editorCursor.foreground": "#C8C8FF",
+    "sideBar.border": "#343848",
+    "editorGroupHeader.tabsBorder": "#343848"
+  },
   "files.associations": {
     "Brewfile": "ruby",
     "*.alfredappearance": "json"
