@@ -10,6 +10,7 @@ init:
 	ln -s $(PWD)/vscode/snippets $(VSCODECFGDIR)/snippets
 	ln -s $(PWD)/vscode/theme-jellyfish $(HOME)/.vscode/extensions/chaseadamsio.vscode-theme-jellyfish
 	ln -s $(PWD)/ssh_config_common $(HOME)/.ssh/config_common
+	ln -s $(PWD)/gitconfig $(HOME)/.gitconfig
 
 clean:
 	rm -rf $(HOME)/.hammerspoon
@@ -18,3 +19,4 @@ clean:
 	rm -rf $(VSCODECFGDIR)/projects.json $(VSCODECFGDIR)/keybindings.json $(VSCODECFGDIR)/settings.json $(VSCODECFGDIR)/snippets
 	rm -rf $(HOME)/.ssh/config_common
 	rm -rf $(HOME)/.vscode/extensions/chaseadamsio.vscode-theme-jellyfish
+	rm -rf $(HOME)/.gitconfig
