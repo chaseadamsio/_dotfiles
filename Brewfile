@@ -20,6 +20,7 @@ cask "font-hack"
 cask "screenflow"
 cask "skitch"
 cask "mongodb"
+cask "evernote"
 
 tap "homebrew/cask-fonts"
 cask "font-fira-code"
