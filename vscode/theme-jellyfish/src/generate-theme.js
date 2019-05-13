@@ -124,7 +124,7 @@ const generateTheme = (
     "editor.selectionBackground": magenta33,
     "panel.background": black,
     "panel.border": magenta33,
-    "editorIndentGuide.background": magenta33,
+    "editorIndentGuide.background": white33,
     "editorIndentGuide.activeBackground": magenta77,
     "editorRuler.foreground": magenta33,
     "editorOverviewRuler.border": magenta33,
@@ -221,14 +221,14 @@ const generateTheme = (
       scope: ["comment", "punctuation.definition.comment"],
       settings: {
         fontStyle: "italic",
-        foreground: magenta33
+        foreground: magenta77
       }
     },
     {
       name: "Variables",
       scope: ["variable", "string constant.other.placeholder"],
       settings: {
-        foreground: white
+        foreground: cyan
       }
     },
     {
@@ -266,10 +266,11 @@ const generateTheme = (
         "punctuation.definition.tag.end.html",
         "punctuation.section.embedded",
         "keyword.other.template",
-        "keyword.other.substitution"
+        "keyword.other.substitution",
+        "punctuation.support.type.property-name"
       ],
       settings: {
-        foreground: magenta
+        foreground: white
       }
     },
     {
@@ -280,16 +281,23 @@ const generateTheme = (
       }
     },
     {
+      name: "Function Call",
+      scope: ["meta.function-call"],
+      settings: {
+        foreground: white,
+        fontStyle: "bold"
+      }
+    },
+    {
       name: "Function, Special Method",
       scope: [
         "entity.name.function",
-        "meta.function-call",
         "variable.function",
         "support.function",
         "keyword.other.special-method"
       ],
       settings: {
-        foreground: white
+        foreground: blue
       }
     },
     {
@@ -334,7 +342,7 @@ const generateTheme = (
         "meta.group.braces.curly constant.other.object.key.js string.unquoted.label.js"
       ],
       settings: {
-        foreground: magenta
+        foreground: green
       }
     },
     {
