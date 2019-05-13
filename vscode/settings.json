@@ -1,5 +1,6 @@
 {
   "editor.fontFamily": "Hack, 'Fira Mono', Menlo, Monaco, 'Courier New', monospace",
+  "typescript.validate.enable": false,
   "window.title": "${activeEditorLong}",
   "git.autofetch": true,
   // open JSON editor instead of visual picker
@@ -151,14 +152,17 @@
   "window.zoomLevel": 0,
   "breadcrumbs.enabled": true,
   "workbench.statusBar.feedback.visible": false,
-  "diffEditor.renderSideBySide": true,
+  "diffEditor.renderSideBySide": false,
   "extensions.showRecommendationsOnlyOnDemand": true,
   /* DEMO/Screencast settings (defaults for me) */
   // "workbench.activityBar.visible": true,
   "editor.rulers": [80, 120],
   "editor.minimap.enabled": false,
+  "workbench.colorTheme": "Jellyfish",
   "workbench.editor.showIcons": false,
-  "workbench.colorTheme": "Jellyfish"
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
   /* DEMO/Screencast settings */
   // "window.zoomLevel": 2,
   // "workbench.statusBar.visible": false,
