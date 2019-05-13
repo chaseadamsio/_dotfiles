@@ -18,7 +18,7 @@ const colors = {
   white: "#C7C8FF",
   white77: "#C7C8FF77",
   white33: "#C7C8FF33",
-  cyan: "#73fffe", //"#67DCF9",
+  cyan: "#8ce8ff",
   blue: "#69B4F9",
   blue77: "#69B4F977",
   blue33: "#69B4F933",
@@ -27,9 +27,9 @@ const colors = {
   magenta33: "#DD92F633",
   magentaMuted: "#DD92F633",
   red: "#FF8E8E",
-  green: "#A1EF9D",
-  green77: "#A1EF9D77",
-  green33: "#A1EF9D33",
+  green: "#7efdd0",
+  green77: "#7efdd077",
+  green33: "#7efdd033",
   yellow: "#FCAD3F"
 };
 

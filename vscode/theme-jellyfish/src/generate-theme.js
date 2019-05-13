@@ -712,6 +712,13 @@ const generateTheme = (
       settings: {
         foreground: white
       }
+    },
+    {
+      name: "Makefile - Target Name",
+      scope: "entity.name.function.target.makefile",
+      settings: {
+        foreground: magenta
+      }
     }
   ]
 });
