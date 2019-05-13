@@ -147,7 +147,7 @@ const generateTheme = (
     "editorUnnecessaryCode.border": red,
     "editor.wordHighlightBackground": magenta33,
     "editor.wordHighlightBorder": magenta77,
-    "list.focusBackground": blackout,
+    "list.focusBackground": blacklight,
     "list.focusForeground": white,
     "statusBar.noFolderBackground": black,
     "statusBar.noFolderForeground": white,
