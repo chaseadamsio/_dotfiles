@@ -22,6 +22,7 @@ cask "screenflow"
 cask "skitch"
 cask "mongodb"
 cask "evernote"
+cask "dash"
 
 tap "homebrew/cask-fonts"
 cask "font-fira-code"
@@ -55,6 +56,9 @@ brew "rename" # util for batch renaming files
 brew "pandoc"
 brew "jq"
 brew "awscli"
+brew "aws-iam-authenticator"
+brew "kubectl"
+brew "terraform"
 brew "nvm"
 brew "httpie"
 
