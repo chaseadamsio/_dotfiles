@@ -29,8 +29,8 @@
   "todohighlight.isCaseSensitive": true,
 
   "todohighlight.defaultStyle": {
-    "color": "#F86F65",
-    "backgroundColor": "#272B34"
+    "color": "#FF8E8E",
+    "backgroundColor": "#20242D"
   },
   "todohighlight.keywords": [
     { "text": "FIXME" },
@@ -41,24 +41,6 @@
     { "text": "$FlowExpectError" },
     { "text": "FixMeAny" }
   ],
-  "workbench.colorTheme": "Argon",
-  "workbench.startupEditor": "welcomePage",
-  "workbench.colorCustomizations": {
-    "editor.background": "#20242D",
-    "editorGutter.background": "#20242D",
-    "tab.activeBackground": "#20242D",
-    "terminal.background": "#20242D",
-    "tab.border": "#343848",
-    "tab.activeBorder": "#D983F5",
-    "statusBar.border": "#343848",
-    "panel.border": "#343848",
-    "editorCursor.foreground": "#C8C8FF",
-    "sideBar.border": "#343848",
-    "editorGroupHeader.tabsBorder": "#343848",
-    "focusBorder": "#343848",
-    "textLink.foreground": "#D983F5",
-    "textPreformat.foreground": "#C8C8FF"
-  },
   "files.associations": {
     "Brewfile": "ruby",
     "*.alfredappearance": "json"
@@ -172,9 +154,11 @@
   "diffEditor.renderSideBySide": true,
   "extensions.showRecommendationsOnlyOnDemand": true,
   /* DEMO/Screencast settings (defaults for me) */
-  "workbench.activityBar.visible": false,
+  // "workbench.activityBar.visible": true,
+  "editor.rulers": [80, 120],
   "editor.minimap.enabled": false,
-  "workbench.editor.showIcons": false
+  "workbench.editor.showIcons": false,
+  "workbench.colorTheme": "Jellyfish"
   /* DEMO/Screencast settings */
   // "window.zoomLevel": 2,
   // "workbench.statusBar.visible": false,
