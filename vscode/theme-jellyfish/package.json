@@ -1,0 +1,27 @@
+{
+  "name": "jellyfish",
+  "displayName": "jellyfish",
+  "description": "purple VS Code Theme",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.33.0"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Jellyfish",
+        "uiTheme": "vs-dark",
+        "path": "./themes/jellyfish-theme.json"
+      }
+    ]
+  },
+  "dependencies": {
+    "prettier": "^1.17.0"
+  }
+}

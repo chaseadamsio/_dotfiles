@@ -8,6 +8,7 @@ init:
 	ln -s $(PWD)/vscode/keybindings.json $(VSCODECFGDIR)/keybindings.json
 	ln -s $(PWD)/vscode/projects.json $(VSCODECFGDIR)/projects.json
 	ln -s $(PWD)/vscode/snippets $(VSCODECFGDIR)/snippets
+	ln -s $(PWD)/vscode/theme-jellyfish $(HOME)/.vscode/extensions/chaseadamsio.vscode-theme-jellyfish
 	ln -s $(PWD)/ssh_config_common $(HOME)/.ssh/config_common
 
 clean:
@@ -16,3 +17,4 @@ clean:
 	rm -rf $(HOME)/.zshrc
 	rm -rf $(VSCODECFGDIR)/projects.json $(VSCODECFGDIR)/keybindings.json $(VSCODECFGDIR)/settings.json $(VSCODECFGDIR)/snippets
 	rm -rf $(HOME)/.ssh/config_common
+	rm -rf $(HOME)/.vscode/extensions/chaseadamsio.vscode-theme-jellyfish
