@@ -16,7 +16,7 @@
     clean = checkout -f --
     nuke = clean -fx
     dirty = reset --hard
-    current-branch = rev-parse --abbrev-ref HEAD
+    branch-current = rev-parse --abbrev-ref HEAD
     bc = current-branch
 
 [core]
