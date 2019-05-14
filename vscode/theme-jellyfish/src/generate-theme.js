@@ -253,11 +253,17 @@ const generateTheme = (
       }
     },
     {
+      name: "Punctuation",
+      scope: "string.quoted punctuation",
+      settings: {
+        foreground: green
+      }
+    },
+    {
       name: "Operator, Misc",
       scope: [
         "keyword.control",
         "constant.other.color",
-        "punctuation",
         "meta.tag",
         "punctuation.definition.tag",
         "punctuation.separator.inheritance.php",
@@ -271,6 +277,20 @@ const generateTheme = (
       ],
       settings: {
         foreground: white
+      }
+    },
+    {
+      name: "JS  - Object Property Keys",
+      scope: "string.unquoted.js",
+      settings: {
+        foreground: white
+      }
+    },
+    {
+      name: "JS - Object Property Strings",
+      scope: "constant.other.object.key.js string.quoted.double.js",
+      settings: {
+        foreground: magenta
       }
     },
     {
