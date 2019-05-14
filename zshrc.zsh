@@ -35,6 +35,7 @@ export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 ### SHORTCUTS ###
 alias godf="cd $DOTFILES"
 alias gogl="cd $WRK/gitlab.com"
+alias gogh="cd $WRK/github.com"
 alias goglca="cd $WRK/gitlab.com/chaseadamsio"
 alias goghca="cd $WRK/github.com/chaseadamsio"
 
