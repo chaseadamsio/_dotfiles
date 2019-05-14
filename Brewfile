@@ -61,6 +61,7 @@ brew "kubectl"
 brew "terraform"
 brew "nvm"
 brew "httpie"
+brew "nmap"
 
 mas "Xcode", id: 497799835
 mas "Day One", id: 1055511498
