@@ -12,6 +12,7 @@ const generateTheme = (
     blue77,
     blue33,
     magenta,
+    magenta22,
     magenta77,
     magenta33,
     magentaMuted,
@@ -121,7 +122,7 @@ const generateTheme = (
     "sideBarTitle.foreground": white,
     "editor.rangeHighlightBackground": magenta33,
     "editorCodeLens.foreground": magenta,
-    "editor.selectionBackground": magenta33,
+    "editor.selectionBackground": magenta22,
     "panel.background": black,
     "panel.border": magenta33,
     "editorIndentGuide.background": white33,
@@ -146,6 +147,7 @@ const generateTheme = (
     "editorHint.foreground": magenta,
     "editorUnnecessaryCode.border": red,
     "editor.wordHighlightBackground": magenta33,
+    "editor.wordHighlightStrongBackground": magenta33,
     "editor.wordHighlightBorder": magenta77,
     "list.focusBackground": blacklight,
     "list.focusForeground": white,
@@ -272,11 +274,17 @@ const generateTheme = (
         "punctuation.definition.tag.end.html",
         "punctuation.section.embedded",
         "keyword.other.template",
-        "keyword.other.substitution",
-        "punctuation.support.type.property-name"
+        "keyword.other.substitution"
       ],
       settings: {
         foreground: white
+      }
+    },
+    {
+      name: "JS - Import/Require",
+      scope: ["keyword.control.module.js"],
+      settings: {
+        foreground: magenta
       }
     },
     {
@@ -288,7 +296,10 @@ const generateTheme = (
     },
     {
       name: "JS - Object Property Strings",
-      scope: "constant.other.object.key.js string.quoted.double.js",
+      scope: [
+        "constant.other.object.key.js string.quoted.double.js",
+        "constant.other.object.key.js string.quoted punctuation"
+      ],
       settings: {
         foreground: magenta
       }
@@ -304,8 +315,7 @@ const generateTheme = (
       name: "Function Call",
       scope: ["meta.function-call"],
       settings: {
-        foreground: white,
-        fontStyle: "bold"
+        foreground: white
       }
     },
     {
@@ -353,7 +363,8 @@ const generateTheme = (
     {
       name: "String, Symbols, Inherited Class, Markup Heading",
       scope: [
-        "string",
+        "string.quoted",
+        "string.quoted punctuation",
         "constant.other.symbol",
         "constant.other.key",
         "entity.other.inherited-class",
@@ -426,7 +437,7 @@ const generateTheme = (
       scope: ["entity.name.method.js"],
       settings: {
         fontStyle: "italic",
-        foreground: "#82AAFF"
+        foreground: magenta
       }
     },
     {
@@ -436,7 +447,7 @@ const generateTheme = (
         "variable.function.constructor"
       ],
       settings: {
-        foreground: "#82AAFF"
+        foreground: magenta
       }
     },
     {
@@ -536,9 +547,12 @@ const generateTheme = (
     },
     {
       name: "[VSCODE-CUSTOM] JSON Property Name",
-      scope: "support.type.property-name.json",
+      scope: [
+        "support.type.property-name.json",
+        "punctuation.support.type.property-name"
+      ],
       settings: {
-        foreground: white,
+        foreground: magenta,
         fontStyle: "italic"
       }
     },
@@ -552,9 +566,12 @@ const generateTheme = (
     },
     {
       name: "[VSCODE-CUSTOM] JSON Property Value",
-      scope: "string.quoted.double.json",
+      scope: [
+        "string.quoted.double.json",
+        "string.quoted.double.json punctuation"
+      ],
       settings: {
-        foreground: magenta
+        foreground: green
       }
     },
     {
@@ -617,7 +634,6 @@ const generateTheme = (
       name: "Boolean",
       scope: "constant.language.boolean",
       settings: {
-        fontStyle: "bold",
         foreground: white
       }
     },
