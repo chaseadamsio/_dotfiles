@@ -159,11 +159,11 @@
   // "workbench.activityBar.visible": true,
   "editor.rulers": [80, 120],
   "editor.minimap.enabled": false,
-  "workbench.colorTheme": "Jellyfish",
   "workbench.editor.showIcons": false,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "workbench.colorTheme": "Neon Night"
   /* DEMO/Screencast settings */
   // "window.zoomLevel": 2,
   // "workbench.statusBar.visible": false,
