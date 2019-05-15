@@ -18,7 +18,8 @@
     "editor.tabCompletion": "onlySnippets",
     "editor.quickSuggestions": false,
     "editor.lineNumbers": "off",
-    "editor.formatOnSave": false
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "flow.stopFlowOnExit": false,
   "flow.enabled": true,
