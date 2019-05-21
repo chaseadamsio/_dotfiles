@@ -17,7 +17,7 @@
     nuke = clean -fx
     dirty = reset --hard
     branch-current = rev-parse --abbrev-ref HEAD
-    bc = current-branch
+    bc = branch-current
 
 [core]
     editor = code -w
