@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 if [[ -a ~/.localrc ]]; then
     source ~/.localrc
 fi
@@ -43,11 +43,17 @@ alias re!=". $HOME/.zshrc"
 
 ### DOCKER ###
 # stop all running docker containers:
-alias dockerstopall="docker stop $(docker ps -a -q)"
+dockerstopall(){
+    docker stop $(docker ps -a -q);
+}
 # remove all running docker containers:
-alias dockerrmall="docker rm $(docker ps -a -q)"
-# nuke all running docker containers:
-alias dockernukeall="dockerstopall && dockerrmall"
+dockerrmall () {
+    docker rm $(docker ps -a -f status=exited -q);
+}
+# # nuke all running docker containers:
+dockernukeall () {
+    dockerstopall && dockerrmall
+}
 
 ### PYTHON ###
 # sane python aliases
@@ -66,11 +72,7 @@ git-branch-nuke() {
     git push origin :$1
 }
 
-### OSX ###
-# Sometimes the daemon for the built-in cameras on OSX gets in a weird state and the camera no longer works. This restarts the daemon and fixes the camera issue:
-alias fixcamera="sudo killall VDCAssistant"
-
-PROMPT='λ %F{magenta}%~ %F{white}'
+# PROMPT='λ %F{magenta}%~ %F{white}' # this is zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
