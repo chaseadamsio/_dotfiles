@@ -8,7 +8,8 @@ dockerstopall(){
 dockerrmall () {
     docker rm $(docker ps -a -f status=exited -q);
 }
+
 # # nuke all running docker containers:
 dockernukeall () {
-    dockerstopall && dockerrmall
+    dockerstopall && docker rm $(docker ps -a -q)
 }
