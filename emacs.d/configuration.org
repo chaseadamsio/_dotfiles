@@ -263,16 +263,19 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
 
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :results output silent
   (custom-set-faces
    '(default ((t :inherit nil :stipple nil :background "#20242D" :foreground "#C7C8FF")))
    '(hl-line ((t :background "#2D323F")))
    '(line-number ((t :foreground "#676784")))
 
+   '(font-lock-warning-face ((t :foreground "#FF8E8E")))
    '(font-lock-function-face ((t :foreground "#DD92F6")))
    '(font-lock-keyword-face ((t :foreground "#DD92F6")))
    '(font-lock-comment-face ((t :foreground "#59496D")))
    '(font-lock-string-face ((t :foreground "#7EFDD0")))
+   '(font-lock-type-face ((t :foreground "#DD92F6")))
+
    '(font-lock-variable-name-face ((t :foreground "#69B4F")))
 
    '(grep-hit-match ((t :background "#463a56")))
