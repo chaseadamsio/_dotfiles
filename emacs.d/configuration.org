@@ -1,3 +1,6 @@
+#+TITLE: Emacs Configuration
+#+AUTHOR: Chase Adams
+#+EMAIL: realchaseadams@gmail.com
 
 * Package Initialization
 
@@ -54,8 +57,10 @@ Highlight the current line.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default line-spacing 2)
+  (setq line-spacing 4)
 #+END_SRC
+
+
 * Setup exec-path-from-shell
 #+BEGIN_SRC emacs-lisp
   (defun set-exec-path-from-shell-PATH ()
@@ -110,23 +115,33 @@ I came from the editor vim, so I use vim bindings with evil.
     (editorconfig-mode 1)
     )
 #+END_SRC
-* Setup RestClient
 
+* Setup Org
 #+BEGIN_SRC emacs-lisp
-  (use-package restclient
-    :ensure t)
+  (use-package org
+    :ensure t
+    :config
+    (setq org-capture-templates
+	  '(("b" "Bookmark" entry (file+headline "~/Dropbox/inbox.org" "Bookmarks")
+	     "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1)
+	    ("t" "Task" entry (file+headline "~/Dropbox/todo.org" "Inbox")
+	     "* TODO %?\n  %i\n  %a\n")
+	    ("j" "Journal" entry (file+olp+datetree "~/Dropbox/planner.org" "Journal")
+	     "* %?\nEntered on %U\n  %i\n  %a")))
+    (custom-set-variables
+     '(org-agenda-files (quote ("~/Dropbox/todo.org")))
+     '(org-default-notes-file "~/Dropbox/notes.org")
+     '(org-agenda-ndays 7)
+     '(org-deadline-warning-days 14)
+     '(org-agenda-show-all-dates t)
+     '(org-agenda-skip-deadline-if-done t)
+     '(org-agenda-skip-scheduled-if-done t)
+     '(org-agenda-start-on-weekday t)
+     '(org-reverse-note-order t)
+     ))
 #+END_SRC
 
-* Setup Flycheck
-#+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :init
-    (global-flycheck-mode)
-    (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
-    (add-hook 'flycheck-mode-hook #'my/use-flow-from-node-modules)
-    (add-hook 'flycheck-mode-hook #'my/use-flow-for-coverage-from-node-modules)
-    )
-#+END_SRC
+
 * Setup Javascript
 
 ** JSX Mode
@@ -174,146 +189,18 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
 
 #+END_SRC
 
-* Setup Org
-#+BEGIN_SRC emacs-lisp
-  (use-package org
-    :ensure t
-    :config
-    (setq org-capture-templates
-	  '(("b" "Bookmark" entry (file+headline "~/Dropbox/inbox.org" "Bookmarks")
-	     "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1)
-	    ("t" "Task" entry (file+headline "~/Dropbox/todo.org" "Inbox")
-	     "* TODO %?\n  %i\n  %a\n")
-	    ("j" "Journal" entry (file+olp+datetree "~/Dropbox/planner.org" "Journal")
-	     "* %?\nEntered on %U\n  %i\n  %a")))
-    (custom-set-variables
-     '(org-agenda-files (quote ("~/Dropbox/todo.org")))
-     '(org-default-notes-file "~/Dropbox/notes.org")
-     '(org-agenda-ndays 7)
-     '(org-deadline-warning-days 14)
-     '(org-agenda-show-all-dates t)
-     '(org-agenda-skip-deadline-if-done t)
-     '(org-agenda-skip-scheduled-if-done t)
-     '(org-agenda-start-on-weekday t)
-     '(org-reverse-note-order t)
-     ))
-#+END_SRC
-** Setup Org-Kanban
-#+BEGIN_SRC emacs-lisp
-  (use-package org-kanban
-    :ensure t)
-#+END_SRC
-* Setup Projectile
-Projectile is used for project management. It's a great way to access projects quickly. I create a =.projectile= in Dropbox folders I want quick access to and that's really helpful for making sure I can access them without also having to have them in version control or a build file of some sort.
-#+BEGIN_SRC emacs-lisp
-  (use-package projectile
-    :init (projectile-global-mode)
-    )
-
-  (use-package org-projectile
-    :ensure t
-    :after org-mode projectile-mode)
-
-#+END_SRC
-
-* Yasnippet
-#+BEGIN_SRC emacs-lisp
-  (use-package yasnippet
-    :ensure t
-    :config
-    (yas-global-mode 1)
-    (add-to-list 'load-path
-		"~/.emacs.d/plugins/yasnippet"))
-#+END_SRC
-* Git Gutter
-
-#+BEGIN_SRC emacs-lisp
-  (use-package git-gutter-fringe
-     :diminish git-gutter-mode
-     :init (setq git-gutter-fr:side 'right-fringe)
-     :config (global-git-gutter-mode t))
-#+END_SRC
-* ripgrep
-#+BEGIN_SRC emacs-lisp
-  (use-package rg)
-#+END_SRC
-* General
-General is key bindings that's useful for key definitions, especially for EViL.
-
-I mostly borrow these bindings as I come across M-x commands I find myself using from the [[https://github.com/syl20bnr/spacemacs/blob/c7a103a772d808101d7635ec10f292ab9202d9ee/layers/%2Bdistributions/spacemacs-base/keybindings.el][spacemacs/keybindings.el]] and the [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#discovering][Spacemacs Docs on Github.]]
-
-#+BEGIN_SRC emacs-lisp
-
-  (use-package general
-    :init
-    (general-define-key
-     :prefix "SPC"
-     :non-normal-prefix "M-SPC"
-     :keymaps '(normal insert emacs)
-     ;; unbind SPC and give it a title for which-key (see echo area)
-     "" '(nil :which-key "my lieutenant general prefix")
-
-     "SPC" '(counsel-M-x :which-key "M-x")
-     "/" '(counsel-rg :which-key "rg")
-
-     "b" '(nil :which-key "buffer")
-     "bb" '(ivy-switch-buffer :which-key "switch buffer")
-     "bk" '(kill-buffer :which-key "kill buffer")
-     "be" '(eval-buffer :which-key "evaluate buffer")
-     "br" '(revert-buffer :which-key "revert buffer")
-
-     "f" '(nil :which-key "file")
-     "ff" '(counsel-find-file :which-key "find file")
-     "fed" '(caio/find-dotfile :which-key "open dotfile")
-     "fop" '(caio/find-planner :which-key "open planner.org")
-
-     "g" '(nil :which-key "git")
-     "gs" '(magit-status :which-key "status")
-
-     "h" '(nil :which-key "help")
-     "hd" '(nil :which-key "help describe")
-     "hdf" '(describe-function :which-key "describe function")
-     "hdv" '(describe-variable :which-key "describe variable")
-
-     "o" '(nil :which-key "org-mode")
-     "oc" '(org-capture :which-key "org capture")
-
-     "p" '(nil :which-key "projects")
-     "pp" '(counsel-projectile-switch-project :which-key "switch project")
-     "pf" '(counsel-projectile-find-file :which-key "find file in project")
-     "p/" '(counsel-projectile-rg :which-key "search project")
-
-     "w" '(nil :which-key "windows")
-     "wo" '(other-window :which-key "focus other window")
-     "wd" '(delete-window :which-key "delete window")
-     "w=" '(balance-windows :which-key "balance windows")
-     "wD" '(delete-other-windows :which-key "delete other windows")
-     "wv" '(split-window-right :which-key "split vertical")
-     "ws" '(split-window-below :which-key "split below")
-     "wh" '(evil-window-left :which-key "focus left")
-     "w <left>" '(evil-window-left :which-key "focus left")
-     "wj" '(evil-window-down :which-key "focus down")
-     "w <down>" '(evil-window-down :which-key "focus down")
-     "wk" '(evil-window-up :which-key "focus up")
-     "w <up>" '(evil-window-up :which-key "focus up")
-     "wl" '(evil-window-right :which-key "focus right")
-     "w <right>" '(evil-window-right :which-key "focus right")
-
-     "y" '(nil :which-key "yasnippet")
-     "yn" '(yas-new-snippet :which-key "new snippet")
-     ))
-#+END_SRC
-
 * TOML
 #+BEGIN_SRC emacs-lisp
   (use-package toml-mode
     :ensure t)
 #+END_SRC
+
 * YAML
 #+BEGIN_SRC emacs-lisp
   (use-package yaml-mode
     :ensure t)
 #+END_SRC
+
 * Docker
 ** Dockerfile
 #+BEGIN_SRC emacs-lisp
@@ -322,169 +209,39 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
     :config
     (add-to-list 'auto-mode-alist '("Dockerfile-?.+\\'" . dockerfile-mode)))
 #+END_SRC
+
 ** Docker Compose
 #+BEGIN_SRC emacs-lisp
   (use-package docker-compose-mode
     :ensure t)
 #+END_SRC
-* Setup Rainbow Delimiters Mode
+
 #+BEGIN_SRC emacs-lisp
-  (use-package rainbow-delimiters
-    :ensure t
-    :config
-    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-    )
+
+  (global-set-key (kbd "C-c c") 'org-capture)
+  (setq org-export-coding-system 'utf-8)
+
+  ;; for emacs-plus as a way to have a more seamless application window
+  (add-to-list 'default-frame-alist
+	       '(ns-transparent-titlebar . t))
+  (add-to-list 'default-frame-alist
+	       '(ns-appearance . dark))
+
+
+  ;; display line numbers
+  (global-display-line-numbers-mode 1)
+  (add-hook 'eshell-mode-hook (lambda() (display-line-numbers-mode -1)))
+
+  (set-face-attribute 'default nil :family "Fira Code" :height 120)
 #+END_SRC
 
-* Setup Rainbow Mode
-#+BEGIN_SRC emacs-lisp
-  (use-package rainbow-mode
-    :ensure t
-    )
-#+END_SRC
+* UI
 
-* Setup Aggressive Indent
-#+BEGIN_SRC emacs-lisp
-  (use-package aggressive-indent
-    :ensure t
-    :config
-    (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
-    )
-#+END_SRC
-
-* Setup Doom Modeline
-#+BEGIN_SRC emacs-lisp
-  (use-package doom-modeline
-    :ensure t
-    :defer t
-    :hook (after-init . doom-modeline-init)
-    :config
-    (setq doom-modeline-icon nil)
-    )
-#+END_SRC
-
-* Everything Else
-
-I'm slowly documenting and migrating everything frome "Everything Else" to its proper home.
 
 #+BEGIN_SRC emacs-lisp
-
-  (use-package nvm
-    :after exec-path-from-shell
-    :config
-    (when (memq window-system '(mac ns x))
-      (exec-path-from-shell-initialize)))
-
-  (use-package flycheck-flow
-    :after flycheck
-    :config
-    (flycheck-add-next-checker 'javascript-flow 'javascript-flow-coverage)
-    )
-
-  (use-package company-flow
-    :after company
-    :config
-    (add-to-list 'company-backends 'company-flow))
-
-  (use-package json-mode)
-
-  ;; required for prettier to be found in local node_modules
-  (use-package add-node-modules-path)
-
-  ;; prettier
-  (use-package prettier-js
-    :after (add-node-modules-path)
-    :config
-    (add-hook 'js-mode-hook #'add-node-modules-path)
-    (add-hook 'js-mode-hook #'prettier-js-mode))
-
-
-  (use-package company
-    :config
-    (set (make-local-variable 'company-backends) '(company-files))
-    (add-hook 'after-init-hook 'global-company-mode))
-
-
-  (use-package popup
-    :ensure t
-    :after company)
-
-  ;; markdown support
-  (use-package markdown-mode
-    :mode (("README\\.md\\'" . gfm-mode)
-	   ("\\.md\\'" . markdown-mode)
-	   ("\\.markdown\\'" . markdown-mode))
-    :init (setq markdown-command "multimarkdown"))
-
-  (use-package homebrew-mode)
-
-  (use-package web-mode)
-
-  ;; lua support
-  (use-package lua-mode)
-
-  ;; git support
-  (use-package magit)
-
-  (use-package evil-magit
-    :ensure t
-    :after '(evil magit))
-
-  (use-package github-browse-file)
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp
-  (use-package ivy
-    :config (ivy-mode 1))
-
-  (use-package swiper
-    :config (global-set-key (kbd "C-s") 'swiper))
-
-  (use-package counsel
-    :config
-    (global-set-key (kbd "M-x") 'counsel-M-x)
-    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
-    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-    (global-set-key (kbd "<f1> l") 'counsel-find-library)
-    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-    (global-set-key (kbd "<f2> u") 'counsel-unicode-char))
-
-  (use-package counsel-projectile
-    :config (counsel-projectile-mode 1))
-
-  (use-package undo-tree)
-
-  (use-package diminish
-    :config
-    (diminish 'flycheck-mode)
-    (diminish 'projectile-mode)
-    (diminish 'undo-tree-mode)
-    (diminish 'which-key-mode)
-    (diminish 'evil-org-mode)
-    (diminish 'org-mode)
-    (diminish 'rainbow-mode)
-    (diminish 'yas-minor-mode)
-    (diminish 'editorconfig-mode)
-    (diminish 'company-mode)
-    (diminish 'auto-revert-mode)
-    (diminish 'ivy-mode)
-    (diminish 'eldoc-mode)
-    )
-
-  ;; https://github.com/justbur/emacs-which-key
-  (use-package which-key
-    :config
-    (which-key-mode)
-    (setq which-key-idle-delay .3)
-    )
-
-	  ;;;;;; UI ;;;;;;
-
-  (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+ (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
   (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
   (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-
 
   ;; detach the UI customization that gets appended to the file every save http://emacsblog.org/2008/12/06/quick-tip-detaching-the-custom-file/
   (setq custom-file (make-temp-file "emacs-custom"))
@@ -504,66 +261,43 @@ I'm slowly documenting and migrating everything frome "Everything Else" to its p
 
   (setq ring-bell-function 'ignore) ;; the bell annoys the h*ck out of me, turn it off
 
-    ;;; org
-  (use-package evil-org)
-  (use-package ob-http)
-
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((http       . t)
-     (shell      . t)
-     (js         . t)
-     (emacs-lisp . t)
-     (python . t)
-     ))
-
-  (global-set-key (kbd "C-c c") 'org-capture)
-  (setq org-export-coding-system 'utf-8)
-
-  ;; for emacs-plus as a way to have a more seamless application window
-  (add-to-list 'default-frame-alist
-	       '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist
-	       '(ns-appearance . dark))
-
-
-  ;; display line numbers
-  (global-display-line-numbers-mode 1)
-  (add-hook 'eshell-mode-hook (lambda() (display-line-numbers-mode -1)))
-
-
-
-  (add-to-list 'load-path "~/src/github.com/chaseadamsio/dotfiles/emacs.d/argon.el")
-  (add-to-list 'custom-theme-load-path "~/src/github.com/chaseadamsio/dotfiles/emacs.d/themes")
-  (load-theme 'argon t)
-
-  (set-face-attribute 'default nil :family "Fira Code" :height 120)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (defface flow-fix-me-comment '((t (:foreground "#F86F65"))) "#F86F65")
+  (custom-set-faces
+   '(default ((t :inherit nil :stipple nil :background "#20242D" :foreground "#C7C8FF")))
+   '(hl-line ((t :background "#2D323F")))
+   '(line-number ((t :foreground "#676784")))
 
-  (font-lock-add-keywords
-   'js-mode '(("// $FlowFixMe" 0 'flow-fix-me-comment t)))
+   '(font-lock-function-face ((t :foreground "#DD92F6")))
+   '(font-lock-keyword-face ((t :foreground "#DD92F6")))
+   '(font-lock-comment-face ((t :foreground "#59496D")))
+   '(font-lock-string-face ((t :foreground "#7EFDD0")))
+   '(font-lock-variable-name-face ((t :foreground "#69B4F")))
 
+   '(show-paren-match ((t :foreground "#DD92F6")))
+   '(show-paren-mismatch ((t :foreground "#20242D" :background "#FCAD3F")))
+   '(paren-face-no-match ((t :foreground "#20242D" :background "#FF8E8E")))
 
+   '(rjsx-tag ((t :foreground "#DD92F6")))
+
+   '(org-block ((t :foreground "#C7C8FF")))
+   '(org-block-begin-line ((t :foreground "#778899")))
+   '(org-document-title ((t :foreground "#7EFDD0")))
+   '(org-document-info-keyword ((t :foreground "#0adeff" :weight bold)))
+   '(org-level-1 ((t :foreground "#DD92F6")))
+   '(org-level-2 ((t :foreground "#0adeff")))
+   '(org-level-3 ((t :foreground "#0adeff")))
+   '(org-level-4 ((t :foreground "#0adeff")))
+   '(org-level-5 ((t :foreground "#0adeff")))
+   '(org-level-6 ((t :foreground "#0adeff")))
+   '(org-level-7 ((t :foreground "#0adeff")))
+   '(org-level-8 ((t :foreground "#0adeff")))
+
+   '(mode-line ((t :background "#20242D" :foreground "#C7C8FF")))
+   '(mode-line-inactive ((t :background "#20242D" :foreground "#676784")))
+   '(region ((t :background "#463a56")))
+   )
 #+END_SRC
-#+BEGIN_SRC emacs-lisp
-  (setq frame-title-format "")
-#+END_SRC
 
-* To Explore
-** Org
-*** org-habit
-[[https://www.gnu.org/software/emacs/manual/html_node/org/Tracking-your-habits.html][Tracking your habits - The Org Manual]]
-*** org-super-agenda
-[[https://github.com/alphapapa/org-super-agenda][alphapapa/org-super-agenda: Supercharge your Org daily/weekly agenda by grouping items]]
-** [[https://jblevins.org/projects/deft/][Deft]]
-/Inspired by Notational Velocity/
-#+BEGIN_SRC emacs-lisp :tangle false
-  (use-package deft
-    :ensure t
-    :config
-    (setq deft-extensions '("org" "md"))
-    (setq deft-directory "~/Dropbox"))
-#+END_SRC
+#+RESULTS:
