@@ -1,7 +1,7 @@
-# docker container run -it --rm -v $HOME/.emacs.d:/home/user/.emacs.d -v $HOME/src:/home/user/src emacs
+# docker container run -it -v $HOME/.emacs.d:/home/emacs/.emacs.d emacs
 FROM debian:buster-slim
 
-MAINTAINER Chase Adams <chasebuildssoftware@gmail.com>
+MAINTAINER Chase Adams <realchaseadams@gmail.com>
 
 LABEL Description="A docker image for running emacs" Version="1.0"
 
@@ -13,8 +13,8 @@ COPY screen-24bit.terminfo .
 RUN tic -x screen-24bit.terminfo
 
 ENV TERM screen-24bit
-ENV HOME /home/user
-RUN useradd --create-home --home-dir $HOME user \
-	&& chown -R user:user $HOME
+ENV HOME /home/emacs
+RUN useradd --create-home --home-dir $HOME emacs \
+	&& chown -R emacs:emacs $HOME
 
 CMD ["emacs"]

@@ -275,14 +275,23 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
    '(font-lock-string-face ((t :foreground "#7EFDD0")))
    '(font-lock-variable-name-face ((t :foreground "#69B4F")))
 
-   '(show-paren-match ((t :foreground "#DD92F6")))
+   '(grep-hit-match ((t :background "#463a56")))
+   '(grep-match-match ((t :background "#463a56")))
+   '(match ((t :background "#463a56")))
+   '(isearch ((t :background "#463a56")))
+
+   '(button ((t :foreground "#69B4F9" :underline t)))
+   '(link ((t :foreground "#69B4F9" :underline t)))
+   '(link-visited ((t :foreground "#DD92F6" :underline t)))
+   '(cursor ((t :background "#DD92F6")))
+   '(show-paren-match ((t :foreground "#20242D" :background "#DD92F6")))
    '(show-paren-mismatch ((t :foreground "#20242D" :background "#FCAD3F")))
    '(paren-face-no-match ((t :foreground "#20242D" :background "#FF8E8E")))
 
    '(rjsx-tag ((t :foreground "#DD92F6")))
 
    '(org-block ((t :foreground "#C7C8FF")))
-   '(org-block-begin-line ((t :foreground "#778899")))
+   '(org-block-begin-line ((t :foreground "#DD92F6")))
    '(org-document-title ((t :foreground "#7EFDD0")))
    '(org-document-info-keyword ((t :foreground "#0adeff" :weight bold)))
    '(org-level-1 ((t :foreground "#DD92F6")))
@@ -293,6 +302,8 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
    '(org-level-6 ((t :foreground "#0adeff")))
    '(org-level-7 ((t :foreground "#0adeff")))
    '(org-level-8 ((t :foreground "#0adeff")))
+
+   '(dockerfile-image-name ((t :foreground "#7EFDD0")))
 
    '(mode-line ((t :background "#20242D" :foreground "#C7C8FF")))
    '(mode-line-inactive ((t :background "#20242D" :foreground "#676784")))
