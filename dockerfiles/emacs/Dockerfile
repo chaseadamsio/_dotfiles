@@ -1,3 +1,4 @@
+# docker container run -it --rm -v $HOME/.emacs.d:/home/user/.emacs.d -v $HOME/src:/home/user/src emacs
 FROM debian:buster-slim
 
 MAINTAINER Chase Adams <chasebuildssoftware@gmail.com>
@@ -17,4 +18,3 @@ RUN useradd --create-home --home-dir $HOME user \
 	&& chown -R user:user $HOME
 
 CMD ["emacs"]
-
