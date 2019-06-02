@@ -21,14 +21,16 @@ Add melpa, gnu and marmalade to package archives list.
 I use [[https://github.com/jwiegley/use-package][=use-package=]] to install, require and declare my Emacs package configuration. This installs =use-package= automatically if it's not already present.
 
 #+BEGIN_SRC emacs-lisp
-  (defun my/install-use-package()
-    (unless (package-installed-p 'use-package)
-      (package-refresh-contents)
-      (package-install 'use-package))
-    )
-
-  (my/install-use-package)
+    (defun my/install-use-package()
+      (unless (package-installed-p 'use-package)
+	(package-refresh-contents)
+	(package-install 'use-package))
+      )
+    (my/install-use-package)
+    (require 'use-package-ensure)
+    (setq use-package-always-ensure t)
 #+END_SRC
+
 
 * Setup Core
 
@@ -53,13 +55,54 @@ Set scratch to be an empty buffer.
 Highlight the current line.
 
 #+BEGIN_SRC emacs-lisp
-  (global-hl-line-mode 1)
+  (use-package hlinum
+    :init
+    (hlinum-activate)
+    )
+    (global-hl-line-mode 1)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (setq line-spacing 4)
+  (setq-default line-spacing 3)
 #+END_SRC
 
+* UI
+* Setup Doom Modeline
+#+BEGIN_SRC emacs-lisp
+  (use-package doom-modeline
+    :defer t
+    :hook (after-init . doom-modeline-init)
+    :config
+    (setq doom-modeline-icon nil)
+    )
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+ (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+  (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+
+  ;; detach the UI customization that gets appended to the file every save http://emacsblog.org/2008/12/06/quick-tip-detaching-the-custom-file/
+  (setq custom-file (make-temp-file "emacs-custom"))
+
+  ;; bind escape to keyboard escape (so I don't have to gg when in the mini-buffer, acts more like vim
+  (global-set-key (kbd "<escape>")      'keyboard-escape-quit)
+
+  ;; disable creating backup~ files
+  (setq make-backup-files nil)
+  ;; disable creating #autosave# files
+  (setq auto-save-default nil)
+
+  (show-paren-mode 1)
+  (add-hook 'prog-mode-hook 'electric-pair-local-mode)
+
+  (setq truncate-lines t word-wrap nil)
+
+  (setq ring-bell-function 'ignore) ;; the bell annoys the h*ck out of me, turn it off
+
+#+END_SRC
+
+#+RESULTS:
 
 * Setup exec-path-from-shell
 #+BEGIN_SRC emacs-lisp
@@ -74,6 +117,7 @@ Highlight the current line.
 
   (when window-system (set-exec-path-from-shell-PATH))
 #+END_SRC
+
 * Jump to Emacs Config file
 #+BEGIN_SRC emacs-lisp
 (defun caio/find-dotfile ()
@@ -97,7 +141,7 @@ I came from the editor vim, so I use vim bindings with evil.
 #+BEGIN_SRC emacs-lisp
   (use-package evil
     :ensure t
-    :config
+    :init
     (evil-mode 1)
     (use-package evil-commentary
       :ensure t
@@ -107,11 +151,25 @@ I came from the editor vim, so I use vim bindings with evil.
     )
 #+END_SRC
 
+* Git
+
+** Git Gutter
+
+ #+BEGIN_SRC emacs-lisp :result silent
+   (use-package git-gutter-fringe
+     :ensure t
+     :init
+     (global-git-gutter-mode)
+     :config
+     (setq git-gutter-fr:side 'right-fringe)
+   )
+ #+END_SRC
+
 * Setup EditorConfig
 #+BEGIN_SRC emacs-lisp
   (use-package editorconfig
     :ensure t
-    :config
+    :init
     (editorconfig-mode 1)
     )
 #+END_SRC
@@ -141,8 +199,69 @@ I came from the editor vim, so I use vim bindings with evil.
      ))
 #+END_SRC
 
+* Setup Flycheck
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :init
+    (global-flycheck-mode)
+    (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+    (add-hook 'flycheck-mode-hook #'my/use-flow-from-node-modules)
+    (add-hook 'flycheck-mode-hook #'my/use-flow-for-coverage-from-node-modules)
+    )
+
+(defun set-js-executable-paths (var-name exec-path)
+    (let* ((root (locate-dominating-file
+		   (or (buffer-file-name) default-directory)
+		   "node_modules"))
+	    (executable (and root
+			    (expand-file-name exec-path root))))
+	 (when (and executable (file-executable-p executable))
+	   (set var-name executable)))
+    )
+
+  (defun my/use-eslint-from-node-modules ()
+  (set-js-executable-paths 'flycheck-javascript-eslint-executable "node_modules/eslint/bin/eslint.js"))
+  (defun my/use-flow-from-node-modules ()
+  (set-js-executable-paths 'flycheck-javascript-flow-executable "node_modules/.bin/flow"))
+  (defun my/use-flow-for-coverage-from-node-modules ()
+  (set-js-executable-paths 'flycheck-javascript-flow-coverage-executable "node_modules/.bin/flow"))
+
+#+END_SRC
+
+
+* Setup  Company
+#+BEGIN_SRC emacs-lisp
+  (use-package company
+    :config
+    (set (make-local-variable 'company-backends) '(company-files))
+    (add-hook 'after-init-hook 'global-company-mode))
+
+  (use-package popup
+    :ensure t
+    :after company)
+#+END_SRC
 
 * Setup Javascript
+** NVM
+
+#+BEGIN_SRC emacs-lisp
+(use-package nvm
+    :after exec-path-from-shell
+    :config
+    (when (memq window-system '(mac ns x))
+      (exec-path-from-shell-initialize)))
+
+  (use-package flycheck-flow
+    :after flycheck
+    :config
+    (flycheck-add-next-checker 'javascript-flow 'javascript-flow-coverage)
+    )
+
+  (use-package company-flow
+    :after company
+    :config
+    (add-to-list 'company-backends 'company-flow))
+#+END_SRC
 
 ** JSX Mode
 Setup JSX to be available to any =.jsx= files.
@@ -163,6 +282,37 @@ Setup JSX to be available to any =.jsx= files.
     )
 #+END_SRC
 
+** Flow
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck-flow
+    :after flycheck
+    :config
+    (flycheck-add-next-checker 'javascript-flow 'javascript-flow-coverage)
+    )
+
+  (use-package company-flow
+    :after company
+    :config
+    (add-to-list 'company-backends 'company-flow))
+
+#+END_SRC
+
+** Prettier
+
+Required for prettier to be found in local node_modules:
+
+#+BEGIN_SRC emacs-lisp
+    (use-package add-node-modules-path)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package prettier-js
+    :after (add-node-modules-path)
+    :config
+    (add-hook 'js-mode-hook #'add-node-modules-path)
+    (add-hook 'js-mode-hook #'prettier-js-mode))
+#+END_SRC
 
 ** Flycheck
 
@@ -216,6 +366,117 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
     :ensure t)
 #+END_SRC
 
+
+* Setup Projectile
+Projectile is used for project management. It's a great way to access projects quickly. I create a =.projectile= in Dropbox folders I want quick access to and that's really helpful for making sure I can access them without also having to have them in version control or a build file of some sort.
+#+BEGIN_SRC emacs-lisp
+  (use-package projectile
+    :init (projectile-global-mode)
+    )
+
+  (use-package org-projectile
+    :ensure t
+    :after org-mode projectile-mode)
+
+#+END_SRC
+
+* Which-Key
+[[https://github.com/justbur/emacs-which-key]]
+
+#+BEGIN_SRC emacs-lisp
+  (use-package which-key
+    :config
+    (which-key-mode)
+    )
+#+END_SRC
+
+* General
+General is key bindings that's useful for key definitions, especially for EViL.
+
+I mostly borrow these bindings as I come across M-x commands I find myself using from the [[https://github.com/syl20bnr/spacemacs/blob/c7a103a772d808101d7635ec10f292ab9202d9ee/layers/%2Bdistributions/spacemacs-base/keybindings.el][spacemacs/keybindings.el]] and the [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#discovering][Spacemacs Docs on Github.]]
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package general
+    :init
+    (general-define-key
+     :prefix "SPC"
+     :non-normal-prefix "M-SPC"
+     :keymaps '(normal insert emacs)
+     ;; unbind SPC and give it a title for which-key (see echo area)
+     "" '(nil :which-key "my lieutenant general prefix")
+
+     "SPC" '(counsel-M-x :which-key "M-x")
+     "/" '(counsel-rg :which-key "rg")
+
+     "b" '(nil :which-key "buffer")
+     "bb" '(ivy-switch-buffer :which-key "switch buffer")
+     "bk" '(kill-buffer :which-key "kill buffer")
+     "be" '(eval-buffer :which-key "evaluate buffer")
+     "br" '(revert-buffer :which-key "revert buffer")
+
+     "f" '(nil :which-key "file")
+     "ff" '(counsel-find-file :which-key "find file")
+     "fed" '(caio/find-dotfile :which-key "open dotfile")
+     "fop" '(caio/find-planner :which-key "open planner.org")
+
+     "g" '(nil :which-key "git")
+     "hdf" '(describe-function :which-key "describe function")
+     "hdv" '(describe-variable :which-key "describe variable")
+
+     "o" '(nil :which-key "org-mode")
+     "oc" '(org-capture :which-key "org capture")
+
+     "p" '(nil :which-key "projects")
+     "pp" '(counsel-projectile-switch-project :which-key "switch project")
+     "pf" '(counsel-projectile-find-file :which-key "find file in project")
+     "p/" '(counsel-projectile-rg :which-key "search project")
+
+     "w" '(nil :which-key "windows")
+     "wo" '(other-window :which-key "focus other window")
+     "wd" '(delete-window :which-key "delete window")
+     "w=" '(balance-windows :which-key "balance windows")
+     "wD" '(delete-other-windows :which-key "delete other windows")
+     "wv" '(split-window-right :which-key "split vertical")
+     "ws" '(split-window-below :which-key "split below")
+     "wh" '(evil-window-left :which-key "focus left")
+     "w <left>" '(evil-window-left :which-key "focus left")
+     "wj" '(evil-window-down :which-key "focus down")
+     "w <down>" '(evil-window-down :which-key "focus down")
+     "wk" '(evil-window-up :which-key "focus up")
+     "w <up>" '(evil-window-up :which-key "focus up")
+     "wl" '(evil-window-right :which-key "focus right")
+     "w <right>" '(evil-window-right :which-key "focus right")
+
+     "y" '(nil :which-key "yasnippet")
+     "yn" '(yas-new-snippet :which-key "new snippet")
+     ))
+#+END_SRC
+
+* Diminish
+Clean up mode-line by removing a bunch of minor modes I anticipate to be there anyways
+#+BEGIN_SRC emacs-lisp
+  (use-package diminish
+    :config
+    (diminish 'flycheck-mode)
+    (diminish 'projectile-mode)
+    (diminish 'undo-tree-mode)
+    (diminish 'which-key-mode)
+    (diminish 'evil-org-mode)
+    (diminish 'org-mode)
+    (diminish 'rainbow-mode)
+    (diminish 'yas-minor-mode)
+    ;; (diminish 'editorconfig-mode)
+    ;; (diminish 'git-gutter-mode)
+    (diminish 'company-mode)
+    (diminish 'auto-revert-mode)
+    (diminish 'ivy-mode)
+    (diminish 'eldoc-mode)
+    )
+#+END_SRC
+
+* Random
+
 #+BEGIN_SRC emacs-lisp
 
   (global-set-key (kbd "C-c c") 'org-capture)
@@ -235,83 +496,61 @@ Setup check for local eslint and flow executables for flycheck. *This needs to b
   (set-face-attribute 'default nil :family "Fira Code" :height 120)
 #+END_SRC
 
-* UI
+#+BEGIN_SRC emacs-lisp
+  ;; markdown support
+  (use-package markdown-mode
+    :mode (("README\\.md\\'" . gfm-mode)
+	   ("\\.md\\'" . markdown-mode)
+	   ("\\.markdown\\'" . markdown-mode))
+    :init (setq markdown-command "multimarkdown"))
 
+  (use-package homebrew-mode)
+
+  (use-package web-mode)
+
+  (use-package lua-mode)
+
+  (use-package json-mode)
+
+  (use-package hcl-mode)
+
+  (add-to-list 'auto-mode-alist '("main.workflow" . hcl-mode))
+
+  (use-package magit)
+  (use-package evil-magit
+    :after '(evil magit))
+
+  (use-package github-browse-file)
+
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp
- (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-  (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-  (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
-  ;; detach the UI customization that gets appended to the file every save http://emacsblog.org/2008/12/06/quick-tip-detaching-the-custom-file/
-  (setq custom-file (make-temp-file "emacs-custom"))
+  (use-package ivy
+    :config (ivy-mode 1))
 
-  ;; bind escape to keyboard escape (so I don't have to gg when in the mini-buffer, acts more like vim
-  (global-set-key (kbd "<escape>")      'keyboard-escape-quit)
+  (use-package swiper
+    :config (global-set-key (kbd "C-s") 'swiper))
 
-  ;; disable creating backup~ files
-  (setq make-backup-files nil)
-  ;; disable creating #autosave# files
-  (setq auto-save-default nil)
+  (use-package counsel
+    :config
+    (global-set-key (kbd "M-x") 'counsel-M-x)
+    (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+    (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+    (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+    (global-set-key (kbd "<f1> l") 'counsel-find-library)
+    (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+    (global-set-key (kbd "<f2> u") 'counsel-unicode-char))
 
-  (show-paren-mode 1)
-  (add-hook 'prog-mode-hook 'electric-pair-local-mode)
-
-  (setq truncate-lines t word-wrap nil)
-
-  (setq ring-bell-function 'ignore) ;; the bell annoys the h*ck out of me, turn it off
+  (use-package counsel-projectile
+    :config (counsel-projectile-mode 1))
 
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp :results output silent
-  (custom-set-faces
-   '(default ((t :inherit nil :stipple nil :background "#20242D" :foreground "#C7C8FF")))
-   '(hl-line ((t :background "#2D323F")))
-   '(line-number ((t :foreground "#676784")))
+* Load Theme
 
-   '(font-lock-warning-face ((t :foreground "#FF8E8E")))
-   '(font-lock-function-face ((t :foreground "#DD92F6")))
-   '(font-lock-keyword-face ((t :foreground "#DD92F6")))
-   '(font-lock-comment-face ((t :foreground "#59496D")))
-   '(font-lock-string-face ((t :foreground "#7EFDD0")))
-   '(font-lock-type-face ((t :foreground "#DD92F6")))
-
-   '(font-lock-variable-name-face ((t :foreground "#69B4F")))
-
-   '(grep-hit-match ((t :background "#463a56")))
-   '(grep-match-match ((t :background "#463a56")))
-   '(match ((t :background "#463a56")))
-   '(isearch ((t :background "#463a56")))
-
-   '(button ((t :foreground "#69B4F9" :underline t)))
-   '(link ((t :foreground "#69B4F9" :underline t)))
-   '(link-visited ((t :foreground "#DD92F6" :underline t)))
-   '(cursor ((t :background "#DD92F6")))
-   '(show-paren-match ((t :foreground "#20242D" :background "#DD92F6")))
-   '(show-paren-mismatch ((t :foreground "#20242D" :background "#FCAD3F")))
-   '(paren-face-no-match ((t :foreground "#20242D" :background "#FF8E8E")))
-
-   '(rjsx-tag ((t :foreground "#DD92F6")))
-
-   '(org-block ((t :foreground "#C7C8FF")))
-   '(org-block-begin-line ((t :foreground "#DD92F6")))
-   '(org-document-title ((t :foreground "#7EFDD0")))
-   '(org-document-info-keyword ((t :foreground "#0adeff" :weight bold)))
-   '(org-level-1 ((t :foreground "#DD92F6")))
-   '(org-level-2 ((t :foreground "#0adeff")))
-   '(org-level-3 ((t :foreground "#0adeff")))
-   '(org-level-4 ((t :foreground "#0adeff")))
-   '(org-level-5 ((t :foreground "#0adeff")))
-   '(org-level-6 ((t :foreground "#0adeff")))
-   '(org-level-7 ((t :foreground "#0adeff")))
-   '(org-level-8 ((t :foreground "#0adeff")))
-
-   '(dockerfile-image-name ((t :foreground "#7EFDD0")))
-
-   '(mode-line ((t :background "#20242D" :foreground "#C7C8FF")))
-   '(mode-line-inactive ((t :background "#20242D" :foreground "#676784")))
-   '(region ((t :background "#463a56")))
-   )
+I do this last because I can live without my theme if I've broken it but not without the other things I load before it.
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'custom-theme-load-path "~/src/github.com/chaseadamsio/dotfiles/emacs.d/themes")
+  (load-theme 'neon-night t)
 #+END_SRC
-
-#+RESULTS:
