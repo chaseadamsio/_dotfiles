@@ -29,9 +29,9 @@
   (custom-theme-set-faces
    `neon-night
 
-   `(default ((,c :inherit nil :stipple nil :box ,bright-black :background ,bright-black :foreground ,bright-white)))
+   `(default ((,c :inherit nil :stipple nil :background ,bright-black :foreground ,bright-white)))
    `(cursor ((,c :background ,bright-magenta)))
-   `(hl-line ((,c :box ,magenta)))
+   `(hl-line ((,c :background ,grey)))
    `(line-number ((,c :foreground ,mid-magenta)))
    `(fringe ((,c :background ,bright-black)))
    `(lazy-highlight ((,c :background ,mid-magenta)))

@@ -63,7 +63,7 @@ Highlight the current line.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default line-spacing 2)
+  (setq-default line-spacing 3)
 #+END_SRC
 
 * UI
