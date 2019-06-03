@@ -13,6 +13,7 @@
       (black "#1B1E26")
       (grey "#2D323F")
       (magenta "#59496D");;
+      (green "#4D9B80")
       (mid-magenta "#795087")
       (bright-black "#20242D")
       (bright-grey "#676784")
@@ -28,9 +29,9 @@
   (custom-theme-set-faces
    `neon-night
 
-   `(default ((,c :inherit nil :stipple nil :background ,bright-black :foreground ,bright-white)))
+   `(default ((,c :inherit nil :stipple nil :box ,bright-black :background ,bright-black :foreground ,bright-white)))
    `(cursor ((,c :background ,bright-magenta)))
-   `(hl-line ((,c :background ,grey)))
+   `(hl-line ((,c :box ,magenta)))
    `(line-number ((,c :foreground ,mid-magenta)))
    `(fringe ((,c :background ,bright-black)))
    `(lazy-highlight ((,c :background ,mid-magenta)))
@@ -103,11 +104,23 @@
    `(org-code ((,c :foreground ,bright-blue)))
    `(org-verbatim ((,c :foreground ,bright-blue)))
    `(org-link ((,c :foreground ,bright-blue :underline t)))
+   `(org-drawer ((,c :foreground ,bright-cyan)))
+   `(org-ellipsis ((,c :foreground ,bright-yellow :underline t)))
+   `(org-footnote ((,c :foreground ,bright-blue :underline t)))
+
+   `(org-checkbox ((,c :foreground ,bright-white :bold t :weight bold)))
+   `(org-checkbox-statistics-done ((,c :foreground ,bright-green :bold t :weight bold)))
+   `(org-checkbox-statistics-todo ((,c :foreground ,bright-red :bold t :weight bold)))
+   `(org-done ((,c :foreground ,bright-green :bold t :weight bold)))
+   `(org-todo ((,c :foreground ,bright-red :bold t :weight bold)))
+   `(org-headline-done ((,c :foreground ,bright-green :bold t :weight bold)))
+   `(org-date ((,c :foreground ,bright-green)))
+   `(org-date-selected ((,c :foreground ,bright-black :background ,bright-red)))
 
    `(dockerfile-image-name ((,c :foreground ,bright-green)))
 
-   `(mode-line ((,c :background ,bright-black :foreground ,bright-white)))
-   `(mode-line-inactive ((,c :background ,bright-black :foreground ,bright-grey)))
+   `(mode-line ((,c :background ,black :foreground ,bright-white)))
+   `(mode-line-inactive ((,c :background ,black :foreground ,bright-grey)))
    `(region ((,c :background ,magenta)))
 
    `(swiper-line-face ((,c :foreground ,bright-cyan)))
@@ -115,6 +128,10 @@
    `(ivy-current-match ((,c :foreground ,bright-magenta)))
    `(ivy-minibuffer-match-face-1 ((,c :foreground ,bright-magenta :bold t :weight bold)))
    `(ivy-minibuffer-match-face-2 ((,c :foreground ,bright-magenta :bold t :weight bold)))
+   `(ivy-org ((,c :foreground ,bright-white)))
+   `(ivy-confirm-face ((,c :foreground ,bright-green)))
+   `(ivy-match-required-face ((,c :foreground ,bright-red)))
+   `(ivy-remote ((,c :foreground ,bright-black :background ,bright-magenta)))
 
    ;; Dired
    `(dired-directory ((,c :foreground ,bright-blue)))
@@ -148,6 +165,8 @@
    `(git-gutter:deleted ((,c :foreground ,bright-red)))
 
    ;; Doom Modeline
+   `(doom-modeline-bar ((,c :background ,bright-magenta)))
+   `(doom-modeline-inactive-bar ((,c :background ,bright-grey)))
    `(doom-modeline-buffer-major-mode ((,c :foreground ,bright-green)))
    `(doom-modeline-buffer-path ((,c :foreground ,bright-magenta)))
    `(doom-modeline-buffer-file ((,c (:foreground ,bright-magenta))))
@@ -160,6 +179,7 @@
    `(doom-modeline-info ((,c (:foreground ,bright-magenta))))
    `(doom-modeline-urgent ((,c (:foreground ,bright-red))))
    `(doom-modeline-warning ((,c (:foreground ,bright-yellow))))
+   `(doom-modeline-panel ((,c (:box ,bright-magenta))))
 
    `(doom-modeline-evil-emacs-state ((,c (:foreground ,bright-magenta))))
    `(doom-modeline-evil-insert-state ((,c (:foreground ,bright-red))))
@@ -185,10 +205,29 @@
    `(flycheck-error-list-error ((,c :foreground ,bright-red)))
    `(flycheck-fringe-error ((,c :foreground ,bright-red)))
 
+   `(magit-diff-added ((,c :foreground ,bright-green :background ,green)))
+   `(magit-diff-added-highlight ((,c :foreground ,bright-black :background ,green)))
+   `(magit-diff-base ((,c :foreground ,bright-white)))
+
+   ;; highlight-indent-guides
+   `(highlight-indent-guides-character-face ((,c :foreground ,magenta)))
+   `(highlight-indent-guides-even-face ((,c :foreground ,magenta)))
+   `(highlight-indent-guides-odd-face ((,c :foreground ,magenta)))
+   `(highlight-indent-guides-top-character-face ((,c :foreground ,bright-magenta)))
+   `(highlight-indent-guides-top-even-face ((,c :foreground ,bright-magenta)))
+   `(highlight-indent-guides-top-odd-face ((,c :foreground ,bright-magenta)))
+   `(highlight-indent-guides-stack-character-face ((,c :foreground ,bright-magenta)))
+   `(highlight-indent-guides-stack-even-face ((,c :foreground ,bright-magenta)))
+   `(highlight-indent-guides-stack-odd-face ((,c :foreground ,bright-magenta)))
+
+   ;; package
+   `(package-name ((,c :foreground ,bright-magenta :underline t)))
+   `(package-description ((,c :foregronud ,bright-white)))
+   `(package-help-section-name ((,c :foreground ,bright-cyan)))
+
    `(yaml-tab-face ((,c :foreground ,bright-black :background ,bright-red)))
    )
   )
-
 
 ;;;###autoload
 (when load-file-name

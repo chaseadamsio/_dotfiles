@@ -63,7 +63,7 @@ Highlight the current line.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (setq-default line-spacing 3)
+  (setq-default line-spacing 2)
 #+END_SRC
 
 * UI
@@ -76,6 +76,16 @@ Highlight the current line.
     (setq doom-modeline-icon nil)
     )
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (use-package highlight-indent-guides
+    :init
+    (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+    (setq highlight-indent-guides-method 'character)
+    (setq highlight-indent-guides-responsive 'top)
+    )
+#+END_SRC
+
 
 #+BEGIN_SRC emacs-lisp
  (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
@@ -161,8 +171,37 @@ I came from the editor vim, so I use vim bindings with evil.
      :init
      (global-git-gutter-mode)
      :config
-     (setq git-gutter-fr:side 'right-fringe)
-   )
+     (fringe-helper-define 'git-gutter-fr:modified nil
+       "........"
+       "..xxxx.."
+       "..xxxx.."
+       "..xxxx.."
+       "..xxxx.."
+       "..xxxx.."
+       "..xxxx.."
+       "........"
+       )
+     (fringe-helper-define 'git-gutter-fr:added nil
+       "........"
+       "..XXXX.."
+       "..XXXX.."
+       "..XXXX.."
+       "..XXXX.."
+       "..XXXX.."
+       "..XXXX.."
+       "........"
+       )
+     (fringe-helper-define 'git-gutter-fr:deleted nil
+       "........"
+       "..XXXX.."
+       "..XXXX.."
+       "..XXXX.."
+       "..XXXX.."
+       "..XXXX.."
+       "..XXXX.."
+       "........"
+       )
+     )
  #+END_SRC
 
 * Setup EditorConfig
@@ -400,11 +439,11 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
   (use-package general
     :init
     (general-define-key
+     :keymaps '(normal insert emacs motion)
      :prefix "SPC"
      :non-normal-prefix "M-SPC"
-     :keymaps '(normal insert emacs)
      ;; unbind SPC and give it a title for which-key (see echo area)
-     "" '(nil :which-key "my lieutenant general prefix")
+     "" nil
 
      "SPC" '(counsel-M-x :which-key "M-x")
      "/" '(counsel-rg :which-key "rg")
@@ -452,6 +491,8 @@ I mostly borrow these bindings as I come across M-x commands I find myself using
      "yn" '(yas-new-snippet :which-key "new snippet")
      ))
 #+END_SRC
+
+#+RESULTS:
 
 * Diminish
 Clean up mode-line by removing a bunch of minor modes I anticipate to be there anyways
@@ -505,6 +546,8 @@ Clean up mode-line by removing a bunch of minor modes I anticipate to be there a
     :init (setq markdown-command "multimarkdown"))
 
   (use-package homebrew-mode)
+
+  (add-to-list 'auto-mode-alist '("Brewfile" . ruby-mode))
 
   (use-package web-mode)
 
