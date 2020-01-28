@@ -8,7 +8,7 @@ init:
 	test -L $(VSCODECFGDIR)/keybindings.json || ln -s $(PWD)/vscode/keybindings.json $(VSCODECFGDIR)/keybindings.json
 	test -L $(VSCODECFGDIR)/projects.json || ln -s $(PWD)/vscode/projects.json $(VSCODECFGDIR)/projects.json
 	test -d $(VSCODECFGDIR)/snippets || ln -s $(PWD)/vscode/snippets $(VSCODECFGDIR)/snippets
-	test -L $(HOME)/.ssh/config_commons || ln -s $(PWD)/ssh_config_common $(HOME)/.ssh/config_common
+	test -L $(HOME)/.ssh/config_common || ln -s $(PWD)/ssh/config_common $(HOME)/.ssh/config_common
 	test -L $(HOME)/.gitconfig || ln -s $(PWD)/gitconfig $(HOME)/.gitconfig
 
 clean:
