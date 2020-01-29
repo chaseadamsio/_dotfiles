@@ -1,7 +1,7 @@
 VSCODECFGDIR := $(HOME)/Library/Application\ Support/Code/User
 
 init:
-	test -d $(HOME).hammerspoon || ln -s $(PWD)/hammerspoon $(HOME)/.hammerspoon
+	test -d $(HOME)/.hammerspoon || ln -s $(PWD)/hammerspoon $(HOME)/.hammerspoon
 	test -L $(HOME)/.bash_profile || ln -s $(PWD)/bash/bash_profile.bash $(HOME)/.bash_profile
 	test -L $(HOME)/.bashrc || ln -s $(PWD)/bash/bashrc.bash $(HOME)/.bashrc
 	test -L $(VSCODECFGDIR)/settings.json || ln -s $(PWD)/vscode/settings.json $(VSCODECFGDIR)/settings.json
