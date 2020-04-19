@@ -26,6 +26,16 @@ export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 GPG_TTY=$(tty)
 export GPG_TTY
 
+# setup auto-suggestions
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+fpath+=$HOME/.zsh/pure
+autoload -U promptinit; promptinit
+prompt pure
+
+
 setopt null_glob
 
 for file in $DOTFILES/zsh/{aliases,functions}.zsh; do
