@@ -18,4 +18,4 @@ alias godf="cd $DOTFILES"
 alias gogl="cd $WRK/gitlab.com"
 alias gogh="cd $WRK/github.com"
 alias goglca="cd $WRK/gitlab.com/chaseadamsio"
-alias goghca="cd $WRK/github.com/chaseadamsio
+alias goghca="cd $WRK/github.com/chaseadamsio"
