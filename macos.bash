@@ -37,8 +37,6 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 # Dark Menubar and dock but not everything else
 defaults write -g NSRequiresAquaSystemAppearance -bool true
 
-
-
 # Enable the 2D Dock
 defaults write com.apple.dock no-glass -bool true
 # Automatically hide and show the Dock
