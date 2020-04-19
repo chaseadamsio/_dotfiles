@@ -36,5 +36,5 @@ If you're looking at them and you're not me, feel free to use them as a guide.
 - run `brew bundle`
 
 ```sh
-chsh -s $(which bash)
+chsh -s $(which zsh)
 ```
