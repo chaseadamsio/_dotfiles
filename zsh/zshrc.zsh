@@ -12,7 +12,12 @@ export WRK="$GOPATH/src"
 export GHPATH="$WRK/github.com"
 export DOTFILES="$GHPATH/chaseadamsio/dotfiles"
 
-export PATH=/usr/local/bin:/usr/local/sbin:$GOPATH/bin:/usr/local/go/bin:$PATH
+PATH=/usr/local/go/bin:$PATH
+PATH=$GOPATH/bin:$PATH
+PATH=/usr/local/sbin:$PATH
+PATH=/usr/local/bin:$PATH
+PATH=$DOTFILES/bin:$PATH
+export PATH
 
 ### LS ###
 if ls --color > /dev/null 2>&1; then # GNU `ls`
