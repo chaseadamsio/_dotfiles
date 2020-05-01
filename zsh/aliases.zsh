@@ -14,8 +14,8 @@ alias lsd='ls -l ${colorflag} | grep "^d"'
 alias ls="command ls ${colorflag}"
 
 ### SHORTCUTS ###
-alias godf="cd $DOTFILES"
-alias gogl="cd $WRK/gitlab.com"
-alias gogh="cd $WRK/github.com"
-alias goglca="cd $WRK/gitlab.com/chaseadamsio"
-alias goghca="cd $WRK/github.com/chaseadamsio"
+alias godot="cd $DOTFILES_PATH"
+alias gogl="cd $GL_PATH"
+alias gogh="cd $GH_PATH"
+alias goglca="cd $GL_PATH/chaseadamsio"
+alias goghca="cd $GH_PATH/chaseadamsio"
