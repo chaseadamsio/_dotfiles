@@ -8,15 +8,16 @@ HISTSIZE=10000
 SAVEHIST=10000
 
 export GOPATH=$HOME
-export WRK="$GOPATH/src"
-export GHPATH="$WRK/github.com"
-export DOTFILES="$GHPATH/chaseadamsio/dotfiles"
+export WRK_PATH="$GOPATH/src"
+export GH_PATH="$WRK_PATH/github.com"
+export GL_PATH="$WRK_PATH/gitlab.com"
+export DOTFILES_PATH="$GH_PATH/chaseadamsio/dotfiles"
 
 PATH=/usr/local/go/bin:$PATH
 PATH=$GOPATH/bin:$PATH
 PATH=/usr/local/sbin:$PATH
 PATH=/usr/local/bin:$PATH
-PATH=$DOTFILES/bin:$PATH
+PATH=$DOTFILES_PATH/bin:$PATH
 export PATH
 
 ### LS ###
@@ -35,7 +36,7 @@ source <(antibody init)
 
 setopt null_glob
 
-for file in $DOTFILES/zsh/{plugins,aliases,functions}.zsh; do
+for file in $DOTFILES_PATH/zsh/{plugins,aliases,functions}.zsh; do
     source "$file"
 done
 unset file
