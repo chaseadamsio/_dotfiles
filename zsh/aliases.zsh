@@ -19,3 +19,6 @@ alias gogl="cd $GL_PATH"
 alias gogh="cd $GH_PATH"
 alias goglca="cd $GL_PATH/chaseadamsio"
 alias goghca="cd $GH_PATH/chaseadamsio"
+
+# bind emacs to 24 bit TERM if available
+alias emacs="TERM=xterm-24bit emacs -nw"
