@@ -29,6 +29,8 @@ Temporary Items
 .#*
 public_html
 
+tmp
+
 emacs.d/*
 !emacs.d/themes/
 !emacs.d/init.org
