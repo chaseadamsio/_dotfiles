@@ -8,7 +8,7 @@ init:
 	test -L $(VSCODECFGDIR)/projects.json || ln -s $(PWD)/vscode/projects.json $(VSCODECFGDIR)/projects.json
 	test -L $(HOME)/.ssh/config_common || ln -s $(PWD)/ssh/config_common $(HOME)/.ssh/config_common
 	test -L $(HOME)/.gitconfig || ln -s $(PWD)/gitconfig $(HOME)/.gitconfig
-
+	test -d $(HOME)/.emacs.d || ln -s $(PWD)/emacs.d $(HOME)/.emacs.d
 clean:
 	rm -rf $(HOME)/.zshrc
 	rm -rf $(HOME)/.hammerspoon
