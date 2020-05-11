@@ -66,7 +66,9 @@
 ;;; begin language packages
 (defun caio-pkg-markdown ()
   (use-package markdown-mode
-    :ensure t))
+    :ensure t
+    :commands (markdown-mode gfm-mode)
+    :init (setq markdown-command "multimarkdown")))
 (caio-pkg-markdown)
 
 (defun caio-pkg-lua ()
