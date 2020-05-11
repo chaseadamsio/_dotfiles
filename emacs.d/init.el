@@ -182,6 +182,11 @@
     :ensure t))
 (caio-pkg-vue)
 
+(defun caio-pkg-k8s ()
+  (use-package k8s-mode
+    :ensure t))
+(caio-pkg-k8s)
+
 ;;; end language packages
 
 (defun caio-setup-arduino ()
