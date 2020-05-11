@@ -247,3 +247,8 @@
   (use-package rg
     :ensure t))
 (caio-setup-ripgrep)
+
+(defun caio-setup-gitignore ()
+  (use-package gitignore-mode
+    :ensure t))
+(caio-setup-gitignore)
