@@ -33,6 +33,5 @@ tmp
 
 emacs.d/*
 !emacs.d/themes/
-!emacs.d/init.org
-!emacs.d/configuration.org
+!emacs.d/init.el
 !emacs.d/snippets/
