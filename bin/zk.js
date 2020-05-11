@@ -6,13 +6,10 @@ const path = require("path");
 const child_process = require("child_process");
 const fs = require("fs");
 
-if (!process.argv[2]) {
-  throw new Error(
-    `zk requires a string wrapped in " " as an argument for a note title.`
-  );
+let note_title = "";
+if (process.argv[2]) {
+  note_title = process.argv[2];
 }
-
-const note_title = process.argv[2];
 
 const NOTEBOOK_DIR = path.join(require("os").homedir(), "Dropbox", "notebook");
 const INBOX_DIR = path.join(NOTEBOOK_DIR, "!inbox");
