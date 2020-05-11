@@ -120,7 +120,8 @@
 
 (defun caio-pkg-jsx ()
   (use-package rjsx-mode
-    :ensure t))
+    :ensure t
+    :mode "\\.js\\'"))
 (caio-pkg-jsx)
 
 (defun caio-setup-hl-todo ()
@@ -143,11 +144,14 @@
     ;; TODO: get eslint --fix working with this (quotes should update to backticks)
   (use-package prettier-js
     :ensure t
+    :after (rjsx-mode)
+    :hook (rjsx-mode . prettier-js-mode))
+  (use-package flow-minor-mode
+    :ensure t
     :config
-    (add-hook 'json-mode-hook 'prettier-js-mode)
-    (add-hook 'markdown-mode-hook 'prettier-js-mode)
-    (add-hook 'web-mode-hook 'prettier-js-mode)
-    (add-hook 'js-mode-hook 'prettier-js-mode)))
+    (add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
+    (with-eval-after-load 'company
+      (add-to-list 'company-backends 'company-flow))))
 (caio-setup-js)
 
 
@@ -163,13 +167,8 @@
 (defun caio-pkg-tide ()
   (use-package tide
     :ensure t
-    :config
-    (progn
-      (company-mode +1)
-      (setq company-tooltip-align-annotations t)
-      (add-hook 'typescript-mode-hook #'setup-tide-mode)
-      (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-mode))
-      )))
+    :after (rjsx-mode company flycheck)
+    :hook (rjsx-mode . caio-setup-tide)))
 (caio-pkg-tide)
 (defun caio-pkg-mmm ()
   "mmm is required for vue"
