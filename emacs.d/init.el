@@ -172,7 +172,7 @@
     :ensure t
     :after (rjsx-mode company flycheck)
     :hook (rjsx-mode . caio-setup-tide)))
-(caio-pkg-tide)
+;;(caio-pkg-tide) ;; disabled because I don't know that I get much from tide for JS right now
 
 (defun my-mmm-markdown-auto-class (lang &optional submode)
   "Define a mmm-mode class for LANG in `markdown-mode' using SUBMODE.
