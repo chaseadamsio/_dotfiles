@@ -170,10 +170,27 @@
     :after (rjsx-mode company flycheck)
     :hook (rjsx-mode . caio-setup-tide)))
 (caio-pkg-tide)
+
+(defun my-mmm-markdown-auto-class (lang &optional submode)
+  "Define a mmm-mode class for LANG in `markdown-mode' using SUBMODE.
+If SUBMODE is not provided, use `LANG-mode' by default."
+  (let ((class (intern (concat "markdown-" lang)))
+	(submode (or submode (intern (concat lang "-mode"))))
+	(front (concat "^```" lang "[\n\r]+"))
+	(back "^```"))
+    (mmm-add-classes (list (list class :submode submode :front front :back back)))
+    (mmm-add-mode-ext-class 'markdown-mode nil class)))
+
 (defun caio-pkg-mmm ()
   "mmm is required for vue"
   (use-package mmm-mode
-    :ensure t))
+    :ensure t
+    :config
+    ;; Mode names that derive directly from the language name
+    (mapc 'my-mmm-markdown-auto-class
+	  '("awk" "css" "html" "lisp" "makefile"
+	    "markdown" "python" "go" "ruby" "xml" "json" "yaml" "js"))
+    (setq mmm-parse-when-idle 't)))
 (caio-pkg-mmm)
 
 (defun caio-pkg-vue ()
