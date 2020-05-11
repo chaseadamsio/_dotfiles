@@ -252,3 +252,15 @@
   (use-package gitignore-mode
     :ensure t))
 (caio-setup-gitignore)
+
+(defun caio-setup-projectile ()
+  (use-package projectile
+    :ensure t)
+
+  (use-package counsel-projectile
+    :ensure t
+    :init
+    (counsel-projectile-mode 1)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
+(caio-setup-projectile)
+
