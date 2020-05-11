@@ -130,6 +130,7 @@
   (use-package hl-todo
     :ensure t
     :config
+    (hl-todo-mode 1)
     (setq hl-todo-keyword-faces
     '(("TODO"   . "#e61f44")) ;; https://github.com/hlissner/emacs-doom-themes/blob/master/themes/doom-outrun-electric-theme.el#L51
     )))
