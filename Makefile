@@ -22,4 +22,4 @@ clean:
 	rm -rf $(HOME)/.hammerspoon
 	rm -rf $(HOME)/.ssh/config
 	rm -rf $(HOME)/.gitconfig
-	rm -rf $(HOME)/.emacs.d
+	rm -rf $(HOME)/.emacs.d/init.el
