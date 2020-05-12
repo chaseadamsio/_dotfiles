@@ -381,7 +381,7 @@ https://github.com/justbur/emacs-which-key
     :ensure t
     :config
     (which-key-mode)
-    (setq which-key-idle-delay .3)
+    (setq which-key-idle-delay .1)
     )
 #+end_src
 
