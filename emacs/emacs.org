@@ -1,5 +1,5 @@
 #+TITLE: Emacs Config
-
+#+PROPERTY: header-args :results output silent
 
 #+begin_src emacs-lisp
 (defun caio-setup-package-archives ()
