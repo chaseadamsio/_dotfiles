@@ -385,6 +385,71 @@ https://github.com/justbur/emacs-which-key
     )
 #+end_src
 
+** General
+General is key bindings that's useful for key definitions, especially for EViL.
+
+I mostly borrow these bindings as I come across M-x commands I find myself using from the [[https://github.com/syl20bnr/spacemacs/blob/c7a103a772d808101d7635ec10f292ab9202d9ee/layers/%2Bdistributions/spacemacs-base/keybindings.el][spacemacs/keybindings.el]] and the [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#discovering][Spacemacs Docs on Github.]]
+
+#+begin_src emacs-lisp
+  (use-package general
+    :ensure t
+    :init
+    (general-define-key
+     :prefix "SPC"
+     :non-normal-prefix "M-SPC"
+     :keymaps '(normal insert emacs)
+     ;; unbind SPC and give it a title for which-key (see echo area)
+     "" '(nil :which-key "my lieutenant general prefix")
+
+     "SPC" '(counsel-M-x :which-key "M-x")
+     "/" '(counsel-rg :which-key "rg")
+
+     "b" '(nil :which-key "buffer")
+     "bb" '(ivy-switch-buffer :which-key "switch buffer")
+     "bk" '(kill-buffer :which-key "kill buffer")
+     "be" '(eval-buffer :which-key "evaluate buffer")
+     "br" '(revert-buffer :which-key "revert buffer")
+
+     "f" '(nil :which-key "file")
+     "ff" '(counsel-find-file :which-key "find file")
+     "fed" '(caio/find-dotfile :which-key "open dotfile")
+
+     "g" '(nil :which-key "git")
+     "gs" '(magit-status :which-key "status")
+
+     "h" '(nil :which-key "help")
+     "hd" '(nil :which-key "help describe")
+     "hdf" '(describe-function :which-key "describe function")
+     "hdv" '(describe-variable :which-key "describe variable")
+
+     "o" '(nil :which-key "org-mode")
+     "oc" '(org-capture :which-key "org capture")
+
+     "p" '(nil :which-key "projects")
+     "pp" '(counsel-projectile-switch-project :which-key "switch project")
+     "pf" '(counsel-projectile-find-file :which-key "find file in project")
+     "p/" '(counsel-projectile-rg :which-key "search project")
+
+     "w" '(nil :which-key "windows")
+     "wo" '(other-window :which-key "focus other window")
+     "wd" '(delete-window :which-key "delete window")
+     "w=" '(balance-windows :which-key "balance windows")
+     "wD" '(delete-other-windows :which-key "delete other windows")
+     "wv" '(split-window-right :which-key "split vertical")
+     "ws" '(split-window-below :which-key "split below")
+     "wh" '(evil-window-left :which-key "focus left")
+     "w <left>" '(evil-window-left :which-key "focus left")
+     "wj" '(evil-window-down :which-key "focus down")
+     "w <down>" '(evil-window-down :which-key "focus down")
+     "wk" '(evil-window-up :which-key "focus up")
+     "w <up>" '(evil-window-up :which-key "focus up")
+     "wl" '(evil-window-right :which-key "focus right")
+     "w <right>" '(evil-window-right :which-key "focus right")
+
+     "y" '(nil :which-key "yasnippet")
+     "yn" '(yas-new-snippet :which-key "new snippet")
+     ))
+#+end_src
 
 * Random
 
