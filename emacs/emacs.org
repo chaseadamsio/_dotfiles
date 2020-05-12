@@ -357,3 +357,9 @@ If SUBMODE is not provided, use `LANG-mode' by default."
   (use-package ssh-config-mode
     :ensure t)
 #+end_src
+
+#+begin_src emacs-lisp
+  (use-package homebrew-mode
+    :ensure t)
+#+end_src
+
