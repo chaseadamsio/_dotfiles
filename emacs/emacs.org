@@ -363,3 +363,13 @@ If SUBMODE is not provided, use `LANG-mode' by default."
     :ensure t)
 #+end_src
 
+
+#+begin_src emacs-lisp
+  (use-package tramp
+    :ensure t)
+  (use-package docker-tramp
+    :after tramp
+    :ensure t)
+#+end_src
+
+
