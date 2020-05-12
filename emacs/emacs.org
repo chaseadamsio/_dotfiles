@@ -373,3 +373,15 @@ If SUBMODE is not provided, use `LANG-mode' by default."
 #+end_src
 
 
+* Command Palette
+** Which Key
+https://github.com/justbur/emacs-which-key
+#+begin_src emacs-lisp
+  (use-package which-key
+    :ensure t
+    :config
+    (which-key-mode)
+    (setq which-key-idle-delay .3)
+    )
+#+end_src
+
