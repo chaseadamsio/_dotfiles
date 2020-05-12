@@ -206,6 +206,11 @@ If SUBMODE is not provided, use `LANG-mode' by default."
     :ensure t))
 (caio-pkg-k8s)
 
+(defun caio-pkg-terraform ()
+    (use-package terraform-mode
+      :ensure t))
+(caio-pkg-terraform)
+
 (defun caio-pkg-hcl ()
     (use-package hcl-mode
       :ensure t))
