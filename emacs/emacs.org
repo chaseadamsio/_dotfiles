@@ -385,3 +385,13 @@ https://github.com/justbur/emacs-which-key
     )
 #+end_src
 
+
+* Random
+
+* Jump to Emacs Config file
+#+BEGIN_SRC emacs-lisp
+(defun caio/find-dotfile ()
+    "Edit the 'dotfile' in the current window."
+    (interactive)
+    (find-file-existing "~/src/github.com/chaseadamsio/dotfiles/emacs/emacs.org"))
+#+END_SRC
