@@ -1,13 +1,20 @@
+#+TITLE: Emacs Config
+#+PROPERTY: header-args :results output silent
+
+#+begin_src emacs-lisp
 (defun caio-setup-package-archives ()
   (setq package-enable-at-startup nil)
   (setq package-archives
 	'(
 	  ("elpa" . "https://elpa.gnu.org/packages/")
 	  ("melpa" . "https://melpa.org/packages/")
-	  ("marmalade" .  "http://marmalade-repo.org/packages/")
 	  ))
   (package-initialize))
 (caio-setup-package-archives)
+
+#+end_src
+
+#+begin_src emacs-lisp
 
 (defun caio-setup-use-package ()
   "install use-package if it's not installed"
@@ -247,6 +254,11 @@ If SUBMODE is not provided, use `LANG-mode' by default."
   )
 (caio-setup-ui)
 
+(defun caio-setup-yasnippet ()
+  (use-package yasnippet
+    :ensure t))
+(caio-setup-yasnippet)
+
 (defun caio-setup-keybindings ()
   ;; bind escape to keyboard escape (so I don't have to gg when in the mini-buffer, acts more like vim
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit))
@@ -298,3 +310,153 @@ If SUBMODE is not provided, use `LANG-mode' by default."
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)))
 (caio-setup-projectile)
 
+(defun caio-setup-org ()
+  ;;; https://github.com/syl20bnr/spacemacs/issues/11798#issuecomment-454941024
+  (when (version<= "9.2" (org-version))
+    (require 'org-tempo))
+  (use-package ob-rust
+    :ensure t)
+  (use-package ob-http
+    :ensure t)
+  (use-package ob-go
+    :ensure t)
+  (use-package ob-graphql
+    :ensure t)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((js . t)
+     (sass . t)
+     (css . t)
+     (shell . t)
+     (rust . t)
+     (http . t)
+     (go . t)
+     (graphql . t)
+     ))
+  )
+(caio-setup-org)
+
+;;; init ends here
+
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package gitattributes-mode
+    :ensure t)
+  (use-package gitconfig-mode
+    :ensure t)
+  (use-package gitignore-mode
+    :ensure t
+    :config
+    (add-to-list
+     'auto-mode-alist
+     (cons "/.dockerignore\\'" 'gitignore-mode)))
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package ssh-config-mode
+    :ensure t)
+#+end_src
+
+#+begin_src emacs-lisp
+  (use-package homebrew-mode
+    :ensure t)
+#+end_src
+
+
+#+begin_src emacs-lisp
+  (use-package tramp
+    :ensure t)
+  (use-package docker-tramp
+    :after tramp
+    :ensure t)
+#+end_src
+
+
+* Command Palette
+** Which Key
+https://github.com/justbur/emacs-which-key
+#+begin_src emacs-lisp
+  (use-package which-key
+    :ensure t
+    :config
+    (which-key-mode)
+    (setq which-key-idle-delay .1)
+    )
+#+end_src
+
+** General
+General is key bindings that's useful for key definitions, especially for EViL.
+
+I mostly borrow these bindings as I come across M-x commands I find myself using from the [[https://github.com/syl20bnr/spacemacs/blob/c7a103a772d808101d7635ec10f292ab9202d9ee/layers/%2Bdistributions/spacemacs-base/keybindings.el][spacemacs/keybindings.el]] and the [[https://github.com/syl20bnr/spacemacs/blob/master/doc/DOCUMENTATION.org#discovering][Spacemacs Docs on Github.]]
+
+#+begin_src emacs-lisp
+  (use-package general
+    :ensure t
+    :init
+    (general-define-key
+     :prefix "SPC"
+     :non-normal-prefix "M-SPC"
+     :keymaps '(normal insert emacs)
+     ;; unbind SPC and give it a title for which-key (see echo area)
+     "" '(nil :which-key "my lieutenant general prefix")
+
+     "SPC" '(counsel-M-x :which-key "M-x")
+     "/" '(counsel-rg :which-key "rg")
+
+     "b" '(nil :which-key "buffer")
+     "bb" '(ivy-switch-buffer :which-key "switch buffer")
+     "bk" '(kill-buffer :which-key "kill buffer")
+     "be" '(eval-buffer :which-key "evaluate buffer")
+     "br" '(revert-buffer :which-key "revert buffer")
+
+     "f" '(nil :which-key "file")
+     "ff" '(counsel-find-file :which-key "find file")
+     "fed" '(caio/find-dotfile :which-key "open dotfile")
+
+     "g" '(nil :which-key "git")
+     "gs" '(magit-status :which-key "status")
+
+     "h" '(nil :which-key "help")
+     "hd" '(nil :which-key "help describe")
+     "hdf" '(describe-function :which-key "describe function")
+     "hdv" '(describe-variable :which-key "describe variable")
+
+     "o" '(nil :which-key "org-mode")
+     "oc" '(org-capture :which-key "org capture")
+
+     "p" '(nil :which-key "projects")
+     "pp" '(counsel-projectile-switch-project :which-key "switch project")
+     "pf" '(counsel-projectile-find-file :which-key "find file in project")
+     "p/" '(counsel-projectile-rg :which-key "search project")
+
+     "w" '(nil :which-key "windows")
+     "wo" '(other-window :which-key "focus other window")
+     "wd" '(delete-window :which-key "delete window")
+     "w=" '(balance-windows :which-key "balance windows")
+     "wD" '(delete-other-windows :which-key "delete other windows")
+     "wv" '(split-window-right :which-key "split vertical")
+     "ws" '(split-window-below :which-key "split below")
+     "wh" '(evil-window-left :which-key "focus left")
+     "w <left>" '(evil-window-left :which-key "focus left")
+     "wj" '(evil-window-down :which-key "focus down")
+     "w <down>" '(evil-window-down :which-key "focus down")
+     "wk" '(evil-window-up :which-key "focus up")
+     "w <up>" '(evil-window-up :which-key "focus up")
+     "wl" '(evil-window-right :which-key "focus right")
+     "w <right>" '(evil-window-right :which-key "focus right")
+
+     "y" '(nil :which-key "yasnippet")
+     "yn" '(yas-new-snippet :which-key "new snippet")
+     ))
+#+end_src
+
+* Random
+
+* Jump to Emacs Config file
+#+BEGIN_SRC emacs-lisp
+(defun caio/find-dotfile ()
+    "Edit the 'dotfile' in the current window."
+    (interactive)
+    (find-file-existing "~/src/github.com/chaseadamsio/dotfiles/emacs/emacs.org"))
+#+END_SRC

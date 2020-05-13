@@ -1,7 +1,12 @@
+#+TITLE: SSH
+#+PROPERTY: header-args :tangle "~/.ssh/config"
+
+#+begin_src ssh-config
 Host gitlab.com
     IdentityFile ~/.ssh/gitlab.key
     User git
-    
+
 Host github.com
     IdentityFile ~/.ssh/github.key
     User git
+#+end_src

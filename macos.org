@@ -1,13 +1,22 @@
-# close any System Preferences panes
+#+TITLE: MacOS Defaults
+
+close any System Preferences panes:
+#+begin_src shell 
 osascript -e 'tell application "System Preferences" to quit'
+#+end_src
+
+Screenshots:
+#+begin_src shell
 mkdir -p ~/Documents/screenshots # setup screenshots folder for later
-### SCREENSHOTS ###
 # set screenshot location
 defaults write com.apple.screencapture location ~/Documents/screenshots;
 # disable screenshot shadow
 defaults write com.apple.screencapture disable-shadow -bool TRUE;
 # set type to png
 defaults write com.apple.screencapture type png
+#+end_src
+
+#+begin_src shell
 ### MISC ###
 # set menubar clock to prefered 24 hr time
 defaults write NSGlobalDomain AppleICUForce12HourTime -bool false
@@ -65,3 +74,4 @@ defaults write com.apple.iCal "n days of week" -int 7
 defaults write com.apple.iCal "first day of week" -int 1
 # Show event times
 defaults write com.apple.iCal "Show time in Month View" -bool true
+#+end_src
