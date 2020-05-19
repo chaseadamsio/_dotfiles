@@ -1,3 +1,5 @@
+#![warn(clippy::all)]
+
 use chrono::prelude::*;
 use dirs::home_dir;
 use regex::Regex;
@@ -41,10 +43,10 @@ fn main() {
 
 fn slugify_title(title: String) -> String {
     let re = Regex::new(r"[\W_]+").unwrap();
-    return re.replace_all(title.to_lowercase().trim(), "-").to_string();
+    re.replace_all(title.to_lowercase().trim(), "-").to_string()
 }
 
-fn create_file(path: &Path, contents: &String) {
+fn create_file(path: &Path, contents: &str) {
     let display = path.display();
 
     let mut file = match File::create(&path) {
