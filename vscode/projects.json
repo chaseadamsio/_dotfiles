@@ -6,20 +6,14 @@
     "group": ""
   },
   {
-    "name": "chaseonsoftware.com",
-    "rootPath": "$home/src/github.com/chaseadamsio/chaseonsoftware.com",
+    "name": "chaseadams.io",
+    "rootPath": "$home/src/github.com/chaseadamsio/chaseadams.io",
     "paths": [],
     "group": ""
   },
   {
     "name": "Dropbox",
     "rootPath": "$home/Dropbox",
-    "paths": [],
-    "group": ""
-  },
-  {
-    "name": "chaseonsoftware.com content",
-    "rootPath": "$home/Dropbox/Apps/chaseadams.io",
     "paths": [],
     "group": ""
   }

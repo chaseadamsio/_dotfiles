@@ -1,5 +1,9 @@
 #+TITLE: Homebrew
 
+#+begin_src sh
+  brew install guile
+#+end_src
+
 #+begin_src homebrew
   cask "visual-studio-code"
   cask "google-chrome"

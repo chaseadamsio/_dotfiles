@@ -19,6 +19,9 @@
     "editor.formatOnSave": false,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "emmet.includeLanguages": {
+    "nunjucks": "html"
+  },
   "[asciidoc]": {
     "editor.foldingStrategy": "indentation",
     "editor.lineNumbers": "off"
@@ -61,27 +64,20 @@
   "files.associations": {
     "*.css": "postcss",
     "Brewfile": "ruby",
-    "*.alfredappearance": "json"
+    "*.alfredappearance": "json",
+    ".md": "mdx"
   },
   "vim.hlsearch": true,
   "vim.leader": "<space>",
   "vim.insertModeKeyBindings": [
     {
-      "before": [
-        "j",
-        "j"
-      ],
-      "after": [
-        "<Esc>"
-      ]
+      "before": ["j", "j"],
+      "after": ["<Esc>"]
     }
   ],
   "vim.normalModeKeyBindings": [
     {
-      "before": [
-        "<leader>",
-        "<leader>"
-      ],
+      "before": ["<leader>", "<leader>"],
       "after": [],
       "commands": [
         {
@@ -91,10 +87,7 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        "b"
-      ],
+      "before": ["<leader>", "b"],
       "after": [],
       "commands": [
         {
@@ -104,11 +97,7 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        "g",
-        "s"
-      ],
+      "before": ["<leader>", "g", "s"],
       "after": [],
       "commands": [
         {
@@ -118,11 +107,7 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        "f",
-        "f"
-      ],
+      "before": ["<leader>", "f", "f"],
       "after": [],
       "commands": [
         {
@@ -132,11 +117,7 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        "p",
-        "p"
-      ],
+      "before": ["<leader>", "p", "p"],
       "after": [],
       "commands": [
         {
@@ -146,11 +127,7 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        "p",
-        "e"
-      ],
+      "before": ["<leader>", "p", "e"],
       "after": [],
       "commands": [
         {
@@ -160,11 +137,7 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        "p",
-        "f"
-      ],
+      "before": ["<leader>", "p", "f"],
       "after": [],
       "commands": [
         {
@@ -174,11 +147,7 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        "m",
-        "t"
-      ],
+      "before": ["<leader>", "m", "t"],
       "after": [],
       "commands": [
         {
@@ -188,10 +157,7 @@
       ]
     },
     {
-      "before": [
-        "<leader>",
-        "'"
-      ],
+      "before": ["<leader>", "'"],
       "after": [],
       "commands": [
         {
@@ -209,10 +175,7 @@
   "extensions.showRecommendationsOnlyOnDemand": true,
   /* DEMO/Screencast settings (defaults for me) */
   // "workbench.activityBar.visible": true,
-  "editor.rulers": [
-    80,
-    120
-  ],
+  "editor.rulers": [80, 120],
   "editor.minimap.enabled": false,
   "workbench.editor.showIcons": false,
   "[javascript]": {
@@ -221,7 +184,14 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "workbench.colorTheme": "Neon Night"
+  "workbench.colorTheme": "Neon Night",
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "rust.clippy_preference": "on"
   /* DEMO/Screencast settings */
   // "window.zoomLevel": 2,
   // "workbench.statusBar.visible": false,
