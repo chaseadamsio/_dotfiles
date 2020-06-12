@@ -1,13 +1,13 @@
 [
   {
     "name": "dotfiles",
-    "rootPath": "$home/src/github.com/chaseadamsio/dotfiles",
+    "rootPath": "$home/src/gitlab.com/chaseadamsio/dotfiles",
     "paths": [],
     "group": ""
   },
   {
     "name": "chaseadams.io",
-    "rootPath": "$home/src/github.com/chaseadamsio/chaseadams.io",
+    "rootPath": "$home/src/gitlab.com/chaseadamsio/chaseadams.io",
     "paths": [],
     "group": ""
   },
