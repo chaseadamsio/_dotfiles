@@ -184,14 +184,14 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "workbench.colorTheme": "Neon Night",
   "[scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "rust.clippy_preference": "on"
+  "rust.clippy_preference": "on",
+  "workbench.colorTheme": "Neon Night"
   /* DEMO/Screencast settings */
   // "window.zoomLevel": 2,
   // "workbench.statusBar.visible": false,

@@ -1,8 +1,0 @@
-#+TITLE: Rust
-
-Install =rustup=:
-
-#+begin_src shell 
-curl https://sh.rustup.rs -sSf | sh
-#+end_src
-

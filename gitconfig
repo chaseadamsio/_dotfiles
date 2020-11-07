@@ -1,7 +1,3 @@
-#+TITLE: gitconfig
-#+PROPERTY: header-args :tangle "~/.gitconfig"
-
-#+begin_src gitconfig
 [alias]
     b = branch
     rv = remote -v
@@ -76,6 +72,3 @@
 
 [includeIf "gitdir:~/src/github.com/webflow/**"]
     path = ~/.gitconfig.webflow.local
-
-
-#+end_src

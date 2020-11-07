@@ -1,12 +1,7 @@
-#+TITLE: MacOS Defaults
+#!/bin/bash
 
-close any System Preferences panes:
-#+begin_src shell 
 osascript -e 'tell application "System Preferences" to quit'
-#+end_src
 
-Screenshots:
-#+begin_src shell
 mkdir -p ~/Documents/screenshots # setup screenshots folder for later
 # set screenshot location
 defaults write com.apple.screencapture location ~/Documents/screenshots;
@@ -14,9 +9,7 @@ defaults write com.apple.screencapture location ~/Documents/screenshots;
 defaults write com.apple.screencapture disable-shadow -bool TRUE;
 # set type to png
 defaults write com.apple.screencapture type png
-#+end_src
 
-#+begin_src shell
 ### MISC ###
 # set menubar clock to prefered 24 hr time
 defaults write NSGlobalDomain AppleICUForce12HourTime -bool false
@@ -43,8 +36,6 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 defaults write NSGlobalDomain KeyRepeat -int 2
 # Finder: show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-# Dark Menubar and dock but not everything else
-defaults write -g NSRequiresAquaSystemAppearance -bool true
 
 # Enable the 2D Dock
 defaults write com.apple.dock no-glass -bool true
@@ -61,7 +52,7 @@ defaults write com.apple.dock show-process-indicators -bool true
 # Don’t animate opening applications from the Dock
 defaults write com.apple.dock launchanim -bool false
 # empty the dock of any pre-defined apps
-defaults read com.apple.dock persistent-apps
+defaults delete com.apple.dock persistent-apps
 # clean up right side (persistent)
 defaults delete com.apple.dock persistent-others
 killall Dock
@@ -74,4 +65,3 @@ defaults write com.apple.iCal "n days of week" -int 7
 defaults write com.apple.iCal "first day of week" -int 1
 # Show event times
 defaults write com.apple.iCal "Show time in Month View" -bool true
-#+end_src
