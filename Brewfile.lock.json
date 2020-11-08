@@ -96,6 +96,30 @@
         "options": {
           "full_name": "font-fira-code"
         }
+      },
+      "discord": {
+        "version": "0.0.259",
+        "options": {
+          "full_name": "discord"
+        }
+      },
+      "karabiner-elements": {
+        "version": "13.1.0",
+        "options": {
+          "full_name": "karabiner-elements"
+        }
+      },
+      "slack": {
+        "version": "4.10.3",
+        "options": {
+          "full_name": "slack"
+        }
+      },
+      "keybase": {
+        "version": "5.5.0-20200526170801,139bb348af",
+        "options": {
+          "full_name": "keybase"
+        }
       }
     },
     "tap": {
@@ -225,7 +249,7 @@
       "catalina": {
         "HOMEBREW_VERSION": "2.5.8",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "a8c2ebb8431d5d4ce1a7d5c439b2811c9bfe2fa3",
+        "Homebrew/homebrew-core": "7106cbc2a9586ebc77aab6268545125805c0ed34",
         "CLT": "12.2.0.0.1.1603499129",
         "Xcode": "12.0",
         "macOS": "10.15.7"
