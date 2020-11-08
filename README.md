@@ -1,23 +1,23 @@
-#+TITLE: dotfiles
+# Dotfiles
 
 These are my dotfiles. They've changed a lot over time and will likely change a lot more over time.
 
 If you're looking at them and you're not me, feel free to use them as a guide.
 
-* Setup
+## Setup
 
 - Clone dotfiles:
 
-#+BEGIN_SRC bash
+```bash
 mkdir -p $HOME/src/github.com/chaseadamsio
 git clone git@github.com:chaseadamsio/dotfiles.git
-#+END_SRC
+```
 
 - Symlink files
 
 - Install homebrew:
 
-#+BEGIN_SRC bash
+```bash
 #!/bin/bash
 homebrew_expected_md5="546219756e1bc7a557030d9e63d2d6f0"
 curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install -o /tmp/homebrew.sh
@@ -29,12 +29,16 @@ fi
 
 /usr/bin/ruby -e /tmp/homebrew.sh
 exit 0
-#+END_SRC
+```
 
-* Set Shell
+## Set Shell
 
 - run =brew bundle=
 
-#+BEGIN_SRC bash
+```bash
 chsh -s $(which zsh)
-#+END_SRC
+```
+
+## Installed by hand 
+- Homebrew 
+- Spark App (email and calendar)
