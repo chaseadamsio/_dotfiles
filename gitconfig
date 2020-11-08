@@ -63,7 +63,7 @@
 [user]
     name = Chase Adams
 [commit]
-    gpgsign = true
+    gpgsign = false
 [gpg]
     program = gpg
 
