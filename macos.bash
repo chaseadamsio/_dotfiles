@@ -32,6 +32,13 @@ killall Finder
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 # Disable smart dashes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+# Disable auto capitalization
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+# Disable automatic period substitution
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
+# Disable auto correct for spelling
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
 # Set a blazingly fast keyboard repeat rate (1 = fastest for macOS high sierra, older versions support 0)
 defaults write NSGlobalDomain KeyRepeat -int 2
 # Finder: show all filename extensions
