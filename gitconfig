@@ -70,5 +70,5 @@
 [include]
     path = ~/.gitconfig.local
 
-[includeIf "gitdir:~/src/github.com/webflow/**"]
-    path = ~/.gitconfig.webflow.local
+[includeIf "gitdir:~/src/github.com/murmurlabs/**"]
+    path = ~/.gitconfig.murmurlabs.local
