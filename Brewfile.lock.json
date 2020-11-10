@@ -120,6 +120,18 @@
         "options": {
           "full_name": "keybase"
         }
+      },
+      "loom": {
+        "version": "0.57.0",
+        "options": {
+          "full_name": "loom"
+        }
+      },
+      "mongodb-compass": {
+        "version": "1.23.0",
+        "options": {
+          "full_name": "mongodb-compass"
+        }
       }
     },
     "tap": {

@@ -18,6 +18,8 @@ cask "keybase"
 cask "hammerspoon" # OSX lua automation
 cask "hyper"
 cask "iterm2"
+cask "loom"
+cask "mongodb-compass"
 cask "ngrok"
 cask "notion"
 cask "postman"
