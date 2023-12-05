@@ -84,3 +84,11 @@ antibody bundle sindresorhus/pure
 antibody bundle zsh-users/zsh-autosuggestions
 antibody bundle zsh-users/zsh-syntax-highlighting
 antibody bundle rupa/z
+
+
+# bun completions
+[ -s "/Users/chase/.bun/_bun" ] && source "/Users/chase/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
