@@ -72,3 +72,5 @@
 
 [includeIf "gitdir:~/src/github.com/murmurlabs/**"]
     path = ~/.gitconfig.murmurlabs.local
+[init]
+	defaultBranch = main
