@@ -19,6 +19,7 @@ PATH=$GOPATH/bin:$PATH
 PATH=/usr/local/sbin:$PATH
 PATH=/usr/local/bin:$PATH
 PATH=$DOTFILES_PATH/bin:$PATH
+PATH=$HOME/Library/Python/3.8/bin:$PATH
 export PATH
 
 if ls --color > /dev/null 2>&1; then # GNU `ls`
