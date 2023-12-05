@@ -1,13 +1,22 @@
 tap "homebrew/cask-fonts"
 
+brew "asciinema"
+brew "caddy"
 brew "ccat"
+brew "cloudflared"
 brew "fzf"
 brew "jq"
+brew "mongodb-database-tools"
 brew "nvm"
 brew "rg"
+brew "screenfetch"
 brew "tree"
+brew "volta"
+brew "nvim"
 
+cask "kitty"
 cask "alfred" # general purpose productivity
+cask "dash"
 cask "discord"
 cask "docker"
 cask "firefox"
