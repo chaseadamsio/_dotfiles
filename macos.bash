@@ -2,9 +2,9 @@
 
 osascript -e 'tell application "System Preferences" to quit'
 
-mkdir -p ~/Documents/screenshots # setup screenshots folder for later
+mkdir -p ~/Downloads/screenshots # setup screenshots folder for later
 # set screenshot location
-defaults write com.apple.screencapture location ~/Documents/screenshots;
+defaults write com.apple.screencapture location ~/Downloads/screenshots;
 # disable screenshot shadow
 defaults write com.apple.screencapture disable-shadow -bool TRUE;
 # set type to png
