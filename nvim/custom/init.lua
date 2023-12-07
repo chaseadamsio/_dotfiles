@@ -8,6 +8,8 @@
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
 
+vim.cmd("filetype plugin on")
+
 -- enable blamer
 vim.g.blamer_enabled = true
 vim.g.blamer_delay = 500
