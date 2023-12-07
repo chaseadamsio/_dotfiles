@@ -13,6 +13,8 @@ brew "screenfetch"
 brew "tree"
 brew "volta"
 brew "nvim"
+brew "marksman"
+brew "zk"
 
 cask "kitty"
 cask "alfred" # general purpose productivity
