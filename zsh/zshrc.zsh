@@ -19,6 +19,7 @@ PATH=$GOPATH/bin:$PATH
 PATH=/usr/local/sbin:$PATH
 PATH=/usr/local/bin:$PATH
 PATH=$DOTFILES_PATH/bin:$PATH
+PATH=$HOME/Library/Python/3.8/bin:$PATH
 export PATH
 
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -84,3 +85,11 @@ antibody bundle sindresorhus/pure
 antibody bundle zsh-users/zsh-autosuggestions
 antibody bundle zsh-users/zsh-syntax-highlighting
 antibody bundle rupa/z
+
+
+# bun completions
+[ -s "/Users/chase/.bun/_bun" ] && source "/Users/chase/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

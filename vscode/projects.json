@@ -1,19 +1,31 @@
 [
   {
     "name": "dotfiles",
-    "rootPath": "$home/src/gitlab.com/chaseadamsio/dotfiles",
+    "rootPath": "$home/src/github.com/chaseadamsio/dotfiles",
     "paths": [],
     "group": ""
   },
   {
-    "name": "chaseadams.io",
-    "rootPath": "$home/src/gitlab.com/chaseadamsio/chaseadams.io",
+    "name": "supermanage",
+    "rootPath": "$home/src/github.com/murmurlabs/supermanage"
+  },
+  {
+    "name": "plma",
+    "rootPath": "$home/src/github.com/murmurlabs/plumb.ai"
+  },
+  {
+    "name": "murmurdev",
+    "rootPath": "$home/src/github.com/murmurlabs/murmur-dev"
+  },
+  {
+    "name": "curiouslychase.com",
+    "rootPath": "$home/src/github.com/curiouslychase/curiouslychase.com",
     "paths": [],
     "group": ""
   },
   {
-    "name": "Dropbox",
-    "rootPath": "$home/Dropbox",
+    "name": "Obsidian",
+    "rootPath": "$home/vault/.obsidian",
     "paths": [],
     "group": ""
   }

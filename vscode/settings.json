@@ -1,5 +1,5 @@
 {
-  "editor.fontFamily": "Hack, 'Fira Mono', Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontFamily": "'JetBrains Mono', Hack, 'Fira Mono', Menlo, Monaco, 'Courier New', monospace",
   "window.title": "${activeEditorLong}",
   "git.autofetch": true,
   // open JSON editor instead of visual picker
@@ -10,11 +10,13 @@
   "editor.tabCompletion": "on",
   // disable validate because of TSLint and ESLint collision
   "javascript.validate.enable": false,
-  "gitlens.codeLens.enabled": false,
-  "eslint.packageManager": "yarn",
   "[markdown]": {
     "editor.tabCompletion": "onlySnippets",
-    "editor.quickSuggestions": false,
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    },
     "editor.lineNumbers": "off",
     "editor.formatOnSave": false,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -47,22 +49,14 @@
     },
     {
       "text": "HACK"
-    },
-    {
-      "text": "$FlowFixMe"
-    },
-    {
-      "text": "$FlowIgnore"
-    },
-    {
-      "text": "$FlowExpectError"
-    },
-    {
-      "text": "FixMeAny"
     }
   ],
+  "window.autoDetectColorScheme": true,
+  "workbench.preferredDarkColorTheme": "City Lights",
+  // "workbench.preferredLightColorTheme": "Quiet Light",
+  "workbench.preferredLightColorTheme": "City Lights",
   "files.associations": {
-    "*.css": "postcss",
+    ".css": "postcss",
     "Brewfile": "ruby",
     "*.alfredappearance": "json",
     ".md": "mdx"
@@ -169,10 +163,8 @@
   ],
   "vim.easymotion": true,
   "javascript.updateImportsOnFileMove.enabled": "always",
-  "window.zoomLevel": 0,
   "breadcrumbs.enabled": true,
   "diffEditor.renderSideBySide": false,
-  "extensions.showRecommendationsOnlyOnDemand": true,
   /* DEMO/Screencast settings (defaults for me) */
   // "workbench.activityBar.visible": true,
   "editor.rulers": [80, 120],
@@ -191,11 +183,110 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "rust.clippy_preference": "on",
-  "workbench.colorTheme": "Neon Night"
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "workbench.startupEditor": "newUntitledFile",
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "cSpell.userWords": [
+    "Autoformat",
+    "easycron",
+    "formik",
+    "prosemirror",
+    "remirror",
+    "Strikethrough",
+    "typegoose",
+    "ulids",
+    "upsert"
+  ],
+  "[nunjucks]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.cursorStyle": "line",
+  "editor.insertSpaces": false,
+  "editor.lineNumbers": "on",
+  "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+  "editor.wordWrap": "off",
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmDelete": false,
+  "gitlens.advanced.messages": {
+    "suppressLineUncommittedWarning": true
+  },
   /* DEMO/Screencast settings */
   // "window.zoomLevel": 2,
   // "workbench.statusBar.visible": false,
   // "editor.lineNumbers": "off",
   // "gitlens.currentLine.enabled": false,
   // "scm.diffDecorations": "none"
+  // "workbench.editor.showTabs": false,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "stylelint.enable": true,
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.colorTheme": "City Lights",
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.profiles.osx": {
+    "bash": {
+      "path": "bash",
+      "args": ["-l"],
+      "icon": "terminal-bash"
+    },
+    "zsh": {
+      "path": "zsh",
+      "args": ["-l"]
+    },
+    "fish": {
+      "path": "fish",
+      "args": ["-l"]
+    },
+    "tmux": {
+      "path": "tmux",
+      "icon": "terminal-tmux"
+    },
+    "pwsh": {
+      "path": "pwsh",
+      "icon": "terminal-powershell"
+    }
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+  "githubPullRequests.pullBranch": "never",
+  "[nginx]": {
+    "editor.defaultFormatter": "raynigon.nginx-formatter"
+  },
+  "caddyfile.executable": "/usr/local/bin/caddy",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "update.showReleaseNotes": false,
+  "editor.inlineSuggest.enabled": true,
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode",
+    "editor.tabSize": 2
+  },
+  "githubPullRequests.terminalLinksHandler": "github",
+  "git.confirmSync": false,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "editor.largeFileOptimizations": false
 }

@@ -35,3 +35,5 @@ emacs.d/*
 !emacs.d/themes/
 !emacs.d/init.el
 !emacs.d/snippets/
+
+Session.vim
