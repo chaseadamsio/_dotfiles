@@ -12,7 +12,7 @@ export GOPATH=$HOME
 export WRK_PATH="$GOPATH/src"
 export GH_PATH="$WRK_PATH/github.com"
 export GL_PATH="$WRK_PATH/gitlab.com"
-export DOTFILES_PATH="$GH_PATH/chaseadamsio/dotfiles"
+export DOTFILES_PATH="$GH_PATH/curiouslychase/dotfiles"
 
 PATH=/usr/local/go/bin:$PATH
 PATH=$GOPATH/bin:$PATH
