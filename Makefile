@@ -1,9 +1,9 @@
 VSCODECFGDIR := $(HOME)/Library/Application\ Support/Code/User
-DOTFILES_ROOT := $(HOME)/src/github.com/chaseadamsio/dotfiles
+DOTFILES_ROOT := $(HOME)/src/github.com/curiouslychase/dotfiles
 
 init:
 	test -L $(HOME)/.zshrc || ln -s $(PWD)/zsh/zshrc.zsh $(HOME)/.zshrc
-	test -L $(HOME)/.config/nvim/custom || ln -s $(PWD)/nvim/custom $(HOME)/.config/nvim/lua/custom
+	test -L $(HOME)/.config/nvim/lua/custom || ln -s $(PWD)/nvim/custom $(HOME)/.config/nvim/lua/custom
 	test -L $(HOME)/.config/kitty || ln -s $(PWD)/kitty $(HOME)/.config/kitty
 	test -d $(HOME)/.hammerspoon || ln -s $(PWD)/hammerspoon $(HOME)/.hammerspoon
 	test -L $(VSCODECFGDIR)/settings.json || ln -s $(PWD)/vscode/settings.json $(VSCODECFGDIR)/settings.json
@@ -21,5 +21,5 @@ clean:
 	rm -rf $(HOME)/.ssh/config_common
 	rm -rf $(HOME)/.gitconfig
 	rm -rf $(HOME)/.emacs.d
-	rm -rf $(HOME)/.config/nvim
+	rm -rf $(HOME)/.config/nvim/lua/custom
 	rm -rf $(HOME)/.config/kitty
