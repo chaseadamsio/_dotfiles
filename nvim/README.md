@@ -1,19 +1,7 @@
-# nvim config
+# Neovim Configuration
 
-[Install](https://nvchad.com/docs/quickstart/install)
+In order for Eslint to run on save using `lspconfig`, I need to install `vscode-eslint-language-server`
 
-```bash
-git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
-```
-
-Run `make init` from the root. If you don't run `make init` before opening
-`nvim`, it will generate a `custom` directory which is what's all stored in this
-`nvim` directory.
-
-`custom` is added to the `.config/nvim/lua` directory via a make script.
-
-Run anywhere:
-
-```bash
-nvim
+```sh
+npm i -g vscode-langservers-extracted
 ```
