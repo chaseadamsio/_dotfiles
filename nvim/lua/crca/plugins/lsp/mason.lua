@@ -5,11 +5,12 @@ return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
   },
   config = function()
-    require("mason").setup {
+    require("mason").setup({
       config = function()
-        require "formatter.config"
+        require("formatter.config")
       end,
-    }
+    })
+
     require("mason-lspconfig").setup()
 
     local servers = {
@@ -17,6 +18,9 @@ return {
         Lua = {
           workspace = { checkThirdParty = false },
           telemetry = { enable = false },
+          format = {
+            enable = false,
+          },
           diagnostics = {
             -- This suppressing the warning where 'vim' is a undefined global
             globals = { "vim" },
@@ -46,11 +50,11 @@ return {
       },
     }
 
-    local mason_lspconfig = require "mason-lspconfig"
+    local mason_lspconfig = require("mason-lspconfig")
 
-    mason_lspconfig.setup {
+    mason_lspconfig.setup({
       ensure_installed = vim.tbl_keys(servers),
-    }
+    })
 
     -- [[ Configure LSP ]]
     local on_attach = function() end
@@ -58,15 +62,15 @@ return {
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-    mason_lspconfig.setup_handlers {
+    mason_lspconfig.setup_handlers({
       function(server_name)
-        require("lspconfig")[server_name].setup {
+        require("lspconfig")[server_name].setup({
           capabilities = capabilities,
           on_attach = on_attach,
           settings = servers[server_name],
           filetypes = (servers[server_name] or {}).filtypes,
-        }
+        })
       end,
-    }
+    })
   end,
 }

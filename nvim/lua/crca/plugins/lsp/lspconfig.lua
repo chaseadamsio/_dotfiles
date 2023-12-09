@@ -1,5 +1,6 @@
 return {
   "neovim/nvim-lspconfig",
+  version = false,
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
@@ -60,18 +61,18 @@ return {
               return
             end
 
-            vim.lsp.buf.format {
+            vim.lsp.buf.format({
               async = false,
               filter = function(c)
                 return c.id == client.id
               end,
-            }
+            })
           end,
         })
       end,
     })
 
-    require("lspconfig").eslint.setup {
+    require("lspconfig").eslint.setup({
       settings = {
         packageManager = "yarn",
       },
@@ -81,16 +82,16 @@ return {
           command = "EslintFixAll",
         })
       end,
-    }
+    })
 
-    local mason_tool_installer = require "mason-tool-installer"
+    local mason_tool_installer = require("mason-tool-installer")
 
-    mason_tool_installer.setup {
+    mason_tool_installer.setup({
       ensure_installed = {
         "prettier", -- prettier formatter
-        "stylua", -- lua formatter
         "eslint_d", -- js linter
+        "stylua",
       },
-    }
+    })
   end,
 }

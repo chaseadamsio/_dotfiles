@@ -4,8 +4,8 @@ return {
     "nvim-lua/plenary.nvim",
   },
   config = function()
-    require("gitlinker").setup {
+    require("gitlinker").setup({
       mappings = nil,
-    }
+    })
   end,
 }

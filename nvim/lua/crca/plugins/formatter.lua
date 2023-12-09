@@ -3,8 +3,8 @@ return {
   lazy = true,
   event = { "BufReadPre", "BufNewFile" },
   config = function()
-    local conform = require "conform"
-    conform.setup {
+    local conform = require("conform")
+    conform.setup({
       formatters_by_ft = {
         javascript = { "prettier" },
         typescript = { "prettier" },
@@ -15,9 +15,9 @@ return {
         html = { "prettier" },
         json = { "prettier" },
         yaml = { "prettier" },
+        lua = { "stylua" },
         markdown = { "prettier" },
         graphql = { "prettier" },
-        lua = { "stylua" },
         python = { "isort", "black" },
       },
       format_on_save = {
@@ -25,6 +25,6 @@ return {
         async = false,
         timeout_ms = 500,
       },
-    }
+    })
   end,
 }

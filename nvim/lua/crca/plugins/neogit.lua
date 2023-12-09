@@ -9,7 +9,7 @@ return {
     "ibhagwan/fzf-lua",
   },
   config = function()
-    local neogit = require "neogit"
-    neogit.setup {}
+    local neogit = require("neogit")
+    neogit.setup({})
   end,
 }

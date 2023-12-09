@@ -7,13 +7,13 @@ return {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
       cond = function()
-        return vim.fn.executable "make" == 1
+        return vim.fn.executable("make") == 1
       end,
     },
   },
   config = function()
-    local telescope = require "telescope"
-    telescope.setup {
+    local telescope = require("telescope")
+    telescope.setup({
       defaults = {
         vimgrep_arguments = {
           "rg",
@@ -73,6 +73,6 @@ return {
           case_mode = "smart_case",
         },
       },
-    }
+    })
   end,
 }
