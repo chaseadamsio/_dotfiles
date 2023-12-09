@@ -84,6 +84,8 @@ return {
       end,
     })
 
+    require("lspconfig").astro.setup({})
+
     local mason_tool_installer = require("mason-tool-installer")
 
     mason_tool_installer.setup({
@@ -91,6 +93,7 @@ return {
         "prettier", -- prettier formatter
         "eslint_d", -- js linter
         "stylua",
+        "astro-language-server",
       },
     })
   end,
