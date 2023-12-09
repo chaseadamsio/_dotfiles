@@ -3,7 +3,7 @@ DOTFILES_ROOT := $(HOME)/src/github.com/curiouslychase/dotfiles
 
 init:
 	test -L $(HOME)/.zshrc || ln -s $(PWD)/zsh/zshrc.zsh $(HOME)/.zshrc
-	test -L $(HOME)/.config/nvim/lua/custom || ln -s $(PWD)/nvim/custom $(HOME)/.config/nvim/lua/custom
+	test -L $(HOME)/.config/nvim || ln -s $(PWD)/nvim/init.lua $(HOME)/.config/nvim/init.lua
 	test -L $(HOME)/.config/kitty || ln -s $(PWD)/kitty $(HOME)/.config/kitty
 	test -d $(HOME)/.hammerspoon || ln -s $(PWD)/hammerspoon $(HOME)/.hammerspoon
 	test -L $(VSCODECFGDIR)/settings.json || ln -s $(PWD)/vscode/settings.json $(VSCODECFGDIR)/settings.json
