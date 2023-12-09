@@ -1,4 +1,0 @@
-#!/bin/bash
-
-zk_path=$(dirname "$0")
-$(which node) "$zk_path/zk.js" "$@"
