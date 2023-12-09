@@ -15,6 +15,7 @@ brew "volta"
 brew "nvim"
 brew "marksman"
 brew "zk"
+brew "stylua"
 
 cask "kitty"
 cask "alfred" # general purpose productivity
