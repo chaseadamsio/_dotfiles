@@ -3,21 +3,37 @@ wk.register({
   b = {
     -- buffer
     name = "[b]uffer",
-    x = { "<cmd>bd<CR>", "close" },
+    x = {
+      name = "close",
+      a = { "<cmd>BufferCloseAllButCurrent<CR>", "close all but current" },
+      x = { "<cmd>BufferClose<CR>", "close" },
+    },
     p = { "<cmd>bp<CR>", "previous" },
     n = { "<cmd>bn<CR>", "next" },
   },
   e = {
     name = "[e]rror",
     s = { "<cmd>TroubleToggle document_diagnostics<cr>", "show errors" },
+    n = {
+      function()
+        require("trouble").next({ skip_groups = true, jump = true })
+      end,
+      "next error",
+    },
+    p = {
+      function()
+        require("trouble").previous({ skip_groups = true, jump = true })
+      end,
+      "previous error",
+    },
   },
   f = {
     -- find
     name = "[f]ind",
     f = { "<cmd>Telescope find_files<CR>", "find file" },
     a = { "<cmd>Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
-    w = { "<cmd>Telescope live_grep<CR>", "live grep" },
-    p = { "<cmd>ProjectMgr<CR>", "find project" },
+    g = { "<cmd>Telescope live_grep<CR>", "live grep" },
+    w = { "<cmd>ProjectMgr<CR>", "find workspace" },
     b = { "<cmd>Telescope buffers<CR>", "find buffers" },
     s = { "<cmd>Telescope lsp_document_symbols<CR>", "find symbols" },
     S = { "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", "find workspace symbols" },
@@ -60,10 +76,16 @@ wk.register({
     v = { "<cmd>vsplit<CR>", "vertical split" },
     s = { "<cmd>split<CR>", "horizontal split" },
   },
+  n = {
+    -- nvim tree
+    name = "[n]vim tree",
+    t = { "<cmd>NvimTreeToggle<CR>", "toggle" },
+    r = { "<cmd>NvimTreeRefresh<CR>", "refresh" },
+    f = { "<cmd>NvimTreeFindFile<CR>", "find file" },
+  },
 }, { prefix = "<leader>" })
 
 wk.register({
-  ["<C-n>"] = { "<cmd>NvimTreeToggle<CR>", "Toggle Nvim Tree" },
   ["<C-l>"] = {
     function()
       vim.fn.feedkeys(vim.fn["copilot#Accept"](), "")
@@ -73,13 +95,22 @@ wk.register({
 }, { mode = "i" })
 
 wk.register({
+  ["<C-n>"] = { "<cmd>NvimTreeFocus<CR>", "Focus Nvim Tree" },
+  ["<C-b>"] = { "<cmd>NvimTreeToggle<CR>", "Toggle Nvim Tree" },
+}, { mode = "i" })
+
+wk.register({
+  ["<C-n>"] = { "<cmd>NvimTreeFocus<CR>", "Focus Nvim Tree" },
+  ["<C-b>"] = { "<cmd>NvimTreeToggle<CR>", "Toggle Nvim Tree" },
+}, { mode = "n" })
+
+wk.register({
   ["<leader>/"] = {
     function()
       require("Comment.api").toggle.linewise.current()
     end,
     "toggle comment",
   },
-  ["<C-n>"] = { "<cmd>NvimTreeToggle<CR>", "Toggle Nvim Tree" },
 }, { mode = "n" })
 
 wk.register({
