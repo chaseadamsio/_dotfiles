@@ -1,7 +1,7 @@
 [
   {
     "name": "dotfiles",
-    "rootPath": "$home/src/github.com/chaseadamsio/dotfiles",
+    "rootPath": "$home/src/github.com/curiouslychase/dotfiles",
     "paths": [],
     "group": ""
   },
@@ -20,6 +20,12 @@
   {
     "name": "curiouslychase.com",
     "rootPath": "$home/src/github.com/curiouslychase/curiouslychase.com",
+    "paths": [],
+    "group": ""
+  },
+  {
+    "name": "Lumi",
+    "rootPath": "$home/src/github.com/curiouslychase/getlumi",
     "paths": [],
     "group": ""
   },
