@@ -52,9 +52,9 @@
     }
   ],
   "window.autoDetectColorScheme": true,
-  "workbench.preferredDarkColorTheme": "City Lights",
+  "workbench.preferredDarkColorTheme": "Catppuccin Mocha",
   // "workbench.preferredLightColorTheme": "Quiet Light",
-  "workbench.preferredLightColorTheme": "City Lights",
+  "workbench.preferredLightColorTheme": "Catppuccin Latte",
   "files.associations": {
     ".css": "postcss",
     "Brewfile": "ruby",
@@ -69,105 +69,88 @@
       "after": ["<Esc>"]
     }
   ],
-  "vim.normalModeKeyBindings": [
+  "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": ["<leader>", "<leader>"],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.action.showCommands",
-          "args": []
-        }
-      ]
+      "before": ["<space>"],
+      "commands": ["whichkey.show"]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<space>"],
+      "commands": ["whichkey.show"]
+    }
+  ],
+  "whichkey.bindingOverrides": [
+    {
+      "keys": "p.p",
+      "name": "Switch Projects",
+      "type": "command",
+      "command": "projectManager.listProjects"
     },
     {
-      "before": ["<leader>", "b"],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.action.toggleSidebarVisibility",
-          "args": []
-        }
-      ]
+      "keys": "l",
+      "name": "+LSP",
+      "type": "object",
+      "bindings": []
     },
     {
-      "before": ["<leader>", "g", "s"],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.view.scm",
-          "args": []
-        }
-      ]
+      "keys": "l.p",
+      "name": "+Peek",
+      "type": "object",
+      "bindings": []
     },
     {
-      "before": ["<leader>", "f", "f"],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.action.quickOpen",
-          "args": []
-        }
-      ]
+      "keys": "l.p.i",
+      "name": "Peek Implementation",
+      "type": "command",
+      "command": "editor.action.peekImplementation"
     },
     {
-      "before": ["<leader>", "p", "p"],
-      "after": [],
-      "commands": [
-        {
-          "command": "projectManager.listProjects",
-          "args": []
-        }
-      ]
+      "keys": "l.p.d",
+      "name": "Peek Definition",
+      "type": "command",
+      "command": "editor.action.peekDefinition"
     },
     {
-      "before": ["<leader>", "p", "e"],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.view.explorer",
-          "args": []
-        }
-      ]
+      "keys": "l.g",
+      "name": "+Goto",
+      "type": "object",
+      "bindings": []
     },
     {
-      "before": ["<leader>", "p", "f"],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.action.findinfiles",
-          "args": []
-        }
-      ]
+      "keys": "l.g.d",
+      "name": "Go to Definition",
+      "type": "command",
+      "command": "editor.action.revealDefinition"
     },
     {
-      "before": ["<leader>", "m", "t"],
-      "after": [],
-      "commands": [
-        {
-          "command": "markdown.extension.checkTaskList",
-          "args": []
-        }
-      ]
+      "keys": "r",
+      "name": "+Refactor",
+      "type": "object",
+      "bindings": []
     },
     {
-      "before": ["<leader>", "'"],
-      "after": [],
-      "commands": [
-        {
-          "command": "workbench.action.terminal.toggleTerminal",
-          "args": []
-        }
-      ]
+      "keys": "r.r",
+      "name": "Rename",
+      "type": "command",
+      "command": "editor.action.rename"
+    },
+    {
+      "keys": "r.m",
+      "name": "Move to new file",
+      "type": "command",
+      "command": "editor.action.codeAction",
+      "args": {
+        "kind": "refactor.extract.function"
+      }
     }
   ],
   "vim.easymotion": true,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "breadcrumbs.enabled": true,
   "diffEditor.renderSideBySide": false,
-  /* DEMO/Screencast settings (defaults for me) */
-  // "workbench.activityBar.visible": true,
-  "editor.rulers": [80, 120],
+  "editor.rulers": [120],
   "editor.minimap.enabled": false,
   "workbench.editor.showIcons": false,
   "[javascript]": {
@@ -203,7 +186,9 @@
   "diffEditor.ignoreTrimWhitespace": false,
   "cSpell.userWords": [
     "Autoformat",
+    "datepicker",
     "easycron",
+    "fkey",
     "formik",
     "prosemirror",
     "remirror",
@@ -240,7 +225,7 @@
   "[css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.colorTheme": "Catppuccin Latte",
   "terminal.integrated.defaultProfile.osx": "zsh",
   "terminal.integrated.profiles.osx": {
     "bash": {
