@@ -54,6 +54,7 @@ wk.register({
     name = "[l]sp",
     r = { "<cmd>lua vim.lsp.buf.rename()<CR>", "rename", { expr = true } },
     a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "code action" },
+    d = { "<cmd>lua vim.lsp.buf.hover()<CR>", "hover" },
     g = {
       name = "[g]oto",
       d = { "<cmd>lua vim.lsp.buf.definition()<CR>", "definition" },
@@ -102,6 +103,7 @@ wk.register({
 wk.register({
   ["<C-n>"] = { "<cmd>NvimTreeFocus<CR>", "Focus Nvim Tree" },
   ["<C-b>"] = { "<cmd>NvimTreeToggle<CR>", "Toggle Nvim Tree" },
+  ["<C-k>"] = { vim.lsp.buf.signature_help, "Signature Documentation" },
 }, { mode = "n" })
 
 wk.register({
