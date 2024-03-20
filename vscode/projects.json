@@ -10,8 +10,8 @@
     "rootPath": "$home/src/github.com/murmurlabs/supermanage"
   },
   {
-    "name": "plma",
-    "rootPath": "$home/src/github.com/murmurlabs/plumb.ai"
+    "name": "plumb",
+    "rootPath": "$home/src/github.com/murmurlabs/plumb"
   },
   {
     "name": "murmurdev",

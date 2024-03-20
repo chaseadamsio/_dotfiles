@@ -37,3 +37,5 @@ emacs.d/*
 !emacs.d/snippets/
 
 Session.vim
+
+zsh_plugins.zsh

@@ -273,5 +273,6 @@
     "markdown": false,
     "scminput": false
   },
-  "editor.largeFileOptimizations": false
+  "editor.largeFileOptimizations": false,
+  "editor.accessibilitySupport": "off"
 }
