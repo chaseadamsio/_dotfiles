@@ -56,6 +56,9 @@
 [pull]
     rebase = true
 
+[push]
+    default = current
+
 # anything that needs to be unique to a specific environment (user email and name, for instance) should live here and it'll be included.
 # Big thanks to [[http://agateau.com/2015/splitting-your-gitconfig/][Aurélien Gâteau's post on Includes in a git config] for explaining that the way to test this should be:
 # git config --global --includes user.email
